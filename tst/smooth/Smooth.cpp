@@ -107,7 +107,7 @@ public:
 
 //        cout  << " at " << tern::theSimulationEngine.theTime
 //              << " Packet " << ((cPacket*)myQ.front())->getPacketID() << " extra delay " << extraDelay << "\n";
-        cout  << " extra delay " << extraDelay << "\n";
+//        cout  << " extra delay " << extraDelay << "\n";
 
         return extraDelay;
     }

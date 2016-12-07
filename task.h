@@ -78,21 +78,30 @@ class cSource :  public tern::cEventHandler
         }
     }
 };
+/** Simulate a delay, storing planets in a queue until the delay is over */
+
 class cDelay : public tern::cEventHandler
 {
     std::queue < tern::cPlanet * > myQ;
+    int myQMax;
 
 public:
     cDelay(  const std::wstring& name )
         : cEventHandler( name )
+        , myQMax( 0 )
     {
 
     }
+    /** Calculate delay for a planet at the head of the queue
+
+    This defaults to 1 clock tick.  Override to specialize
+    */
     virtual int Delay( tern::cPlanet * planet )
     {
         return 1;
     }
 
+    /** Schedule completion for the planet at the head of the queue */
     void ScheduleCompletion()
     {
         // check we have something waiting on the queue
@@ -111,8 +120,10 @@ public:
         );
 
     }
+    /** Handle event */
     int Handle( tern::cEvent* e )
     {
+        // switch on event
         switch( e->myType )
         {
 
@@ -121,6 +132,9 @@ public:
 
             // add to queue
             myQ.push( e->myPlanet );
+
+            if( (int)myQ.size() > myQMax )
+                myQMax = myQ.size();
 
             // check if ready to start processing immediatly
             // i.e. new planet is at front of queue
@@ -149,6 +163,10 @@ public:
 
             return 1;
 
+        case tern::event_type_final_report:
+            wcout << myName << " report: max Queue size " << myQMax << "\n";
+            return 1;
+
         default:
             return 0;
         }
@@ -168,14 +186,17 @@ public:
     {
 
     }
-    void Start() {}
 
     int Handle( tern::cEvent* e )
     {
+        // switch on event type
         switch ( e->myType )
         {
         case 1:
 
+            // planet has arrived at sink
+
+            // add to accumulated statistics
             myAccumulator( e->myPlanet->getLifetime() );
 
             // delete the planet
@@ -186,7 +207,10 @@ public:
 
 
         case tern::event_type_final_report:
-            cout << "count:" << boost::accumulators::count(myAccumulator)
+
+            // simulation over, report
+            wcout << myName << " report: "
+                 << "count:" << boost::accumulators::count(myAccumulator)
                  << " min:" << boost::accumulators::min(myAccumulator)
                  << " aver:" << (int)boost::accumulators::mean(myAccumulator)
                  << " max:" << boost::accumulators::max(myAccumulator)
@@ -201,6 +225,7 @@ public:
 
 private:
 
+    // statistics accumulator
     boost::accumulators::accumulator_set<int, boost::accumulators::stats<
     boost::accumulators::tag::min,
     boost::accumulators::tag::max,

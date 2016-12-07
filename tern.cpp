@@ -384,7 +384,7 @@ cEventHandler::cEventHandler( const std::wstring& name )
 
 void cEventHandler::Start()
 {
-    wcout << L"empty start called for " << myName << endl;
+//    wcout << L"empty start called for " << myName << endl;
 }
 
 /**  Handle standard events
