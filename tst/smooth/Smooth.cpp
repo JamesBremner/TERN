@@ -140,6 +140,7 @@ void opts( int ac, char* av[],
     ("reqdelay", po::value<int>()->default_value( 50 ), "required processing delay in msecs")
     ("normal", po::value<int>()->default_value( 20 ), "normal processing delay in msecs")
     ("occasional", po::value<int>()->default_value( 90 ), "occasional processing delay in msecs")
+    ("run", po::value<int>()->default_value( 1000 ), "simulation run length in msecs")
     ;
 
     po::variables_map vm;
@@ -168,22 +169,26 @@ void opts( int ac, char* av[],
     {
         mixer.OccasionalProcessingMean( vm["occasional"].as<int>() );
     }
+     if( vm.count("run"))
+     {
+         tern::theSimulationEngine.myStopTime = vm["run"].as<int>();
+     }
     }
 
 
 
 int main(int argc, char* argv[])
 {
-        // the receiver where packets arrive every 50 milliseconds
+    // construct the receiver where packets arrive every 50 milliseconds
     cRx Rx;
 
-    // the Mixer which takes a random time to process the packets
+    // construct the Mixer which takes a random time to process the packets
     cMixer2 theMixer;
 
-    // the smoother attempts to smooth the delay variability
+    // construct the smoother attempts to smooth the delay variability
     cSmoother theConstDelay( 50 );
 
-    // Transmit the packets
+    // construct packet transmitter
     task::cSink   theSink( L"Tx" );
 
     // parse user options
@@ -197,9 +202,6 @@ int main(int argc, char* argv[])
     tern::theSimulationEngine.Connect( L"Receiver", L"Mixer");
     tern::theSimulationEngine.Connect( L"Mixer", L"Smoother" );
     tern::theSimulationEngine.Connect( L"Smoother", L"Tx" );
-
-    // Request run lasting so many clock ticks ( msecs )
-    tern::theSimulationEngine.myStopTime = 1000;
 
     // Start simulation run
     tern::theSimulationEngine.Run();
