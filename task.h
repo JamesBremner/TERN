@@ -164,7 +164,7 @@ public:
             return 1;
 
         case tern::event_type_final_report:
-            wcout << myName << " report: max Queue size " << myQMax << "\n";
+            std::wcout << myName << " report: max Queue size " << myQMax << "\n";
             return 1;
 
         default:
@@ -209,7 +209,7 @@ public:
         case tern::event_type_final_report:
 
             // simulation over, report
-            wcout << myName << " report: "
+            std::wcout << myName << " report: "
                  << "count:" << boost::accumulators::count(myAccumulator)
                  << " min:" << boost::accumulators::min(myAccumulator)
                  << " aver:" << (int)boost::accumulators::mean(myAccumulator)
