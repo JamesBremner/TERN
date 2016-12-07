@@ -11,7 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="50" />
+				<Option parameters="--help" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -35,7 +35,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add directory="$(#boost)" />
+			<Add directory="../.." />
 		</Compiler>
+		<Linker>
+			<Add library="boost_program_options-mgw49-mt-1_60" />
+			<Add directory="$(#boost.lib)" />
+		</Linker>
 		<Unit filename="../../task.h" />
 		<Unit filename="../../tern.cpp" />
 		<Unit filename="../../tern.h" />

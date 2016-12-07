@@ -5,6 +5,8 @@
 #include <cstdio>
 #include <iostream>
 
+#include <boost/program_options.hpp>
+
 using namespace std;
 #include "tern.h"
 #include "task.h"
@@ -52,9 +54,13 @@ class cRx : public task::cSource
 
 class cMixer2 : public task::cDelay
 {
+    int myNormalProcessingMean;
+    int myOccasionalProcessingMean;
+
     public:
     cMixer2()
         : cDelay( L"Mixer")
+        , myNormalProcessingMean( 20 )
     {
 
     }
@@ -62,13 +68,23 @@ class cMixer2 : public task::cDelay
     {
         // calculate processing time
         static int count = 0;
-        int mean_delay = 20;
+        int mean_delay = myNormalProcessingMean;
         if( count++ > 5 )
         {
             count = 0;
-            mean_delay = 90;
+            mean_delay = myOccasionalProcessingMean;
         }
         return  distribution::normal( mean_delay, 2 );
+    }
+
+    void NormalProcessingMean( int d )
+    {
+        myNormalProcessingMean = d;
+    }
+
+    void OccasionalProcessingMean( int d )
+    {
+        myOccasionalProcessingMean = d;
     }
 };
 
@@ -95,25 +111,87 @@ public:
 
         return extraDelay;
     }
+
+    /** set the reruired total delay
+
+    This has the effect of setting a minimum processing delay
+
+    */
+    void required_total_delay( int d )
+    {
+        my_required_total_delay = d;
+    }
 };
+
+
+
+// parse user options
+
+void opts( int ac, char* av[],
+          cMixer2& mixer,
+          cSmoother& smoother )
+{
+    namespace po = boost::program_options;
+// Declare the supported options.
+    po::options_description desc("Allowed options");
+    desc.add_options()
+    ("help", "produce help message")
+    ("interval", po::value<int>()->default_value( 50 ), "set packet interval in msecs")
+    ("reqdelay", po::value<int>()->default_value( 50 ), "required processing delay in msecs")
+    ("normal", po::value<int>()->default_value( 20 ), "normal processing delay in msecs")
+    ("occasional", po::value<int>()->default_value( 90 ), "occasional processing delay in msecs")
+    ;
+
+    po::variables_map vm;
+    po::store(po::parse_command_line(ac, av, desc), vm);
+    po::notify(vm);
+
+    if (vm.count("help"))
+    {
+        cout << desc << "\n";
+        exit(1);
+    }
+
+    if( vm.count("interval"))
+    {
+        //PacketData.setInterval( vm["interval"].as<int>() );
+    }
+    if( vm.count("reqdelay"))
+    {
+        smoother.required_total_delay( vm["reqdelay"].as<int>() );
+    }
+    if( vm.count("normal"))
+    {
+        mixer.NormalProcessingMean( vm["normal"].as<int>() );
+    }
+    if( vm.count("occasional"))
+    {
+        mixer.OccasionalProcessingMean( vm["occasional"].as<int>() );
+    }
+    }
 
 
 
 int main(int argc, char* argv[])
 {
-    //tern::theSimulationEngine.setConsoleLog();
-
-    // the receiver where packets arrive every 50 milliseconds
+        // the receiver where packets arrive every 50 milliseconds
     cRx Rx;
 
     // the Mixer which takes a random time to process the packets
     cMixer2 theMixer;
 
     // the smoother attempts to smooth the delay variability
-    cSmoother theConstDelay( atoi( argv[1] ) );
+    cSmoother theConstDelay( 50 );
 
     // Transmit the packets
     task::cSink   theSink( L"Tx" );
+
+    // parse user options
+    opts( argc, argv,
+         theMixer,
+         theConstDelay );
+
+    //tern::theSimulationEngine.setConsoleLog();
 
     // connect everything together
     tern::theSimulationEngine.Connect( L"Receiver", L"Mixer");
