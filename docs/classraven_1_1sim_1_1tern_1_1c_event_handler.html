@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>My Project: raven::sim::tern::cEventHandler Class Reference</title>
+<title>TERN: raven::sim::tern::cEventHandler Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,8 +22,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">TERN
    </div>
+   <div id="projectbrief">Event simulator with tasks</div>
   </td>
  </tr>
  </tbody>
@@ -97,6 +98,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
+<p>Base class for an event handler.  
+ <a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="tern_8h_source.html">tern.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for raven::sim::tern::cEventHandler:</div>
@@ -104,7 +108,7 @@ Inheritance diagram for raven::sim::tern::cEventHandler:</div>
  <div class="center">
   <img src="classraven_1_1sim_1_1tern_1_1c_event_handler.png" usemap="#raven::sim::tern::cEventHandler_map" alt=""/>
   <map id="raven::sim::tern::cEventHandler_map" name="raven::sim::tern::cEventHandler_map">
-<area href="classraven_1_1sim_1_1task_1_1c_delay.html" alt="raven::sim::task::cDelay" shape="rect" coords="0,56,187,80"/>
+<area href="classraven_1_1sim_1_1task_1_1c_delay.html" title="Simulate a delay, storing planets in a queue until the delay is over. " alt="raven::sim::task::cDelay" shape="rect" coords="0,56,187,80"/>
 <area href="classraven_1_1sim_1_1task_1_1c_sink.html" title="Ultimate destination for packets. " alt="raven::sim::task::cSink" shape="rect" coords="197,56,384,80"/>
 <area href="classraven_1_1sim_1_1task_1_1c_source.html" alt="raven::sim::task::cSource" shape="rect" coords="394,56,581,80"/>
 </map>
@@ -113,19 +117,26 @@ Inheritance diagram for raven::sim::tern::cEventHandler:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structraven_1_1sim_1_1tern_1_1c_event_handler_1_1less.html">less</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare pointers to handlers by ID.  <a href="structraven_1_1sim_1_1tern_1_1c_event_handler_1_1less.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5c6401a502b738aa09db1dc2f915ffb7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a5c6401a502b738aa09db1dc2f915ffb7">cEventHandler</a> (const std::wstring &amp;name)</td></tr>
+<tr class="memdesc:a5c6401a502b738aa09db1dc2f915ffb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor - lets the simulator know this handler exists.  <a href="#a5c6401a502b738aa09db1dc2f915ffb7">More...</a><br/></td></tr>
 <tr class="separator:a5c6401a502b738aa09db1dc2f915ffb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac12f2cc55f52860590e37ef8b9f5c281"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#ac12f2cc55f52860590e37ef8b9f5c281">cEventHandler</a> (int id)</td></tr>
+<tr class="memdesc:ac12f2cc55f52860590e37ef8b9f5c281"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor - don't register this handler with simulator.  <a href="#ac12f2cc55f52860590e37ef8b9f5c281">More...</a><br/></td></tr>
 <tr class="separator:ac12f2cc55f52860590e37ef8b9f5c281"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a044692396842838fb77c4983dee9e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a1a044692396842838fb77c4983dee9e4">AddPlot</a> (const std::wstring &amp;name)</td></tr>
+<tr class="memitem:a1a044692396842838fb77c4983dee9e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1a044692396842838fb77c4983dee9e4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a1a044692396842838fb77c4983dee9e4">AddPlot</a> (const std::wstring &amp;name)</td></tr>
+<tr class="memdesc:a1a044692396842838fb77c4983dee9e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add plot Constructs empty vector to hold plot data and adds to vector of plots. <br/></td></tr>
 <tr class="separator:a1a044692396842838fb77c4983dee9e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa0b4d0bf68765f42b23f28d4079dd3a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#afa0b4d0bf68765f42b23f28d4079dd3a">Start</a> ()</td></tr>
+<tr class="memdesc:afa0b4d0bf68765f42b23f28d4079dd3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">called exactly once at the start of every simulation run.  <a href="#afa0b4d0bf68765f42b23f28d4079dd3a">More...</a><br/></td></tr>
 <tr class="separator:afa0b4d0bf68765f42b23f28d4079dd3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f563b51b9d46b4a46742bf2cb37f157"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a2f563b51b9d46b4a46742bf2cb37f157">Handle</a> (<a class="el" href="classraven_1_1sim_1_1tern_1_1c_event.html">cEvent</a> *e)</td></tr>
+<tr class="memdesc:a2f563b51b9d46b4a46742bf2cb37f157"><td class="mdescLeft">&#160;</td><td class="mdescRight">called each time an event occurs.  <a href="#a2f563b51b9d46b4a46742bf2cb37f157">More...</a><br/></td></tr>
 <tr class="separator:a2f563b51b9d46b4a46742bf2cb37f157"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5098687392a6af4fea2980a0f6d887f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae5098687392a6af4fea2980a0f6d887f"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>HandlePlotPointEvent</b> ()</td></tr>
@@ -155,8 +166,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 <a class="el" href="classraven_1_1sim_1_1tern_1_1c_event_handler.html">cEventHandler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classraven_1_1sim_1_1tern_1_1c_event_handler.html">cEventHandler</a> &amp;)</td></tr>
 <tr class="separator:a84e3ea193da144a412b7071663d7bf42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a689e9bc77703f17d4a3fdce6869053a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a689e9bc77703f17d4a3fdce6869053a8">setDestination</a> (<a class="el" href="classraven_1_1sim_1_1tern_1_1c_event_handler.html">tern::cEventHandler</a> *d)</td></tr>
+<tr class="memdesc:a689e9bc77703f17d4a3fdce6869053a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify where events go next from port 1.  <a href="#a689e9bc77703f17d4a3fdce6869053a8">More...</a><br/></td></tr>
 <tr class="separator:a689e9bc77703f17d4a3fdce6869053a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abcdae99b1b87d14306a33d54fe30ce4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#abcdae99b1b87d14306a33d54fe30ce4c">setDestination2</a> (<a class="el" href="classraven_1_1sim_1_1tern_1_1c_event_handler.html">tern::cEventHandler</a> *d)</td></tr>
+<tr class="memdesc:abcdae99b1b87d14306a33d54fe30ce4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify where events go next from port 2.  <a href="#abcdae99b1b87d14306a33d54fe30ce4c">More...</a><br/></td></tr>
 <tr class="separator:abcdae99b1b87d14306a33d54fe30ce4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
@@ -183,7 +196,7 @@ std::vector&lt; <a class="el" href="structraven_1_1sim_1_1tern_1_1s_plot.html">s
 <tr class="separator:a90ddca854393caf78a66fac506cd1f22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for an event handler.</p>
+<div class="textblock"><p>Base class for an event handler. </p>
 <p>Inherit this into any class which needs to respond to events </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a5c6401a502b738aa09db1dc2f915ffb7"></a>
@@ -199,7 +212,8 @@ std::vector&lt; <a class="el" href="structraven_1_1sim_1_1tern_1_1s_plot.html">s
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Constructor - lets the simulator know this handler exists</p>
+
+<p>Constructor - lets the simulator know this handler exists. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">sim</td><td>the event simulator </td></tr>
@@ -230,7 +244,8 @@ std::vector&lt; <a class="el" href="structraven_1_1sim_1_1tern_1_1s_plot.html">s
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructor - don't register this handler with simulator</p>
+
+<p>Constructor - don't register this handler with simulator. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">id</td><td>the id we want for this handler</td></tr>
@@ -242,31 +257,6 @@ std::vector&lt; <a class="el" href="structraven_1_1sim_1_1tern_1_1s_plot.html">s
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a1a044692396842838fb77c4983dee9e4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void raven::sim::tern::cEventHandler::AddPlot </td>
-          <td>(</td>
-          <td class="paramtype">const std::wstring &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Add plot Constructs empty vector to hold plot data and adds to vector of plots. </p>
-
-</div>
-</div>
 <a class="anchor" id="a2f563b51b9d46b4a46742bf2cb37f157"></a>
 <div class="memitem">
 <div class="memproto">
@@ -288,7 +278,9 @@ std::vector&lt; <a class="el" href="structraven_1_1sim_1_1tern_1_1s_plot.html">s
   </tr>
 </table>
 </div><div class="memdoc">
-<p>called each time an event occurs.</p>
+
+<p>called each time an event occurs. </p>
+<p>Handle standard events.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">e</td><td>pointer to the event</td></tr>
@@ -297,7 +289,6 @@ std::vector&lt; <a class="el" href="structraven_1_1sim_1_1tern_1_1s_plot.html">s
 </dl>
 <p>Over-ride to check and handle appropriate events</p>
 <p>The event pointed to only remains valid until the next event occurs.</p>
-<p>Handle standard events</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">e</td><td>the event </td></tr>
@@ -332,7 +323,8 @@ std::vector&lt; <a class="el" href="structraven_1_1sim_1_1tern_1_1s_plot.html">s
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Specify where events go next from port 1</p>
+
+<p>Specify where events go next from port 1. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">d</td><td>pointer to destination event handler </td></tr>
@@ -363,7 +355,8 @@ std::vector&lt; <a class="el" href="structraven_1_1sim_1_1tern_1_1s_plot.html">s
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Specify where events go next from port 2</p>
+
+<p>Specify where events go next from port 2. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">d</td><td>pointer to destination event handler </td></tr>
@@ -393,7 +386,8 @@ std::vector&lt; <a class="el" href="structraven_1_1sim_1_1tern_1_1s_plot.html">s
   </tr>
 </table>
 </div><div class="memdoc">
-<p>called exactly once at the start of every simulation run.</p>
+
+<p>called exactly once at the start of every simulation run. </p>
 <p>Over-ride to schedule any initial events </p>
 
 <p>Reimplemented in <a class="el" href="classraven_1_1sim_1_1task_1_1c_source.html#ae14266959143a6834f5bb108632ac6b8">raven::sim::task::cSource</a>.</p>
@@ -407,7 +401,7 @@ std::vector&lt; <a class="el" href="structraven_1_1sim_1_1tern_1_1s_plot.html">s
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 27 2016 13:08:50 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 27 2016 13:38:56 for TERN by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

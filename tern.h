@@ -255,12 +255,34 @@ public:
 	/// run the simulation.
 	void Run();
 
-	/// schedule an event
+/** Schedule an event.
+
+@param[in] planet       pointer to event recorder
+@param[in] type			event type
+@param[in] ObjectID		ID of handler event happens to, may be null
+@param[in] time			time of event
+
+An event type of 0 will stop the simulation.
+Any other type is passed on for use by the event handlers
+
+*/
 	void Add(
 		cPlanet* planet,
 		int type,
 		int ObjectID,
 		long long time );
+
+/** Schedule an event.
+
+@param[in] planet       pointer to event recorder
+@param[in] type			event type
+@param[in] handler		pointer to handler event happens to, may be null
+@param[in] time			time of event
+
+An event type of 0 will stop the simulation.
+Any other type is passed on for use by the event handlers
+
+*/
 	void Add(
 		cPlanet* planet,
 		int type,

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>My Project: C:/Users/James/code/TERN/tern.h Source File</title>
+<title>TERN: C:/Users/James/code/TERN/tern.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,8 +22,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">TERN
    </div>
+   <div id="projectbrief">Event simulator with tasks</div>
   </td>
  </tr>
  </tbody>
@@ -244,109 +245,110 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a473a9c7b24ee5a43ab8a3db320f0c39c">Run</a>();</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a245945df5a407bdd6d48ac3ea9916374">Add</a>(</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <a class="code" href="classraven_1_1sim_1_1tern_1_1c_planet.html">cPlanet</a>* planet,</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        <span class="keywordtype">int</span> type,</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keywordtype">int</span> ObjectID,</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keywordtype">long</span> <span class="keywordtype">long</span> time );</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a245945df5a407bdd6d48ac3ea9916374">Add</a>(</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        <a class="code" href="classraven_1_1sim_1_1tern_1_1c_planet.html">cPlanet</a>* planet,</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        <span class="keywordtype">int</span> type,</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        <a class="code" href="classraven_1_1sim_1_1tern_1_1c_event_handler.html">cEventHandler</a>* handler,</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="keywordtype">long</span> <span class="keywordtype">long</span> time );</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="keywordtype">void</span> setConsoleLog( <span class="keywordtype">bool</span> flag  = <span class="keyword">true</span> )     { fConsolLog = flag; }</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keywordtype">long</span> <span class="keywordtype">long</span> <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a0aa2052fcbaab361c56ba37cdd17d7ef">NextPoisson</a>( cEvent&amp; e, <span class="keywordtype">int</span> mean );</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a245945df5a407bdd6d48ac3ea9916374">Add</a>(</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        <a class="code" href="classraven_1_1sim_1_1tern_1_1c_planet.html">cPlanet</a>* planet,</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        <span class="keywordtype">int</span> type,</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        <span class="keywordtype">int</span> ObjectID,</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        <span class="keywordtype">long</span> <span class="keywordtype">long</span> time );</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a245945df5a407bdd6d48ac3ea9916374">Add</a>( cEventHandler&amp; handler );</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a245945df5a407bdd6d48ac3ea9916374">Add</a>( cPlanet&amp; planet ) { myPlanets.push_back( &amp;planet ); }</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a95973a7441b75b89b0b97dfebdde8621">Delete</a>( cPlanet* planet );</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    cEventHandler * <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a340d6580ed86d6fe4be98ad52814eb09">Find</a>( <span class="keywordtype">int</span> <span class="keywordtype">id</span> );</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keywordtype">int</span> getHandlerCount()           { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>) myHandlers.size(); }</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keywordtype">void</span> HandleFatalError( <span class="keyword">const</span> std::wstring&amp; msg );</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keywordtype">void</span> HandleFatalError( <span class="keyword">const</span> std::string&amp; msg );</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    std::multiset &lt; cEvent, std::less&lt;long long&gt; &gt; myEventQueue;</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a245945df5a407bdd6d48ac3ea9916374">Add</a>(</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <a class="code" href="classraven_1_1sim_1_1tern_1_1c_planet.html">cPlanet</a>* planet,</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        <span class="keywordtype">int</span> type,</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        <a class="code" href="classraven_1_1sim_1_1tern_1_1c_event_handler.html">cEventHandler</a>* handler,</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        <span class="keywordtype">long</span> <span class="keywordtype">long</span> time );</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keywordtype">void</span> setConsoleLog( <span class="keywordtype">bool</span> flag  = <span class="keyword">true</span> )     { fConsolLog = flag; }</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keyword">typedef</span> std::set &lt; cEventHandler*, cEventHandler::less &gt; handler_set_t;</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keyword">typedef</span> handler_set_t::iterator handler_iter;</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    handler_set_t myHandlers;</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    std::vector &lt;cPlanet*&gt; myPlanets;</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keywordtype">bool</span> fConsolLog;</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keywordtype">void</span> Start();</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keywordtype">void</span> AddPlotPoints();</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    <span class="keywordtype">void</span> FinalReport();</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keywordtype">long</span> <span class="keywordtype">long</span> <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a0aa2052fcbaab361c56ba37cdd17d7ef">NextPoisson</a>( cEvent&amp; e, <span class="keywordtype">int</span> mean );</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a245945df5a407bdd6d48ac3ea9916374">Add</a>( cEventHandler&amp; handler );</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a245945df5a407bdd6d48ac3ea9916374">Add</a>( cPlanet&amp; planet ) { myPlanets.push_back( &amp;planet ); }</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a95973a7441b75b89b0b97dfebdde8621">Delete</a>( cPlanet* planet );</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    cEventHandler * <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a340d6580ed86d6fe4be98ad52814eb09">Find</a>( <span class="keywordtype">int</span> <span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="keywordtype">int</span> getHandlerCount()           { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>) myHandlers.size(); }</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keywordtype">void</span> HandleFatalError( <span class="keyword">const</span> std::wstring&amp; msg );</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keywordtype">void</span> HandleFatalError( <span class="keyword">const</span> std::string&amp; msg );</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    cEvent* getNextEvent();</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    std::multiset &lt; cEvent, std::less&lt;long long&gt; &gt; myEventQueue;</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <span class="keywordtype">void</span> handle_next_event();</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    cEventHandler* <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a340d6580ed86d6fe4be98ad52814eb09">Find</a>( <span class="keyword">const</span> std::wstring&amp; name );</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <span class="keyword">typedef</span> std::set &lt; cEventHandler*, cEventHandler::less &gt; handler_set_t;</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    <span class="keyword">typedef</span> handler_set_t::iterator handler_iter;</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    handler_set_t myHandlers;</div>
 <div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keywordtype">void</span> DumpQueue();</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    std::vector &lt;cPlanet*&gt; myPlanets;</div>
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;};</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    <span class="keywordtype">bool</span> fConsolLog;</div>
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="keyword">extern</span> cTERN theSimulationEngine;</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keywordtype">void</span> Start();</div>
 <div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;}</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="keyword">namespace </span>distribution {</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="keywordtype">double</span> poisson( <span class="keywordtype">double</span> mean );                  </div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="keywordtype">double</span> normal( <span class="keywordtype">double</span> mean, <span class="keywordtype">double</span> dev );       </div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;}</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;}</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;}</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordtype">void</span> AddPlotPoints();</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    <span class="keywordtype">void</span> FinalReport();</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    cEvent* getNextEvent();</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    <span class="keywordtype">void</span> handle_next_event();</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    cEventHandler* <a class="code" href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a340d6580ed86d6fe4be98ad52814eb09">Find</a>( <span class="keyword">const</span> std::wstring&amp; name );</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="keywordtype">void</span> DumpQueue();</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;};</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="keyword">extern</span> cTERN theSimulationEngine;</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;}</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="keyword">namespace </span>distribution {</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="keywordtype">double</span> poisson( <span class="keywordtype">double</span> mean );                  </div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="keywordtype">double</span> normal( <span class="keywordtype">double</span> mean, <span class="keywordtype">double</span> dev );       </div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;}</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;}</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;}</div>
 <div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_html_a0c6f144a09bfdd282616501d8e0a5f52"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event.html#a0c6f144a09bfdd282616501d8e0a5f52">raven::sim::tern::cEvent::myHandler</a></div><div class="ttdeci">cEventHandler * myHandler</div><div class="ttdoc">object that handles the event </div><div class="ttdef"><b>Definition:</b> tern.h:36</div></div>
 <div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_ae42987d7f91730235b4bed379e6345f9"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#ae42987d7f91730235b4bed379e6345f9">raven::sim::tern::cEventHandler::myName</a></div><div class="ttdeci">std::wstring myName</div><div class="ttdoc">name of handler </div><div class="ttdef"><b>Definition:</b> tern.h:114</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_planet_html_adcae8ad670f0f5c738fc714e1819900c"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_planet.html#adcae8ad670f0f5c738fc714e1819900c">raven::sim::tern::cPlanet::getLifetime</a></div><div class="ttdeci">long long getLifetime()</div><div class="ttdef"><b>Definition:</b> tern.h:79</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html_a340d6580ed86d6fe4be98ad52814eb09"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a340d6580ed86d6fe4be98ad52814eb09">raven::sim::tern::cTERN::Find</a></div><div class="ttdeci">cEventHandler * Find(int id)</div><div class="ttdoc">Find event handler. </div><div class="ttdef"><b>Definition:</b> tern.cpp:243</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_a689e9bc77703f17d4a3fdce6869053a8"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a689e9bc77703f17d4a3fdce6869053a8">raven::sim::tern::cEventHandler::setDestination</a></div><div class="ttdeci">void setDestination(tern::cEventHandler *d)</div><div class="ttdef"><b>Definition:</b> tern.h:207</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_planet_html"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_planet.html">raven::sim::tern::cPlanet</a></div><div class="ttdef"><b>Definition:</b> tern.h:54</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_planet_html_adcae8ad670f0f5c738fc714e1819900c"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_planet.html#adcae8ad670f0f5c738fc714e1819900c">raven::sim::tern::cPlanet::getLifetime</a></div><div class="ttdeci">long long getLifetime()</div><div class="ttdoc">Time duration between first and last event record. </div><div class="ttdef"><b>Definition:</b> tern.h:79</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html_a340d6580ed86d6fe4be98ad52814eb09"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a340d6580ed86d6fe4be98ad52814eb09">raven::sim::tern::cTERN::Find</a></div><div class="ttdeci">cEventHandler * Find(int id)</div><div class="ttdoc">Find event handler. </div><div class="ttdef"><b>Definition:</b> tern.cpp:232</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_a689e9bc77703f17d4a3fdce6869053a8"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a689e9bc77703f17d4a3fdce6869053a8">raven::sim::tern::cEventHandler::setDestination</a></div><div class="ttdeci">void setDestination(tern::cEventHandler *d)</div><div class="ttdoc">Specify where events go next from port 1. </div><div class="ttdef"><b>Definition:</b> tern.h:207</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_planet_html"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_planet.html">raven::sim::tern::cPlanet</a></div><div class="ttdoc">Base class that records an event as it wanders through the simulation. </div><div class="ttdef"><b>Definition:</b> tern.h:54</div></div>
 <div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html_a7ad7deb5f738e5d926e568d16474c0a5"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a7ad7deb5f738e5d926e568d16474c0a5">raven::sim::tern::cTERN::myStopTime</a></div><div class="ttdeci">long long myStopTime</div><div class="ttdoc">maximum duration of simulation </div><div class="ttdef"><b>Definition:</b> tern.h:235</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html_a95973a7441b75b89b0b97dfebdde8621"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a95973a7441b75b89b0b97dfebdde8621">raven::sim::tern::cTERN::Delete</a></div><div class="ttdeci">void Delete(cPlanet *planet)</div><div class="ttdef"><b>Definition:</b> tern.cpp:355</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html">raven::sim::tern::cEventHandler</a></div><div class="ttdef"><b>Definition:</b> tern.h:108</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_a5c6401a502b738aa09db1dc2f915ffb7"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a5c6401a502b738aa09db1dc2f915ffb7">raven::sim::tern::cEventHandler::cEventHandler</a></div><div class="ttdeci">cEventHandler(const std::wstring &amp;name)</div><div class="ttdef"><b>Definition:</b> tern.cpp:379</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_ac12f2cc55f52860590e37ef8b9f5c281"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#ac12f2cc55f52860590e37ef8b9f5c281">raven::sim::tern::cEventHandler::cEventHandler</a></div><div class="ttdeci">cEventHandler(int id)</div><div class="ttdef"><b>Definition:</b> tern.h:139</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html_a95973a7441b75b89b0b97dfebdde8621"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a95973a7441b75b89b0b97dfebdde8621">raven::sim::tern::cTERN::Delete</a></div><div class="ttdeci">void Delete(cPlanet *planet)</div><div class="ttdoc">Delete an event recorder. </div><div class="ttdef"><b>Definition:</b> tern.cpp:344</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html">raven::sim::tern::cEventHandler</a></div><div class="ttdoc">Base class for an event handler. </div><div class="ttdef"><b>Definition:</b> tern.h:108</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_a5c6401a502b738aa09db1dc2f915ffb7"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a5c6401a502b738aa09db1dc2f915ffb7">raven::sim::tern::cEventHandler::cEventHandler</a></div><div class="ttdeci">cEventHandler(const std::wstring &amp;name)</div><div class="ttdoc">Constructor - lets the simulator know this handler exists. </div><div class="ttdef"><b>Definition:</b> tern.cpp:368</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_ac12f2cc55f52860590e37ef8b9f5c281"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#ac12f2cc55f52860590e37ef8b9f5c281">raven::sim::tern::cEventHandler::cEventHandler</a></div><div class="ttdeci">cEventHandler(int id)</div><div class="ttdoc">Constructor - don&#39;t register this handler with simulator. </div><div class="ttdef"><b>Definition:</b> tern.h:139</div></div>
 <div class="ttc" id="structraven_1_1sim_1_1tern_1_1s_plot_html"><div class="ttname"><a href="structraven_1_1sim_1_1tern_1_1s_plot.html">raven::sim::tern::sPlot</a></div><div class="ttdef"><b>Definition:</b> tern.h:95</div></div>
 <div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_html_abe558d0bd2b1d3798a99aae1d025a363"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event.html#abe558d0bd2b1d3798a99aae1d025a363">raven::sim::tern::cEvent::myPlanet</a></div><div class="ttdeci">cPlanet * myPlanet</div><div class="ttdoc">object that records the event </div><div class="ttdef"><b>Definition:</b> tern.h:37</div></div>
 <div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html_ad4620d1b2abbba6fc8c6d0c301ea30ce"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#ad4620d1b2abbba6fc8c6d0c301ea30ce">raven::sim::tern::cTERN::theTime</a></div><div class="ttdeci">long long theTime</div><div class="ttdoc">the current time </div><div class="ttdef"><b>Definition:</b> tern.h:232</div></div>
 <div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_html_afca3dd7a0946e1d3ed6b44064f3b2559"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event.html#afca3dd7a0946e1d3ed6b44064f3b2559">raven::sim::tern::cEvent::myType</a></div><div class="ttdeci">int myType</div><div class="ttdoc">event type </div><div class="ttdef"><b>Definition:</b> tern.h:34</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_afa0b4d0bf68765f42b23f28d4079dd3a"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#afa0b4d0bf68765f42b23f28d4079dd3a">raven::sim::tern::cEventHandler::Start</a></div><div class="ttdeci">virtual void Start()</div><div class="ttdef"><b>Definition:</b> tern.cpp:387</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_a2f563b51b9d46b4a46742bf2cb37f157"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a2f563b51b9d46b4a46742bf2cb37f157">raven::sim::tern::cEventHandler::Handle</a></div><div class="ttdeci">virtual int Handle(cEvent *e)</div><div class="ttdef"><b>Definition:</b> tern.cpp:401</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_afa0b4d0bf68765f42b23f28d4079dd3a"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#afa0b4d0bf68765f42b23f28d4079dd3a">raven::sim::tern::cEventHandler::Start</a></div><div class="ttdeci">virtual void Start()</div><div class="ttdoc">called exactly once at the start of every simulation run. </div><div class="ttdef"><b>Definition:</b> tern.cpp:376</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_a2f563b51b9d46b4a46742bf2cb37f157"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a2f563b51b9d46b4a46742bf2cb37f157">raven::sim::tern::cEventHandler::Handle</a></div><div class="ttdeci">virtual int Handle(cEvent *e)</div><div class="ttdoc">called each time an event occurs. </div><div class="ttdef"><b>Definition:</b> tern.cpp:390</div></div>
 <div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_a5a0c49821425573ad08ccf4f136db553"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a5a0c49821425573ad08ccf4f136db553">raven::sim::tern::cEventHandler::myID</a></div><div class="ttdeci">int myID</div><div class="ttdoc">event handler ID, used to identify events for this handler </div><div class="ttdef"><b>Definition:</b> tern.h:113</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_html"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event.html">raven::sim::tern::cEvent</a></div><div class="ttdef"><b>Definition:</b> tern.h:29</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_html"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event.html">raven::sim::tern::cEvent</a></div><div class="ttdoc">the events </div><div class="ttdef"><b>Definition:</b> tern.h:29</div></div>
 <div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_a534092644b704a90699892a84d2b155b"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a534092644b704a90699892a84d2b155b">raven::sim::tern::cEventHandler::myDstID</a></div><div class="ttdeci">int myDstID</div><div class="ttdoc">where planets go next from port 1 </div><div class="ttdef"><b>Definition:</b> tern.h:115</div></div>
 <div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html_a3f11d3fd91dc6af4076355862976c03c"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a3f11d3fd91dc6af4076355862976c03c">raven::sim::tern::cTERN::cTERN</a></div><div class="ttdeci">cTERN()</div><div class="ttdoc">construct new simulation </div><div class="ttdef"><b>Definition:</b> tern.h:244</div></div>
 <div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_a90ddca854393caf78a66fac506cd1f22"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a90ddca854393caf78a66fac506cd1f22">raven::sim::tern::cEventHandler::myPlot</a></div><div class="ttdeci">std::vector&lt; sPlot &gt; myPlot</div><div class="ttdoc">simulation results plot values </div><div class="ttdef"><b>Definition:</b> tern.h:117</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html_a74e76a5e3e6bde4b20cbf3052c7eba4f"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a74e76a5e3e6bde4b20cbf3052c7eba4f">raven::sim::tern::cTERN::Connect</a></div><div class="ttdeci">void Connect(const std::wstring &amp;src, const std::wstring &amp;dst)</div><div class="ttdoc">connect two event handlers </div><div class="ttdef"><b>Definition:</b> tern.cpp:266</div></div>
-<div class="ttc" id="structraven_1_1sim_1_1tern_1_1c_event_handler_1_1less_html"><div class="ttname"><a href="structraven_1_1sim_1_1tern_1_1c_event_handler_1_1less.html">raven::sim::tern::cEventHandler::less</a></div><div class="ttdef"><b>Definition:</b> tern.h:193</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_planet_html_a67c8aff8c11730c86c68dbb339d46a38"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_planet.html#a67c8aff8c11730c86c68dbb339d46a38">raven::sim::tern::cPlanet::Add</a></div><div class="ttdeci">void Add(cEvent &amp;e)</div><div class="ttdef"><b>Definition:</b> tern.h:67</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html_a74e76a5e3e6bde4b20cbf3052c7eba4f"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a74e76a5e3e6bde4b20cbf3052c7eba4f">raven::sim::tern::cTERN::Connect</a></div><div class="ttdeci">void Connect(const std::wstring &amp;src, const std::wstring &amp;dst)</div><div class="ttdoc">connect two event handlers </div><div class="ttdef"><b>Definition:</b> tern.cpp:255</div></div>
+<div class="ttc" id="structraven_1_1sim_1_1tern_1_1c_event_handler_1_1less_html"><div class="ttname"><a href="structraven_1_1sim_1_1tern_1_1c_event_handler_1_1less.html">raven::sim::tern::cEventHandler::less</a></div><div class="ttdoc">Compare pointers to handlers by ID. </div><div class="ttdef"><b>Definition:</b> tern.h:193</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_planet_html_a67c8aff8c11730c86c68dbb339d46a38"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_planet.html#a67c8aff8c11730c86c68dbb339d46a38">raven::sim::tern::cPlanet::Add</a></div><div class="ttdeci">void Add(cEvent &amp;e)</div><div class="ttdoc">Add event record. </div><div class="ttdef"><b>Definition:</b> tern.h:67</div></div>
 <div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html_a473a9c7b24ee5a43ab8a3db320f0c39c"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a473a9c7b24ee5a43ab8a3db320f0c39c">raven::sim::tern::cTERN::Run</a></div><div class="ttdeci">void Run()</div><div class="ttdoc">run the simulation. </div><div class="ttdef"><b>Definition:</b> tern.cpp:40</div></div>
 <div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_a279a443b601cde92e0571ecd7d812609"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a279a443b601cde92e0571ecd7d812609">raven::sim::tern::cEventHandler::myDstID2</a></div><div class="ttdeci">int myDstID2</div><div class="ttdoc">where planets go next from port 2 </div><div class="ttdef"><b>Definition:</b> tern.h:116</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html">raven::sim::tern::cTERN</a></div><div class="ttdef"><b>Definition:</b> tern.h:227</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html_a245945df5a407bdd6d48ac3ea9916374"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a245945df5a407bdd6d48ac3ea9916374">raven::sim::tern::cTERN::Add</a></div><div class="ttdeci">void Add(cPlanet *planet, int type, int ObjectID, long long time)</div><div class="ttdoc">schedule an event </div><div class="ttdef"><b>Definition:</b> tern.cpp:83</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_a1a044692396842838fb77c4983dee9e4"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a1a044692396842838fb77c4983dee9e4">raven::sim::tern::cEventHandler::AddPlot</a></div><div class="ttdeci">void AddPlot(const std::wstring &amp;name)</div><div class="ttdef"><b>Definition:</b> tern.h:147</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_abcdae99b1b87d14306a33d54fe30ce4c"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#abcdae99b1b87d14306a33d54fe30ce4c">raven::sim::tern::cEventHandler::setDestination2</a></div><div class="ttdeci">void setDestination2(tern::cEventHandler *d)</div><div class="ttdef"><b>Definition:</b> tern.h:216</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html">raven::sim::tern::cTERN</a></div><div class="ttdoc">The Event RuNer - an event simulator. </div><div class="ttdef"><b>Definition:</b> tern.h:227</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html_a245945df5a407bdd6d48ac3ea9916374"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a245945df5a407bdd6d48ac3ea9916374">raven::sim::tern::cTERN::Add</a></div><div class="ttdeci">void Add(cPlanet *planet, int type, int ObjectID, long long time)</div><div class="ttdoc">Schedule an event. </div><div class="ttdef"><b>Definition:</b> tern.cpp:72</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_a1a044692396842838fb77c4983dee9e4"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#a1a044692396842838fb77c4983dee9e4">raven::sim::tern::cEventHandler::AddPlot</a></div><div class="ttdeci">void AddPlot(const std::wstring &amp;name)</div><div class="ttdoc">Add plot Constructs empty vector to hold plot data and adds to vector of plots. </div><div class="ttdef"><b>Definition:</b> tern.h:147</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_handler_html_abcdae99b1b87d14306a33d54fe30ce4c"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event_handler.html#abcdae99b1b87d14306a33d54fe30ce4c">raven::sim::tern::cEventHandler::setDestination2</a></div><div class="ttdeci">void setDestination2(tern::cEventHandler *d)</div><div class="ttdoc">Specify where events go next from port 2. </div><div class="ttdef"><b>Definition:</b> tern.h:216</div></div>
 <div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_event_html_aa5912a86403c6c660be52969a0127298"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_event.html#aa5912a86403c6c660be52969a0127298">raven::sim::tern::cEvent::myTime</a></div><div class="ttdeci">long long myTime</div><div class="ttdoc">scheduled time of event </div><div class="ttdef"><b>Definition:</b> tern.h:33</div></div>
-<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html_a0aa2052fcbaab361c56ba37cdd17d7ef"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a0aa2052fcbaab361c56ba37cdd17d7ef">raven::sim::tern::cTERN::NextPoisson</a></div><div class="ttdeci">long long NextPoisson(cEvent &amp;e, int mean)</div><div class="ttdoc">Schedule next Poisson event. </div><div class="ttdef"><b>Definition:</b> tern.cpp:154</div></div>
+<div class="ttc" id="classraven_1_1sim_1_1tern_1_1c_t_e_r_n_html_a0aa2052fcbaab361c56ba37cdd17d7ef"><div class="ttname"><a href="classraven_1_1sim_1_1tern_1_1c_t_e_r_n.html#a0aa2052fcbaab361c56ba37cdd17d7ef">raven::sim::tern::cTERN::NextPoisson</a></div><div class="ttdeci">long long NextPoisson(cEvent &amp;e, int mean)</div><div class="ttdoc">Schedule next Poisson event. </div><div class="ttdef"><b>Definition:</b> tern.cpp:143</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 27 2016 13:08:50 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 27 2016 13:38:56 for TERN by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

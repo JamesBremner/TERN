@@ -68,18 +68,7 @@ void cTERN::Run()
     FinalReport();
 }
 
-/**
-Schedule an event.
 
-@param[in] planet       pointer to event recorder
-@param[in] type			event type
-@param[in] ObjectID		ID object event happens to, may be null
-@param[in] time			time of event
-
-An event type of 0 will stop the simulation.
-Any other type is passed on for use by the event handlers
-
-*/
 void cTERN::Add(
     cPlanet* planet,
     int type,
