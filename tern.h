@@ -133,7 +133,7 @@ public:
 
 	@param[in] id the id we want for this handler
 
-	This is used as a temporary target to search for the registered handler wirth the same ID
+	This is used as a temporary target to search for the registered handler with the same ID
 
 	*/
 	cEventHandler( int id )

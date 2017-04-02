@@ -35,12 +35,16 @@
 			<Add option="-std=c++11" />
 			<Add option="-fexceptions" />
 			<Add directory="../.." />
-			<Add directory="$(#boost)" />
 			<Add directory="../../src/ext" />
+			<Add directory="../../src" />
+			<Add directory="$(#boost)" />
 		</Compiler>
+		<Unit filename="../../src/terntime.h" />
 		<Unit filename="../../task.h" />
 		<Unit filename="../../tern.cpp" />
 		<Unit filename="../../tern.h" />
+		<Unit filename="cStoppingMachine.cpp" />
+		<Unit filename="cStoppingMachine.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
