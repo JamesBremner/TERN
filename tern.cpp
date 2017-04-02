@@ -85,7 +85,7 @@ void cTERN::Add(
 
     if( fConsolLog )
     {
-        wcout << "Planet " << planet->myID
+        cout << "Planet " << planet->myID
               << " scheduled for " << e.myHandler->getName()
               << " at " << e.myTime << endl;
     }
@@ -107,7 +107,7 @@ void cTERN::Add(
 
     if( fConsolLog )
     {
-        wcout << "Planet " << planet->myID
+        cout << "Planet " << planet->myID
               << " scheduled for " << e.myHandler->getName()
               << " at " << e.myTime << endl;
     }
@@ -154,7 +154,7 @@ void cTERN::Start()
     if( myHandlers.size() == 0 )
     {
         tern::theSimulationEngine.HandleFatalError(
-            L"ERROR: No event handlers registered\n");
+            "ERROR: No event handlers registered\n");
     }
 
     // loop over handlers, starting each one
@@ -166,7 +166,7 @@ void cTERN::Start()
     if( myEventQueue.size() == 0 )
     {
         tern::theSimulationEngine.HandleFatalError(
-            L"ERROR: No events required\n");
+            "ERROR: No events required\n");
     }
 
 }
@@ -188,14 +188,6 @@ void cTERN::FinalReport()
 }
 
 /** Writes message to final report and exits the simulation */
-void cTERN::HandleFatalError( const wstring& msg )
-{
-    freopen("tern_final_report.txt","w",stdout);
-    cout << "FATAL ERROR:" << endl;
-    wcout << msg << endl;
-    exit(1);
-
-}
 void cTERN::HandleFatalError( const string& msg )
 {
     freopen("tern_final_report.txt","w",stdout);
@@ -204,6 +196,14 @@ void cTERN::HandleFatalError( const string& msg )
     exit(1);
 
 }
+//void cTERN::HandleFatalError( const string& msg )
+//{
+//    freopen("tern_final_report.txt","w",stdout);
+//    cout << "FATAL ERROR:" << endl;
+//    cout << msg << endl;
+//    exit(1);
+//
+//}
 /**
 Handle next event
 
@@ -240,7 +240,7 @@ cEventHandler * cTERN::Find( int id )
     return *ph;
 }
 
-cEventHandler * cTERN::Find( const std::wstring& name )
+cEventHandler * cTERN::Find( const std::string& name )
 {
     for( auto& h : myHandlers )
     {
@@ -252,33 +252,33 @@ cEventHandler * cTERN::Find( const std::wstring& name )
     return 0;
 }
 
-void cTERN::Connect( const std::wstring& src,
-                     const std::wstring& dst )
+void cTERN::Connect( const std::string& src,
+                     const std::string& dst )
 {
     cEventHandler* psrc = Find( src );
     if( ! psrc )
     {
-        HandleFatalError( L"ERROR: Cannot find " + src );
+        HandleFatalError( "ERROR: Cannot find " + src );
     }
     cEventHandler* pdst = Find( dst );
     if( ! pdst )
     {
-        HandleFatalError( L"ERROR: Cannot find " + dst );
+        HandleFatalError( "ERROR: Cannot find " + dst );
     }
     psrc->setDestination( pdst );
 }
-void cTERN::Connect2( const std::wstring& src,
-                      const std::wstring& dst )
+void cTERN::Connect2( const std::string& src,
+                      const std::string& dst )
 {
     cEventHandler* psrc = Find( src );
     if( ! psrc )
     {
-        HandleFatalError( L"ERROR: Cannot find " + src );
+        HandleFatalError( "ERROR: Cannot find " + src );
     }
     cEventHandler* pdst = Find( dst );
     if( ! pdst )
     {
-        HandleFatalError( L"ERROR: Cannot find " + dst );
+        HandleFatalError( "ERROR: Cannot find " + dst );
     }
     psrc->setDestination2( pdst );
 }
@@ -365,17 +365,17 @@ void cTERN::Add( cEventHandler& handler )
 
 
 
-cEventHandler::cEventHandler( const std::wstring& name )
+cEventHandler::cEventHandler( const std::string& name )
     : myName( name )
 {
     myID = nextID++;		                // unique ID for this handler
     theSimulationEngine.Add( *this );		// inform simulator this handler exists
-    AddPlot( L"Volume" );
+    AddPlot( "Volume" );
 }
 
 void cEventHandler::Start()
 {
-//    wcout << L"empty start called for " << myName << endl;
+//    cout << "empty start called for " << myName << endl;
 }
 
 /**  Handle standard events
@@ -409,23 +409,23 @@ int cEventHandler::Handle( cEvent* e )
 ////        return;
 //
 //    raven::sqlite::cDB db;
-//    db.Open(L"vase.dat");
-//    db.Query(L"DELETE FROM plot WHERE flower = '%s';",
+//    db.Open("vase.dat");
+//    db.Query("DELETE FROM plot WHERE flower = '%s';",
 //            myName.c_str() );
 //
 //    // loop over plots
 //    for( auto& vplot : myPlot )
 //    {
 //        // loop over data points
-//        wstringstream ss;
+//        stringstream ss;
 //        for ( auto p : vplot.myData )
 //        {
 //            // space separated values
-//            ss << p << L" ";
+//            ss << p << " ";
 //        }
 //
 //        // write to database
-//        db.Query(L"INSERT INTO plot VALUES ( '%s', '%s', '%s' );",
+//        db.Query("INSERT INTO plot VALUES ( '%s', '%s', '%s' );",
 //                 myName.c_str(),
 //                 vplot.myName.c_str(),
 //                 ss.str().c_str() );

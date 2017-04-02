@@ -30,3 +30,5 @@
 *.depend
 *.layout
 tst/queue/tern_final_report.txt
+src/ext/*
+

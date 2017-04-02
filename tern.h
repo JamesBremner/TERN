@@ -94,7 +94,7 @@ private:
 
 struct sPlot
 {
-    std::wstring            myName;
+    std::string            myName;
     std::vector<double>     myData;
 };
 
@@ -111,7 +111,7 @@ class cEventHandler {
 
 protected:
 	int                 myID;		///< event handler ID, used to identify events for this handler
-	std::wstring        myName;     ///< name of handler
+	std::string        myName;     ///< name of handler
 	int                 myDstID;    ///< where planets go next from port 1
 	int                 myDstID2;   ///< where planets go next from port 2
     std::vector <sPlot> myPlot;     ///< simulation results plot values
@@ -125,7 +125,7 @@ public:
 	@param[in] sim  the event simulator
 
 	*/
-	cEventHandler( const std::wstring& name );
+	cEventHandler( const std::string& name );
 
 	/**
 
@@ -144,7 +144,7 @@ public:
         Constructs empty vector to hold plot data
         and adds to vector of plots.
     */
-	void AddPlot( const std::wstring& name )
+	void AddPlot( const std::string& name )
 	{
 	    sPlot plot;
 	    plot.myName = name;
@@ -178,7 +178,7 @@ public:
 	void PlotOutput();
 
 	int getID() const { return myID; }
-	std::wstring getName() const { return myName; }
+	std::string getName() const { return myName; }
 
 	bool operator<(const cEventHandler other) const { return myID < other.myID; }
 	bool operator==(const cEventHandler other) const { return myID == other.myID; }
@@ -247,10 +247,10 @@ public:
 	{}
 
 	/// connect two event handlers
-	void Connect( const std::wstring& src,
-              const std::wstring& dst );
-	void Connect2( const std::wstring& src,
-              const std::wstring& dst );
+	void Connect( const std::string& src,
+              const std::string& dst );
+	void Connect2( const std::string& src,
+              const std::string& dst );
 
 	/// run the simulation.
 	void Run();
@@ -305,8 +305,8 @@ Any other type is passed on for use by the event handlers
 
 	int getHandlerCount()           { return (int) myHandlers.size(); }
 
-	void HandleFatalError( const std::wstring& msg );
 	void HandleFatalError( const std::string& msg );
+	//void HandleFatalError( const std::string& msg );
 
 private:
 
@@ -338,7 +338,7 @@ private:
 	/// handle the earliest scheduled event
 	void handle_next_event();
 
-	cEventHandler* Find( const std::wstring& name );
+	cEventHandler* Find( const std::string& name );
 
 
 	void DumpQueue();

@@ -36,7 +36,7 @@ class cRx : public task::cSource
 {
     public:
     cRx()
-    : cSource( L"Receiver")
+    : cSource( "Receiver")
     {
 
     }
@@ -59,7 +59,7 @@ class cMixer2 : public task::cDelay
 
     public:
     cMixer2()
-        : cDelay( L"Mixer")
+        : cDelay( "Mixer")
         , myNormalProcessingMean( 20 )
     {
 
@@ -93,7 +93,7 @@ class cSmoother : public task::cDelay
     int my_required_total_delay;
 public:
     cSmoother( int required_total_delay)
-    :cDelay( L"Smoother" )
+    :cDelay( "Smoother" )
     , my_required_total_delay( required_total_delay )
     {
 
@@ -189,7 +189,7 @@ int main(int argc, char* argv[])
     cSmoother theConstDelay( 50 );
 
     // construct packet transmitter
-    task::cSink   theSink( L"Tx" );
+    task::cSink   theSink( "Tx" );
 
     // parse user options
     opts( argc, argv,
@@ -199,9 +199,9 @@ int main(int argc, char* argv[])
     //tern::theSimulationEngine.setConsoleLog();
 
     // connect everything together
-    tern::theSimulationEngine.Connect( L"Receiver", L"Mixer");
-    tern::theSimulationEngine.Connect( L"Mixer", L"Smoother" );
-    tern::theSimulationEngine.Connect( L"Smoother", L"Tx" );
+    tern::theSimulationEngine.Connect( "Receiver", "Mixer");
+    tern::theSimulationEngine.Connect( "Mixer", "Smoother" );
+    tern::theSimulationEngine.Connect( "Smoother", "Tx" );
 
     // Start simulation run
     tern::theSimulationEngine.Run();

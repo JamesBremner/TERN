@@ -5,12 +5,12 @@ using namespace std;
 using namespace raven::sim;
 int main()
 {
-    task::cSource S(L"src");
-    task::cDelay  D(L"delay");
-    task::cSink   K{L"sink"};
+    task::cSource S("src");
+    task::cDelay  D("delay");
+    task::cSink   K{"sink"};
 
-    tern::theSimulationEngine.Connect( L"src", L"delay" );
-    tern::theSimulationEngine.Connect( L"delay", L"sink" );
+    tern::theSimulationEngine.Connect( "src", "delay" );
+    tern::theSimulationEngine.Connect( "delay", "sink" );
 
     tern::theSimulationEngine.myStopTime = 10;
 

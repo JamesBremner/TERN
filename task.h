@@ -22,7 +22,7 @@ namespace task
 class cSource :  public tern::cEventHandler
 {
     public:
-    cSource( const std::wstring& name )
+    cSource( const std::string& name )
         : cEventHandler( name )
     {
 
@@ -86,7 +86,7 @@ class cDelay : public tern::cEventHandler
     int myQMax;
 
 public:
-    cDelay(  const std::wstring& name )
+    cDelay(  const std::string& name )
         : cEventHandler( name )
         , myQMax( 0 )
     {
@@ -164,7 +164,7 @@ public:
             return 1;
 
         case tern::event_type_final_report:
-            std::wcout << myName << " report: max Queue size " << myQMax << "\n";
+            std::cout << myName << " report: max Queue size " << myQMax << "\n";
             return 1;
 
         default:
@@ -181,7 +181,7 @@ class cSink
     : public tern::cEventHandler
 {
 public:
-    cSink(  const std::wstring& name )
+    cSink(  const std::string& name )
         : cEventHandler( name )
     {
 
@@ -209,7 +209,7 @@ public:
         case tern::event_type_final_report:
 
             // simulation over, report
-            std::wcout << myName << " report: "
+            std::cout << myName << " report: "
                  << "count:" << boost::accumulators::count(myAccumulator)
                  << " min:" << boost::accumulators::min(myAccumulator)
                  << " aver:" << (int)boost::accumulators::mean(myAccumulator)
