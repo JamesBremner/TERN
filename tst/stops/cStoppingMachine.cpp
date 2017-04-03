@@ -10,7 +10,7 @@ using namespace raven::sim;
 
 #include "cStoppingMachine.h"
 
-time::date_t cStoppingMachine::theEarliestStop /* = f1Time("13-03-2050 06:20:00") */;
+tern::date_t cStoppingMachine::theEarliestStop;
 
 cStoppingMachine::cStoppingMachine(
     const string& name,
@@ -32,16 +32,16 @@ cStoppingMachine::cStoppingMachine(
             for( auto& stop : machine["stops"] )
             {
                 myStop.push_back(
-                    time::f1Time( stop["stop_time"] ) );
+                    tern::f1Time( stop["stop_time"] ) );
                 myStart.push_back(
-                    time::f1Time( stop["start_time"] ) );
+                    tern::f1Time( stop["start_time"] ) );
             }
         }
     }
 
     if( myStop.size() )
     {
-        if( theEarliestStop == time::date_t() )
+        if( theEarliestStop == tern::date_t() )
             theEarliestStop = myStop[0];
         else if( myStop[0] < theEarliestStop )
             theEarliestStop = myStop[0];
@@ -56,6 +56,8 @@ void cStoppingMachine::Start()
 
     if( ! myStop.size() )
         return;
+
+    tern::theSimulationEngine.Start( theEarliestStop );
 
     int dtFirtStop = theEarliestStop.time_since_epoch().count() * system_clock::period::num / system_clock::period::den;
 
@@ -85,7 +87,8 @@ int cStoppingMachine::Delay( tern::cPlanet * planet )
         {
             int delay = myStartInSimTime[ kstop ] - tern::theSimulationEngine.theTime;
             //cout << myStartInSimTime[ kstop ] << " " << tern::theSimulationEngine.theTime << "\n";
-            cout << getName() << " delay at " << tern::theSimulationEngine.theTime << " for " <<delay << "\n";
+            //cout << getName() << " delay at " << tern::theSimulationEngine.theTime << " for " <<delay << "\n";
+            cout << getName() << " delay at " << tern::theSimulationEngine.Calendar() << " for " <<delay << "\n";
             return delay;
         }
     }

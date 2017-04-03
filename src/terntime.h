@@ -8,7 +8,7 @@ using namespace std;
 
 namespace raven {
     namespace sim {
-        namespace time {
+        namespace tern {
 typedef chrono::time_point<chrono::system_clock> date_t;
 inline date_t fTime( int year, int month, int day,
               int hr, int min, int sec )
@@ -25,7 +25,7 @@ inline date_t fTime( int year, int month, int day,
 
     return chrono::system_clock::from_time_t( mktime( &seed ));
 }
-inline date_t f1Time( const string& st )
+inline date_t f1Time( const std::string& st )
 {
     return fTime(
                atoi(st.substr(6,4).c_str()),
@@ -36,6 +36,56 @@ inline date_t f1Time( const string& st )
                atoi(st.substr(17,2).c_str())
            );
 }
+
+inline string fTime( const string& format, date_t tp )
+{
+    time_t tt = chrono::system_clock::to_time_t( tp );
+    char buf[250];
+    if( ! strftime(
+                buf,
+                sizeof(buf),
+                format.c_str(),
+                localtime( &tt ) ) )
+        return "----/--/--";
+
+    return string( buf );
+}
+/** Convert betwee simulation time and calendar */
+
+class cCalendar
+{
+public:
+    bool IsUsed;
+
+    /** CTOR
+
+    Default to not using calendar
+
+    */
+    cCalendar()
+    : IsUsed( false )
+    {
+
+    }
+
+    /** Use calendar */
+    void Use( bool f = true )
+    {
+        IsUsed = f;
+    }
+
+    /** Set the date of simulation start */
+    void Start( date_t start )
+    {
+        myRTStart = start;
+    }
+    /** Human readable yyyy/mm/dd hr:mn:sc simulation time */
+    std::string Text();
+
+private:
+    date_t myRTStart;
+};
+
         }
     }
 }

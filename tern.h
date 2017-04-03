@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 
+#include "terntime.h"
 //#include "cQuality.h"
 
 namespace raven {
@@ -246,6 +247,23 @@ public:
 	, fConsolLog( false )
 	{}
 
+	/// Enable connection between simulation time and calendar data
+	void UseCalendar( bool f = true )
+	{
+	    myCalendar.Use( f );
+	}
+
+	/// Set calendar data of simulation start
+	void Start( date_t start )
+	{
+	    myCalendar.Start( start );
+	}
+	/// Calendar date of current simulation time in human readable format
+	std::string Calendar()
+	{
+	    return myCalendar.Text();
+	}
+
 	/// connect two event handlers
 	void Connect( const std::string& src,
               const std::string& dst );
@@ -322,6 +340,9 @@ private:
 	std::vector <cPlanet*> myPlanets;
 
 	bool fConsolLog;
+
+	/// Connect simulation time with real time
+	cCalendar   myCalendar;
 
 	/// start handlers
 	void Start();

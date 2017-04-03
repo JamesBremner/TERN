@@ -58,6 +58,8 @@ int main()
     tern::theSimulationEngine.Connect( "MAC01B", "MAC01C" );
     tern::theSimulationEngine.Connect( "MAC01C", "sink" );
 
+    tern::theSimulationEngine.UseCalendar();
+
     // run the simulation for 60 simulated seconds
     tern::theSimulationEngine.myStopTime = 60;
 

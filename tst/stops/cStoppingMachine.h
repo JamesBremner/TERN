@@ -33,10 +33,10 @@ public:
     virtual int Delay( raven::sim::tern::cPlanet * planet );
 
 private:
-    vector< raven::sim::time::date_t > myStop;                    // stop times ( real clock )
-    vector< raven::sim::time::date_t > myStart;                   // start times ( real clock )
+    vector< raven::sim::tern::date_t > myStop;                    // stop times ( real clock )
+    vector< raven::sim::tern::date_t > myStart;                   // start times ( real clock )
     vector< long long > myStopInSimTime;        // stop times ( simulation clock )
     vector< long long > myStartInSimTime;       // start times ( simulation clock )
-    static raven::sim::time::date_t theEarliestStop;              // earlist stop of any machine ( real clock )
+    static raven::sim::tern::date_t theEarliestStop;              // earlist stop of any machine ( real clock )
 };
 
