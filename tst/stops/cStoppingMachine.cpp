@@ -128,7 +128,7 @@ int cStoppingMachine::Delay( tern::cPlanet * planet )
 
             int delay = distribution::normal( myMeanSecsStopDuration, myDevSecsStopDuration );
             myNextStop = tern::theSimulationEngine.theTime + delay + distribution::poisson( myMeanSecsBetweenStops );
-            cout << getName() << " delay at " << tern::theSimulationEngine.theTime << " for " <<delay << "\n";
+            //cout << getName() << " delay at " << tern::theSimulationEngine.theTime << " for " <<delay << "\n";
             return delay;
 
         }

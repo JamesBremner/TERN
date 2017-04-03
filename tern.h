@@ -176,6 +176,7 @@ public:
 
 	virtual void HandlePlotPointEvent() { }
 	virtual void FinalReport() {}
+	virtual void Clear();
 	void PlotOutput();
 
 	int getID() const { return myID; }
@@ -272,6 +273,8 @@ public:
 
 	/// run the simulation.
 	void Run();
+
+	void Clear();
 
 /** Schedule an event.
 

@@ -68,6 +68,15 @@ void cTERN::Run()
     FinalReport();
 }
 
+void cTERN::Clear()
+{
+    for( auto h : myHandlers )
+    {
+        h->Clear();
+    }
+
+    myEventQueue.clear();
+}
 
 void cTERN::Add(
     cPlanet* planet,
@@ -401,6 +410,11 @@ int cEventHandler::Handle( cEvent* e )
         break;
     }
     return 0;
+}
+
+void cEventHandler::Clear()
+{
+    myPlot.clear();
 }
 
 //void cEventHandler::PlotOutput()

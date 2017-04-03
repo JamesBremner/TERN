@@ -172,6 +172,13 @@ public:
         }
 
     }
+
+    virtual void Clear()
+    {
+        cEventHandler::Clear();
+        myQ = std::queue < tern::cPlanet * >();
+        myQMax = 0;
+    }
 };
 
 
@@ -185,6 +192,12 @@ public:
         : cEventHandler( name )
     {
 
+    }
+
+    virtual void Clear()
+    {
+        cEventHandler::Clear();
+        myAccumulator = stats_t();
     }
 
     int Handle( tern::cEvent* e )
@@ -223,16 +236,23 @@ public:
         }
     }
 
-private:
 
     // statistics accumulator
-    boost::accumulators::accumulator_set<int, boost::accumulators::stats<
+    typedef boost::accumulators::accumulator_set<int, boost::accumulators::stats<
     boost::accumulators::tag::min,
     boost::accumulators::tag::max,
     boost::accumulators::tag::mean,
     boost::accumulators::tag::variance,
-    boost::accumulators::tag::count> >
-    myAccumulator;
+    boost::accumulators::tag::count> > stats_t;
+
+    stats_t& Accumulator()
+    {
+        return myAccumulator;
+    }
+
+private:
+
+    stats_t myAccumulator;
 
 };
 
