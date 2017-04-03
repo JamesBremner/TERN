@@ -193,7 +193,7 @@ void cTERN::HandleFatalError( const string& msg )
     freopen("tern_final_report.txt","w",stdout);
     cout << "FATAL ERROR:" << endl;
     cout << msg << endl;
-    exit(1);
+    throw std::runtime_error( msg );
 
 }
 //void cTERN::HandleFatalError( const string& msg )

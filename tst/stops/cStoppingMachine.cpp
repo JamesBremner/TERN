@@ -16,9 +16,10 @@ cStoppingMachine::cStoppingMachine(
     const string& name,
     const string& stopschedule )
     : raven::sim::task::cDelay( name )
+    , myfHistorical( true )
 {
     nlohmann::json J = nlohmann::json::parse( stopschedule );
-   // cout << J.dump(2) << "\n====\n";
+    // cout << J.dump(2) << "\n====\n";
 
     // loop over machines
     for( auto& machine : J["machines"] )
@@ -48,50 +49,91 @@ cStoppingMachine::cStoppingMachine(
     }
 }
 
+cStoppingMachine::cStoppingMachine(
+    const string& name,
+    int MeanSecsBetweenStops,
+    int MeanSecsStopDuration,
+    int DevSecsStopDuration )
+    : raven::sim::task::cDelay( name )
+    , myfHistorical( false )
+    , myMeanSecsBetweenStops( MeanSecsBetweenStops )
+    , myMeanSecsStopDuration( MeanSecsStopDuration )
+    , myDevSecsStopDuration( DevSecsStopDuration )
+{
+
+}
+
 void cStoppingMachine::Start()
 {
     const int time_to_first_stop = 10;
 
     using namespace std::chrono;
 
-    if( ! myStop.size() )
-        return;
-
-    tern::theSimulationEngine.Start( theEarliestStop );
-
-    int dtFirtStop = theEarliestStop.time_since_epoch().count() * system_clock::period::num / system_clock::period::den;
-
-    for( auto& stop : myStop )
+    if( myfHistorical )
     {
-        myStopInSimTime.push_back(
-            stop.time_since_epoch().count() * system_clock::period::num / system_clock::period::den
-            - dtFirtStop + time_to_first_stop );
+        if( ! myStop.size() )
+            return;
 
-        //cout << dtFirtStop << " " << myStopInSimTime.back() << "\n";
+        tern::theSimulationEngine.Start( theEarliestStop );
+
+        int dtFirtStop = theEarliestStop.time_since_epoch().count() * system_clock::period::num / system_clock::period::den;
+
+        for( auto& stop : myStop )
+        {
+            myStopInSimTime.push_back(
+                stop.time_since_epoch().count() * system_clock::period::num / system_clock::period::den
+                - dtFirtStop + time_to_first_stop );
+
+            //cout << dtFirtStop << " " << myStopInSimTime.back() << "\n";
+        }
+        for( auto& start : myStart )
+        {
+            myStartInSimTime.push_back(
+                start.time_since_epoch().count() * system_clock::period::num / system_clock::period::den
+                - dtFirtStop + time_to_first_stop );
+        }
     }
-    for( auto& start : myStart )
+    else
     {
-        myStartInSimTime.push_back(
-            start.time_since_epoch().count() * system_clock::period::num / system_clock::period::den
-            - dtFirtStop + time_to_first_stop );
+        myNextStop = distribution::poisson( myMeanSecsBetweenStops );
     }
 
 }
 
 int cStoppingMachine::Delay( tern::cPlanet * planet )
 {
-    for( int kstop = 0; kstop < (int)myStop.size(); kstop++ )
+    if( myfHistorical )
     {
-        if( myStopInSimTime[kstop] == tern::theSimulationEngine.theTime &&
-                tern::theSimulationEngine.theTime < myStartInSimTime[ kstop ] )
+        // using an historical stopping schedule
+
+        for( int kstop = 0; kstop < (int)myStop.size(); kstop++ )
         {
-            int delay = myStartInSimTime[ kstop ] - tern::theSimulationEngine.theTime;
-            //cout << myStartInSimTime[ kstop ] << " " << tern::theSimulationEngine.theTime << "\n";
-            //cout << getName() << " delay at " << tern::theSimulationEngine.theTime << " for " <<delay << "\n";
-            cout << getName() << " delay at " << tern::theSimulationEngine.Calendar() << " for " <<delay << "\n";
-            return delay;
+            if( myStopInSimTime[kstop] == tern::theSimulationEngine.theTime &&
+                    tern::theSimulationEngine.theTime < myStartInSimTime[ kstop ] )
+            {
+                int delay = myStartInSimTime[ kstop ] - tern::theSimulationEngine.theTime;
+                //cout << myStartInSimTime[ kstop ] << " " << tern::theSimulationEngine.theTime << "\n";
+                //cout << getName() << " delay at " << tern::theSimulationEngine.theTime << " for " <<delay << "\n";
+                cout << getName() << " delay at " << tern::theSimulationEngine.Calendar() << " for " <<delay << "\n";
+                return delay;
+            }
         }
+        return 1;
     }
-    return 1;
+    else
+    {
+        // using a randomly generated schedule
+        if( tern::theSimulationEngine.theTime >= myNextStop )
+        {
+
+            int delay = distribution::normal( myMeanSecsStopDuration, myDevSecsStopDuration );
+            myNextStop = tern::theSimulationEngine.theTime + delay + distribution::poisson( myMeanSecsBetweenStops );
+            cout << getName() << " delay at " << tern::theSimulationEngine.theTime << " for " <<delay << "\n";
+            return delay;
+
+        }
+        return 1;
+
+    }
 }
 

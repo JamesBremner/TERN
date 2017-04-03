@@ -9,12 +9,12 @@
 using namespace std;
 using namespace raven::sim;
 
-int main()
+int RunHistorical()
 {
     /* specify the stopping schedule
 
-{
-  "machines": [
+    {
+    "machines": [
     {
       "id": "MAC01A",
       "stops": [
@@ -28,10 +28,10 @@ int main()
         }
       ]
     }
-  ]
-}
+    ]
+    }
 
-*/
+    */
     string stopschedule =
         "{ \"machines\": ["
         " { \"id\": \"MAC01A\","
@@ -71,4 +71,100 @@ int main()
     tern::theSimulationEngine.Run();
 
     return 0;
+}
+int RunRandom()
+{
+
+    // construct the machines
+    // to use randomly generated stopping schedules
+    // based on these parameters
+
+    int MeanSecsBetweenStops = 10;
+    int MeanSecsStopDuration = 4;
+    int DevSecsStopDuration = 1;
+
+    cStoppingMachineSource S( "src", 1 );
+    cStoppingMachine  MAC01A( "MAC01A", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
+    cStoppingMachine  MAC01B( "MAC01B", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
+    cStoppingMachine  MAC01C( "MAC01C", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
+    task::cSink   K{"sink"};
+
+    // connect the machines in series
+
+    tern::theSimulationEngine.Connect( "src", "MAC01A" );
+    tern::theSimulationEngine.Connect( "MAC01A", "MAC01B" );
+    tern::theSimulationEngine.Connect( "MAC01B", "MAC01C" );
+    tern::theSimulationEngine.Connect( "MAC01C", "sink" );
+
+
+
+    // run the simulation for 60 simulated seconds
+    tern::theSimulationEngine.myStopTime = 600;
+
+    // uncomment this to see detailed log of simulation events
+    //tern::theSimulationEngine.setConsoleLog();
+
+    // Start simulation run
+
+    tern::theSimulationEngine.Run();
+
+    return 0;
+}
+
+int RunRandom2()
+{
+
+    // construct the machines
+    // to use randomly generated stopping schedules
+    // based on these parameters
+
+    int MeanSecsBetweenStops = 10;
+    int MeanSecsStopDuration = 4;
+    int DevSecsStopDuration = 1;
+
+    cStoppingMachineSource S1( "src1", 2 );
+    cStoppingMachine  MAC01A( "MAC01A", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
+    cStoppingMachine  MAC01B( "MAC01B", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
+    cStoppingMachine  MAC01C( "MAC01C", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
+    cStoppingMachineSource S2( "src2", 2 );
+    cStoppingMachine  MAC02A( "MAC02A", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
+    cStoppingMachine  MAC02B( "MAC02B", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
+    cStoppingMachine  MAC02C( "MAC02C", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
+    task::cSink   K{"sink1"};
+    task::cSink   K2{"sink2"};
+
+    // connect the machines in two parrallel series
+
+    tern::theSimulationEngine.Connect( "src1", "MAC01A" );
+    tern::theSimulationEngine.Connect( "MAC01A", "MAC01B" );
+    tern::theSimulationEngine.Connect( "MAC01B", "MAC01C" );
+    tern::theSimulationEngine.Connect( "MAC01C", "sink1" );
+    tern::theSimulationEngine.Connect( "src2", "MAC02A" );
+    tern::theSimulationEngine.Connect( "MAC02A", "MAC02B" );
+    tern::theSimulationEngine.Connect( "MAC02B", "MAC02C" );
+    tern::theSimulationEngine.Connect( "MAC02C", "sink2" );
+
+
+
+    // run the simulation for 60 simulated seconds
+    tern::theSimulationEngine.myStopTime = 600;
+
+    // uncomment this to see detailed log of simulation events
+    tern::theSimulationEngine.setConsoleLog();
+
+    // Start simulation run
+
+    tern::theSimulationEngine.Run();
+
+    return 0;
+}
+
+
+int main()
+{
+    //return RunHistorical();
+
+    //return RunRandom();
+
+    return RunRandom2();
 }

@@ -39,6 +39,7 @@
 			<Add directory="../../src" />
 			<Add directory="$(#boost)" />
 		</Compiler>
+		<Unit filename="../../src/terntime.cpp" />
 		<Unit filename="../../src/terntime.h" />
 		<Unit filename="../../task.h" />
 		<Unit filename="../../tern.cpp" />
