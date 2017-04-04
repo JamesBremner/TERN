@@ -9,72 +9,6 @@
 using namespace std;
 using namespace raven::sim;
 
-class cReplicationReport
-{
-public:
-    cReplicationReport( task::cSink& sink )
-        : mySink( sink )
-    {
-
-    }
-    void SaveRun();
-
-    std::string Report();
-
-private:
-    task::cSink& mySink;
-    task::cSink::stats_t aCount;
-    task::cSink::stats_t aMin;
-    task::cSink::stats_t aAver;
-    task::cSink::stats_t aMax;
-    task::cSink::stats_t aDev;
-};
-
-void cReplicationReport::SaveRun()
-{
-    task::cSink::stats_t& runAccumulator = mySink.Accumulator();
-    aCount((int)boost::accumulators::count(runAccumulator));
-    aMin((int)boost::accumulators::min(runAccumulator));
-    aAver((int)boost::accumulators::mean(runAccumulator));
-    aMax((int)boost::accumulators::max(runAccumulator));
-    aDev((int)(int)sqrt(boost::accumulators::variance(runAccumulator)));
-}
-
-std::string cReplicationReport::Report()
-{
-    std::stringstream ss;
-    ss << " count report: "
-       << "count:" << boost::accumulators::count(aCount)
-       << " min:" << boost::accumulators::min(aCount)
-       << " aver:" << (int)boost::accumulators::mean(aCount)
-       << " max:" << boost::accumulators::max(aCount)
-       << " std dev:" << (int)sqrt(boost::accumulators::variance(aCount))
-       << "\n";
-    ss << " min report: "
-       << "count:" << boost::accumulators::count(aMin)
-       << " min:" << boost::accumulators::min(aMin)
-       << " aver:" << (int)boost::accumulators::mean(aMin)
-       << " max:" << boost::accumulators::max(aMin)
-       << " std dev:" << (int)sqrt(boost::accumulators::variance(aMin))
-       << "\n";
-    ss << " aver report: "
-       << "count:" << boost::accumulators::count(aAver)
-       << " min:" << boost::accumulators::min(aAver)
-       << " aver:" << (int)boost::accumulators::mean(aAver)
-       << " max:" << boost::accumulators::max(aAver)
-       << " std dev:" << (int)sqrt(boost::accumulators::variance(aAver))
-       << "\n";
-    ss << " max report: "
-       << "count:" << boost::accumulators::count(aMax)
-       << " min:" << boost::accumulators::min(aMax)
-       << " aver:" << (int)boost::accumulators::mean(aMax)
-       << " max:" << boost::accumulators::max(aMax)
-       << " std dev:" << (int)sqrt(boost::accumulators::variance(aMax))
-       << "\n";
-
-    return ss.str();
-}
-
 int RunHistorical()
 {
     /* specify the stopping schedule
@@ -209,29 +143,14 @@ int RunRandom2()
     tern::theSimulationEngine.Connect( "MAC02B", "MAC02C" );
     tern::theSimulationEngine.Connect( "MAC02C", "sink" );
 
-
-
-    // run the simulation for 60 simulated seconds
+    // run the simulation for 60 simulated seconds each time
     tern::theSimulationEngine.myStopTime = 600;
 
     // uncomment this to see detailed log of simulation events
     //tern::theSimulationEngine.setConsoleLog();
 
-    cReplicationReport RepReport( K );
-
     // run simulation many times
-
-    for( int rep = 0; rep < 100; rep++ )
-    {
-        tern::theSimulationEngine.Run();
-
-        RepReport.SaveRun();
-
-        tern::theSimulationEngine.Clear();
-
-    }
-
-    cout << RepReport.Report();
+    tern::theSimulationEngine.ReplicateRun( 100 );
 
     return 0;
 }

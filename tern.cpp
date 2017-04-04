@@ -64,10 +64,39 @@ void cTERN::Run()
         h->HandlePlotPointEvent();
     }
 
-    // generate final report
+    // generate final report for run
     FinalReport();
 }
 
+void cTERN::ReplicateRun( int count )
+{
+    cout << "Running " << count << " replications of the sumulation ...";
+    fReplication = true;
+    for( int run = 0; run < count; run++ )
+    {
+        Run();
+        SaveRunStatsToReplicationStats();
+        Clear();
+    }
+    cout << "\n";
+    ReplicationReport();
+    fReplication = false;
+}
+
+void cTERN::SaveRunStatsToReplicationStats()
+{
+     for( auto h : myHandlers )
+     {
+         h->SaveRunStatsToReplicationStats();
+     }
+}
+void cTERN::ReplicationReport()
+{
+     for( auto h : myHandlers )
+     {
+         h->ReplicationReport();
+     }
+}
 void cTERN::Clear()
 {
     for( auto h : myHandlers )
@@ -75,7 +104,6 @@ void cTERN::Clear()
         h->Clear();
     }
 
-    myEventQueue.clear();
 }
 
 void cTERN::Add(
@@ -151,7 +179,7 @@ Occurring after a Poisson delay after the previous event
 */
 long long cTERN::NextPoisson( cEvent& e, int mean )
 {
-    e.myTime += (long long)raven::sim::distribution::poisson( (double) mean );
+    e.myTime += (long long)raven::sim::stats::poisson( (double) mean );
     myEventQueue.insert( e );
     return e.myTime;
 }
@@ -187,12 +215,15 @@ Send an event of type 999 to every handler
 void cTERN::FinalReport()
 {
     //freopen("tern_final_report.txt","w",stdout);
+
+    if( ! fReplication ) {
     cout << "Final Report:" << endl;
     cEvent e;
     e.myType = event_type_final_report;
     for( cEventHandler* h : myHandlers )
     {
         h->Handle( &e );
+    }
     }
 }
 
@@ -462,7 +493,10 @@ cPlanet::cPlanet( cTERN& sim )
 
 #include <random>
 
-namespace distribution {
+namespace stats {
+
+
+
 /**
 
 return sample from Poisson distribution.

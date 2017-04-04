@@ -5,6 +5,13 @@
 #include <map>
 #include <string>
 
+#include <boost/accumulators/accumulators.hpp>
+#include <boost/accumulators/statistics/stats.hpp>
+#include <boost/accumulators/statistics/mean.hpp>
+#include <boost/accumulators/statistics/min.hpp>
+#include <boost/accumulators/statistics/max.hpp>
+#include <boost/accumulators/statistics/variance.hpp>
+
 #include "terntime.h"
 //#include "cQuality.h"
 
@@ -176,6 +183,13 @@ public:
 
 	virtual void HandlePlotPointEvent() { }
 	virtual void FinalReport() {}
+
+	/** Over-ride to save runs stats to rep stats and then clear them */
+    virtual void SaveRunStatsToReplicationStats() {}
+
+    /** Over-ride to output stats report at end of replications */
+    virtual void ReplicationReport() {}
+
 	virtual void Clear();
 	void PlotOutput();
 
@@ -246,6 +260,7 @@ public:
 	cTERN()
 	: theTime( 0 )
 	, fConsolLog( false )
+	, fReplication( false )
 	{}
 
 	/// Enable connection between simulation time and calendar data
@@ -265,15 +280,27 @@ public:
 	    return myCalendar.Text();
 	}
 
-	/// connect two event handlers
+	/// connect two event handlers, using first port of src
 	void Connect( const std::string& src,
               const std::string& dst );
+
+    /// connect two event handlers, using second port of src
 	void Connect2( const std::string& src,
               const std::string& dst );
 
-	/// run the simulation.
+	/// run the simulation, once
 	void Run();
 
+	/** Run the same simulation multiple times
+
+        @param[in] count of runs
+
+        The statistics from each run will be gathered and
+        presented in a final report
+    */
+	void ReplicateRun( int count );
+
+	/// clear all run statistics and queues
 	void Clear();
 
 /** Schedule an event.
@@ -342,7 +369,8 @@ private:
 	/// event recorders
 	std::vector <cPlanet*> myPlanets;
 
-	bool fConsolLog;
+	bool fConsolLog;                /// true if detailed console log is required
+	bool fReplication;              /// true if run is part of replication
 
 	/// Connect simulation time with real time
 	cCalendar   myCalendar;
@@ -362,8 +390,14 @@ private:
 	/// handle the earliest scheduled event
 	void handle_next_event();
 
+	/// find event handler by name
 	cEventHandler* Find( const std::string& name );
 
+    /// called at end of a run to accumulate and clear the run styatistics
+    void SaveRunStatsToReplicationStats();
+
+    /// generate replication report of statistics gathered from all runs
+    void ReplicationReport();
 
 	void DumpQueue();
 
@@ -373,7 +407,16 @@ private:
 extern cTERN theSimulationEngine;
 
 }
-namespace distribution {
+namespace stats {
+
+            // statistics accumulator
+    typedef boost::accumulators::accumulator_set<int, boost::accumulators::stats<
+    boost::accumulators::tag::min,
+    boost::accumulators::tag::max,
+    boost::accumulators::tag::mean,
+    boost::accumulators::tag::variance,
+    boost::accumulators::tag::count> > stats_t;
+
 double poisson( double mean );		            ///< return sample from possion distribution with specified mean.
 double normal( double mean, double dev );		///< return sample from normal distribution.
 }

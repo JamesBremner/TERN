@@ -95,7 +95,7 @@ void cStoppingMachine::Start()
     }
     else
     {
-        myNextStop = distribution::poisson( myMeanSecsBetweenStops );
+        myNextStop = stats::poisson( myMeanSecsBetweenStops );
     }
 
 }
@@ -125,10 +125,14 @@ int cStoppingMachine::Delay( tern::cPlanet * planet )
         // using a randomly generated schedule
         if( tern::theSimulationEngine.theTime >= myNextStop )
         {
+            // normally distributed stop duration
+            int delay = stats::normal( myMeanSecsStopDuration, myDevSecsStopDuration );
 
-            int delay = distribution::normal( myMeanSecsStopDuration, myDevSecsStopDuration );
-            myNextStop = tern::theSimulationEngine.theTime + delay + distribution::poisson( myMeanSecsBetweenStops );
+            // exponentially distributed run time to next stop
+            myNextStop = tern::theSimulationEngine.theTime + delay + stats::poisson( myMeanSecsBetweenStops );
+
             //cout << getName() << " delay at " << tern::theSimulationEngine.theTime << " for " <<delay << "\n";
+
             return delay;
 
         }

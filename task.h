@@ -1,3 +1,5 @@
+
+
 /**
 
   TERN event handler for task simulation
@@ -5,12 +7,7 @@
 */
 
 #include <queue>
-#include <boost/accumulators/accumulators.hpp>
-#include <boost/accumulators/statistics/stats.hpp>
-#include <boost/accumulators/statistics/mean.hpp>
-#include <boost/accumulators/statistics/min.hpp>
-#include <boost/accumulators/statistics/max.hpp>
-#include <boost/accumulators/statistics/variance.hpp>
+
 
 namespace raven
 {
@@ -21,7 +18,7 @@ namespace task
 
 class cSource :  public tern::cEventHandler
 {
-    public:
+public:
     cSource( const std::string& name )
         : cEventHandler( name )
     {
@@ -84,6 +81,7 @@ class cDelay : public tern::cEventHandler
 {
     std::queue < tern::cPlanet * > myQ;
     int myQMax;
+    stats::stats_t myRep;
 
 public:
     cDelay(  const std::string& name )
@@ -179,6 +177,10 @@ public:
         myQ = std::queue < tern::cPlanet * >();
         myQMax = 0;
     }
+
+    virtual void SaveRunStatsToReplicationStats();
+
+    virtual void ReplicationReport();
 };
 
 
@@ -197,7 +199,7 @@ public:
     virtual void Clear()
     {
         cEventHandler::Clear();
-        myAccumulator = stats_t();
+        myAccumulator = stats::stats_t();
     }
 
     int Handle( tern::cEvent* e )
@@ -221,14 +223,14 @@ public:
 
         case tern::event_type_final_report:
 
-            // simulation over, report
+            // single simulation run over, report
             std::cout << myName << " report: "
-                 << "count:" << boost::accumulators::count(myAccumulator)
-                 << " min:" << boost::accumulators::min(myAccumulator)
-                 << " aver:" << (int)boost::accumulators::mean(myAccumulator)
-                 << " max:" << boost::accumulators::max(myAccumulator)
-                 << " std dev:" << (int)sqrt(boost::accumulators::variance(myAccumulator))
-                 << "\n";
+                      << "count:" << boost::accumulators::count(myAccumulator)
+                      << " min:" << boost::accumulators::min(myAccumulator)
+                      << " aver:" << (int)boost::accumulators::mean(myAccumulator)
+                      << " max:" << boost::accumulators::max(myAccumulator)
+                      << " std dev:" << (int)sqrt(boost::accumulators::variance(myAccumulator))
+                      << "\n";
             return 1;
 
         default:
@@ -236,24 +238,21 @@ public:
         }
     }
 
+    virtual void SaveRunStatsToReplicationStats();
 
-    // statistics accumulator
-    typedef boost::accumulators::accumulator_set<int, boost::accumulators::stats<
-    boost::accumulators::tag::min,
-    boost::accumulators::tag::max,
-    boost::accumulators::tag::mean,
-    boost::accumulators::tag::variance,
-    boost::accumulators::tag::count> > stats_t;
-
-    stats_t& Accumulator()
-    {
-        return myAccumulator;
-    }
+    virtual void ReplicationReport();
 
 private:
 
-    stats_t myAccumulator;
+    // run stats
+    stats::stats_t myAccumulator;
 
+    // replication stats
+    stats::stats_t myRepCount;
+    stats::stats_t myRepMin;
+    stats::stats_t myRepAver;
+    stats::stats_t myRepMax;
+    stats::stats_t myRepDev;
 };
 
 
