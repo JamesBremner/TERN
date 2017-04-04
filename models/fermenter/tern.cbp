@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="tern" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../bin/tern" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../bin" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../../bin/tern" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../bin" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-std=c++11" />
+			<Add option="-fexceptions" />
+			<Add option="-D_mingw_" />
+			<Add option="-Dtern_build" />
+			<Add directory="../../src" />
+			<Add directory="$(#boost)" />
+			<Add directory="." />
+			<Add directory="../../tern" />
+			<Add directory="../../../ravenset" />
+		</Compiler>
+		<Unit filename="../../../ravenset/raven_sqlite.cpp" />
+		<Unit filename="../../src/cQuality.cpp" />
+		<Unit filename="../../src/cQuality.h" />
+		<Unit filename="../../src/cVase .cpp" />
+		<Unit filename="../../src/cVase.h" />
+		<Unit filename="../../src/flower.cpp" />
+		<Unit filename="../../src/flower.h" />
+		<Unit filename="../../src/flower_types.cpp" />
+		<Unit filename="../../src/flower_types.h" />
+		<Unit filename="../../src/sqlite3.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../tern/TernSimEng.cpp" />
+		<Unit filename="../../tern/cFunnel.h" />
+		<Unit filename="../../tern/tern.cpp" />
+		<Unit filename="../../tern/tern.h" />
+		<Unit filename="ModelFlowers.cpp" />
+		<Unit filename="ModelFlowers.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

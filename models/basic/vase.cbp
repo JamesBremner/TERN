@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="vase" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../bin/vase" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin" />
+				<Option object_output="obj/Debug/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../../bin/vase" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-std=c++11" />
+			<Add option="-DWXWIDGETS" />
+			<Add option="-D_mingw_" />
+			<Add directory="." />
+			<Add directory="../../freechart/include" />
+			<Add directory="$(#wxwidgets_static.include)" />
+			<Add directory="$(#wxwidgets_static.setup)" />
+			<Add directory="../../src" />
+			<Add directory="../../gui" />
+			<Add directory="../../../ravenset" />
+		</Compiler>
+		<Linker>
+			<Add library="wxmsw30u" />
+			<Add library="wxpng" />
+			<Add library="wxjpeg" />
+			<Add library="wxzlib" />
+			<Add library="ole32" />
+			<Add library="Comctl32" />
+			<Add library="uuid" />
+			<Add library="OleAut32" />
+			<Add library="Winspool" />
+			<Add library="gdi32" />
+			<Add library="Comdlg32" />
+			<Add directory="$(#wxwidgets_static.lib)" />
+		</Linker>
+		<Unit filename="../../../ravenset/raven_sqlite.cpp" />
+		<Unit filename="../../../ravenset/raven_sqlite.h" />
+		<Unit filename="../../freechart/src/areadraw.cpp" />
+		<Unit filename="../../freechart/src/art.cpp" />
+		<Unit filename="../../freechart/src/axis/axis.cpp" />
+		<Unit filename="../../freechart/src/axis/compdateaxis.cpp" />
+		<Unit filename="../../freechart/src/axis/dateaxis.cpp" />
+		<Unit filename="../../freechart/src/axis/labelaxis.cpp" />
+		<Unit filename="../../freechart/src/axis/logarithmicnumberaxis.cpp" />
+		<Unit filename="../../freechart/src/axis/numberaxis.cpp" />
+		<Unit filename="../../freechart/src/axisplot.cpp" />
+		<Unit filename="../../freechart/src/chart.cpp" />
+		<Unit filename="../../freechart/src/chartpanel.cpp" />
+		<Unit filename="../../freechart/src/colorscheme.cpp" />
+		<Unit filename="../../freechart/src/dataset.cpp" />
+		<Unit filename="../../freechart/src/legend.cpp" />
+		<Unit filename="../../freechart/src/marker.cpp" />
+		<Unit filename="../../freechart/src/multiplot.cpp" />
+		<Unit filename="../../freechart/src/plot.cpp" />
+		<Unit filename="../../freechart/src/renderer.cpp" />
+		<Unit filename="../../freechart/src/symbol.cpp" />
+		<Unit filename="../../freechart/src/xy/vectordataset.cpp" />
+		<Unit filename="../../freechart/src/xy/xyarearenderer.cpp" />
+		<Unit filename="../../freechart/src/xy/xydataset.cpp" />
+		<Unit filename="../../freechart/src/xy/xydynamicdataset.cpp" />
+		<Unit filename="../../freechart/src/xy/xyhistorenderer.cpp" />
+		<Unit filename="../../freechart/src/xy/xylinerenderer.cpp" />
+		<Unit filename="../../freechart/src/xy/xyplot.cpp" />
+		<Unit filename="../../freechart/src/xy/xyrenderer.cpp" />
+		<Unit filename="../../freechart/src/xy/xysimpledataset.cpp" />
+		<Unit filename="../../gui/ProcessFlowSimGUI.h" />
+		<Unit filename="../../gui/ProcessSimulationGui.cpp" />
+		<Unit filename="../../gui/Table.cpp" />
+		<Unit filename="../../gui/Table.h" />
+		<Unit filename="../../src/cQuality.cpp" />
+		<Unit filename="../../src/cQuality.h" />
+		<Unit filename="../../src/cVase .cpp" />
+		<Unit filename="../../src/cVase.h" />
+		<Unit filename="../../src/flower.cpp" />
+		<Unit filename="../../src/flower.h" />
+		<Unit filename="../../src/flower_types.cpp" />
+		<Unit filename="../../src/flower_types.h" />
+		<Unit filename="../../src/sqlite3.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ModelFlowers.cpp" />
+		<Unit filename="ModelFlowers.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general use_at_in_tags="1" />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
