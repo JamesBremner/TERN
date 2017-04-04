@@ -1,0 +1,19 @@
+digraph V {
+src2 -> MAC02A // start_idx=4 end_idx=5
+src1 -> MAC01A // start_idx=0 end_idx=1
+MAC02C -> sink // start_idx=7 end_idx=8
+MAC02B -> MAC02C // start_idx=6 end_idx=7
+MAC02A -> MAC02B // start_idx=5 end_idx=6
+MAC01C -> sink // start_idx=3 end_idx=8
+MAC01B -> MAC01C // start_idx=2 end_idx=3
+MAC01A -> MAC01B // start_idx=1 end_idx=2
+src2 [shape=box,pos="92,261"] // [ vase_type='Source' vase_idx=4 p_Mean 0.000000 ]
+src1 [shape=box,pos="94,104"] // [ vase_type='Source' vase_idx=0 p_Mean 0.000000 ]
+sink [shape=box,pos="618,168"] // [ vase_type='Sink' vase_idx=8 ]
+MAC02C [shape=box,pos="409,264"] // [ vase_type='Delay' vase_idx=7 p_Mean 0.000000 ]
+MAC02B [shape=box,pos="302,263"] // [ vase_type='Delay' vase_idx=6 p_Mean 0.000000 ]
+MAC02A [shape=box,pos="204,262"] // [ vase_type='Delay' vase_idx=5 p_Mean 0.000000 ]
+MAC01C [shape=box,pos="399,106"] // [ vase_type='Delay' vase_idx=3 p_Mean 0.000000 ]
+MAC01B [shape=box,pos="299,104"] // [ vase_type='Delay' vase_idx=2 p_Mean 0.000000 ]
+MAC01A [shape=box,pos="198,104"] // [ vase_type='Delay' vase_idx=1 p_Mean 0.000000 ]
+}
