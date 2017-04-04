@@ -70,7 +70,7 @@ void cTERN::Run()
 
 void cTERN::ReplicateRun( int count )
 {
-    cout << "Running " << count << " replications of the sumulation ...";
+    cout << "Running " << count << " replications of the simulation ...";
     fReplication = true;
     for( int run = 0; run < count; run++ )
     {
@@ -228,7 +228,7 @@ void cTERN::FinalReport()
 }
 
 /** Writes message to final report and exits the simulation */
-void cTERN::HandleFatalError( const string& msg )
+void cTERN::HandleFatalError( const std::string& msg )
 {
     freopen("tern_final_report.txt","w",stdout);
     cout << "FATAL ERROR:" << endl;

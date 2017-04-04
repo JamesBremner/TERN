@@ -41,6 +41,7 @@
 		</Compiler>
 		<Unit filename="../../src/terntime.cpp" />
 		<Unit filename="../../src/terntime.h" />
+		<Unit filename="../../task.cpp" />
 		<Unit filename="../../task.h" />
 		<Unit filename="../../tern.cpp" />
 		<Unit filename="../../tern.h" />
