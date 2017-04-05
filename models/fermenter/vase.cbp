@@ -43,6 +43,7 @@
 			<Add directory="../../src/ext" />
 			<Add directory="../../src/ext/freechart/include" />
 			<Add directory="../../vase/src" />
+			<Add directory="../../vase" />
 		</Compiler>
 		<Linker>
 			<Add library="wxmsw31u" />
