@@ -18,8 +18,17 @@ namespace gui
 
 
 }
+}
+}
+
 #ifdef tern_build
+
 #include "tern.h"
+
+namespace raven
+{
+namespace sim
+{
 namespace tern
 {
 
@@ -28,7 +37,7 @@ bool ConstructModelFlowers( raven::sim::gui::cFlower * f );
 class cStoppingMachine : public cEventHandler
 {
 public:
-    cStoppingMachine( raven::sim::gui::cFlower * f )
+    cStoppingMachine( raven::sim::gui::cFlower * f );
 };
 
 }

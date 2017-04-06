@@ -70,6 +70,12 @@ bool ConstructModelFlowers( raven::sim::gui::cFlower * f )
     }
 
 }
+cStoppingMachine::cStoppingMachine( raven::sim::gui::cFlower * f )
+: cEventHandler(L"")
+{
+
+}
+
 }
 #endif
 }
