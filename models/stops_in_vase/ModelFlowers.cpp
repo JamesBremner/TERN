@@ -15,6 +15,8 @@ void cFlowerDict::InsertModelTypes()
      Insert( L"name_of_second_model_flower" );
     */
 
+    Insert( L"StoppingMachine");
+
 }
 namespace gui
 {
@@ -34,20 +36,21 @@ cFlower * cFlowerFactory::ConstructModelFlower( int flower_type_index )
 
     */
 
+    if( flower_type_index == myFlowerDict->Find( L"StoppingMachine" ))
+        return new cStoppingMachine();
+    else
+
         return nullptr;
 }
 
-/* TODO: Add code here to implement constructor of new flower in VASE
-
-  It should look like this
-
-  cFirstModelFlower::cFirstModelFlower()
-  {
-      myTypeName = L"name_of_first_model_flower";
-      setName();
-      AddParam(L"FirstParameterName", L" Description ", default_value );
-  }
- */
+cStoppingMachine::cStoppingMachine()
+{
+    myTypeName = L"StoppingMachine";
+    setName();
+    AddParam(L"TimeBetweenStops", L" secs ", 10 );
+    AddParam(L"DurationStops", L" secs ", 3 );
+    AddParam(L"StdDevStops", L" secs ", 1 );
+}
 
 }
 
@@ -56,23 +59,15 @@ namespace tern
 {
 bool ConstructModelFlowers( raven::sim::gui::cFlower * f )
 {
-	/* TODO: Add code here to call the constructors of new flowers in TERN
-
-	It should lookm like this
-
-	    if( f->getType() == raven::sim::gui::cFlowerFactory::Index(L"name_of_first_model_flower") )
-	    {
-	        new tern::cFirstModelFlower( f );
-	        return true;
-	    }
-	    else
-	    {
-	        return false;
+    if( f->getType() == raven::sim::gui::cFlowerFactory::Index(L"StoppingMachine") )
+    {
+        new tern::cStoppingMachine( f );
+        return true;
     }
-
-    */
-
+    else
+    {
         return false;
+    }
 
 }
 }
