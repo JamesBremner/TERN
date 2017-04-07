@@ -40,23 +40,23 @@ cVase::cVase()
 void cVase::ReadDB()
 {
     raven::sqlite::cDB db;
-    db.Open(L"vase.dat");
-    db.Query(L"SELECT type, time FROM params;");
+    db.Open("vase.dat");
+    db.Query("SELECT type, time FROM params;");
     if( db.myError )
     {
-        db.Query(L"DROP TABLE IF EXISTS params;");
-        db.Query(L"CREATE TABLE params ( type, time );");
-        db.Query(L"INSERT INTO params VALUES ( 1, 100 );" );
-        db.Query(L"CREATE TABLE quality_names ( name );");
-        db.Query(L"CREATE TABLE plot ( flower, plot, data );");
+        db.Query("DROP TABLE IF EXISTS params;");
+        db.Query("CREATE TABLE params ( type, time );");
+        db.Query("INSERT INTO params VALUES ( 1, 100 );" );
+        db.Query("CREATE TABLE quality_names ( name );");
+        db.Query("CREATE TABLE plot ( flower, plot, data );");
     }
     else
     {
-        mySimType = ( e_type ) wcstol(db.myResult[0].c_str(),NULL,10);
-        mySimTime = wcstol(db.myResult[1].c_str(),NULL,10);
+        mySimType = ( e_type ) strtol(db.myResultA[0].c_str(),NULL,10 );
+        mySimTime = strtol( db.myResultA[1].c_str(),NULL,10 );
 
-        db.Query(L"SELECT * FROM quality_names;");
-        raven::sim::tern::cQuality::setNames(  db.myResult );
+        db.Query("SELECT * FROM quality_names;");
+        raven::sim::tern::cQuality::setNames(  db.myResultA );
     }
 
 }
@@ -165,7 +165,7 @@ cVase::iterator cVase::find( int idx )
    @return  pointer to flower with name, NULL if not found
 
 */
-cFlower * cVase::find( const std::wstring& name )
+cFlower * cVase::find( const std::string& name )
 {
     for( auto flower : myVase )
     {
@@ -174,7 +174,7 @@ cFlower * cVase::find( const std::wstring& name )
     }
     return NULL;
 }
-void cVase::setName( const wstring& n )
+void cVase::setName( const string& n )
 {
     if( ! mySelected ) return;
     mySelected->setName( n );
@@ -237,24 +237,24 @@ bool cVase::Read( const std::string& filename )
     if( ! fp )
         return false;
 
-    wchar_t buf[1000];
-    fgetws(buf,999,fp);
-    while( fgetws(buf,999,fp) )
+    char buf[1000];
+    fgets(buf,999,fp);
+    while( fgets(buf,999,fp) )
     {
-        wstring line( buf );
+        string line( buf );
         if( line.length() < 3 )
             continue;
-        int p = line.find(L"->");
+        int p = line.find("->");
         if( p == -1 )
         {
-            p = line.find(L"vase_type='")+11;
-            int q = line.find(L"'",p);
-            wstring type = line.substr(p,q-p);
-            std::wcout << L"cVase::Read " << line <<L" t= " << type << std::endl;
+            p = line.find("vase_type='")+11;
+            int q = line.find("'",p);
+            string type = line.substr(p,q-p);
+            std::cout << "cVase::Read " << line <<" t= " << type << std::endl;
 
             if( ! Add( type ))
             {
-                wstring msg =  L"Unrecognized flower type of " + type;
+                string msg =  "Unrecognized flower type of " + type;
 #ifdef WXWIDGETS
                 wxMessageBox(msg, "Vase");
 #else
@@ -275,21 +275,21 @@ bool cVase::Read( const std::string& filename )
     if( ! fp )
         return false;
 
-    fgetws(buf,999,fp);
-    while( fgetws(buf,999,fp) )
+    fgets(buf,999,fp);
+    while( fgets(buf,999,fp) )
     {
-        wstring line( buf );
+        string line( buf );
         if( line.length() < 3 )
             continue;
-        int p = line.find(L"->");
+        int p = line.find("->");
         if( p != -1 )
         {
-            p = line.find(L"start_idx=");
+            p = line.find("start_idx=");
             int idx;
-            idx = wcstol(line.substr(p+10).c_str(),NULL,10);
+            idx = atoi(line.substr(p+10).c_str());
             cFlower * start = *find(idx);
-            p = line.find(L"end_idx=");
-            idx = wcstol(line.substr(p+8).c_str(),NULL,10);
+            p = line.find("end_idx=");
+            idx = atoi(line.substr(p+8).c_str());
             cFlower * end = *find(idx);
             if( ! start->getDestination() )
                 start->Connect( end );
@@ -306,7 +306,7 @@ bool cVase::Read( const std::string& filename )
 
     for( auto f : myVase )
     {
-        if( f->getType() == cFlowerFactory::Index(L"PipeBend") )
+        if( f->getType() == cFlowerFactory::Index("PipeBend") )
         {
             for( auto s : myVase )
             {
@@ -379,7 +379,7 @@ bool cVase::AllNamesUnique()
   The new flower is selected.
 
 */
-bool cVase::Add( const std::wstring& flower_type_name )
+bool cVase::Add( const std::string& flower_type_name )
 {
     myHandleSelected = -1;
     mySelected = cFlowerFactory::Construct( flower_type_name );

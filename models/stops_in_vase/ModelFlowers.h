@@ -1,5 +1,6 @@
 #pragma once
 #include "flower_types.h"
+#include "task.h"
 
 namespace raven
 {
@@ -8,13 +9,13 @@ namespace sim
 namespace gui
 {
 
-    // TODO Replace with class interfaces of the new flower types used by your model
+// TODO Replace with class interfaces of the new flower types used by your model
 
-    class cStoppingMachine : public cFlower
-    {
-    public:
-        cStoppingMachine();
-    };
+class cStoppingMachine : public cFlower
+{
+public:
+    cStoppingMachine();
+};
 
 
 }
@@ -34,10 +35,12 @@ namespace tern
 
 bool ConstructModelFlowers( raven::sim::gui::cFlower * f );
 
-class cStoppingMachine : public cEventHandler
+class cStoppingMachine : public task::cDelay
 {
 public:
     cStoppingMachine( raven::sim::gui::cFlower * f );
+
+
 };
 
 }

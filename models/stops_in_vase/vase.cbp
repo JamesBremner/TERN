@@ -61,8 +61,6 @@
 		</Linker>
 		<Unit filename="../../../raven-set/raven_sqlite.cpp" />
 		<Unit filename="../../../ravenset/raven_sqlite.h" />
-		<Unit filename="../../gui/ProcessFlowSimGUI.h" />
-		<Unit filename="../../gui/Table.h" />
 		<Unit filename="../../src/cQuality.h" />
 		<Unit filename="../../src/cVase.h" />
 		<Unit filename="../../src/ext/freechart/src/areadraw.cpp" />
@@ -99,8 +97,10 @@
 		</Unit>
 		<Unit filename="../../src/flower.h" />
 		<Unit filename="../../src/flower_types.h" />
+		<Unit filename="../../vase/ProcessFlowSimGUI.h" />
 		<Unit filename="../../vase/ProcessSimulationGui.cpp" />
 		<Unit filename="../../vase/Table.cpp" />
+		<Unit filename="../../vase/Table.h" />
 		<Unit filename="../../vase/src/cQuality.cpp" />
 		<Unit filename="../../vase/src/cVase .cpp" />
 		<Unit filename="../../vase/src/flower.cpp" />

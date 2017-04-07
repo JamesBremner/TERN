@@ -19,7 +19,7 @@ public:
     @param[in] output maximum output
 
     */
-    cFunnel(  const std::wstring& name,
+    cFunnel(  const std::string& name,
               double capacity,
               double output  )
         : cEventHandler( name )
@@ -29,23 +29,23 @@ public:
         , full_time( 0 )
         , myTotalInput( 0 )
     {
-        myQualityIndexVolume = cQuality::getIndex( L"Volume");
+        myQualityIndexVolume = cQuality::getIndex( "Volume");
     }
     cFunnel( raven::sim::gui::cFlower * f )
         : cEventHandler( f->getName() )
-        , myCapacity( f->getValue(L"Capacity") )
-        , myOutput( f->getValue(L"Output") )
-        , myLevel( f->getValue(L"StartVolume") )
+        , myCapacity( f->getValue("Capacity") )
+        , myOutput( f->getValue("Output") )
+        , myLevel( f->getValue("StartVolume") )
         , full_time( 0 )
         , myTotalInput( 0 )
     {
-        myQualityIndexVolume = cQuality::getIndex( L"Volume");
+        myQualityIndexVolume = cQuality::getIndex( "Volume");
 
         // loop over defined qualities
         for( auto q : myQuality )
         {
             // skip volume, already handled
-            if( q.first == L"Volume" )
+            if( q.first == "Volume" )
                 continue;
 
             // Initial value of quality
@@ -56,8 +56,8 @@ public:
         }
 
         // add plots for adsorbed
-        AddPlot( L"adsorbed_ethanol" );
-        AddPlot( L"adsorbed_butanol" );
+        AddPlot( "adsorbed_ethanol" );
+        AddPlot( "adsorbed_butanol" );
     }
 
     /// initialize simulation, automatically called by simulator
@@ -70,7 +70,7 @@ public:
         }
         catch ( std::runtime_error& e)
         {
-            tern::theSimulationEngine.HandleFatalError( myName + L" output is unconnected" );
+            tern::theSimulationEngine.HandleFatalError( myName + " output is unconnected" );
         }
         try
         {
@@ -78,7 +78,7 @@ public:
         }
         catch ( std::runtime_error& e)
         {
-            tern::theSimulationEngine.HandleFatalError( myName + L" overflow is unconnected" );
+            tern::theSimulationEngine.HandleFatalError( myName + " overflow is unconnected" );
         }
 
         // schedule first outpur
@@ -133,7 +133,7 @@ public:
                     myLevel -= spillage;
                 }
 
-                std::wcout << myName << " output " << outflow << " spill " << spillage <<  " level " << myLevel << " at " << tern::theSimulationEngine.theTime << std::endl;
+                std::cout << myName << " output " << outflow << " spill " << spillage <<  " level " << myLevel << " at " << tern::theSimulationEngine.theTime << std::endl;
 
             }
             ScheduleOutput();
@@ -150,12 +150,12 @@ public:
             cQuality Q;
             for( auto q : Q )
             {
-                if( q.first == L"Volume" )
+                if( q.first == "Volume" )
                     continue;
 
-                std::wcout << myName << L" before input " << q.first
-                           <<L" " << myQuality.getValue( q.second )
-                           <<L" "<< e->myPlanet->getQuality( q.second ) << std::endl;
+                std::cout << myName << " before input " << q.first
+                           <<" " << myQuality.getValue( q.second )
+                           <<" "<< e->myPlanet->getQuality( q.second ) << std::endl;
 
                 //update concentrations
                 if( myLevel < 0.01 )
@@ -166,8 +166,8 @@ public:
                                           inputVolume * e->myPlanet->getQuality( q.second ) ) /
                                         myLevel );
 
-                std::wcout << myName << L" after input " << q.first
-                           <<L" " << myQuality.getValue( q.second ) << std::endl;
+                std::cout << myName << " after input " << q.first
+                           <<" " << myQuality.getValue( q.second ) << std::endl;
             }
 
             // no output, so we are done with the input
@@ -204,7 +204,7 @@ public:
         for( auto q : myQuality )
         {
             // skip volume, already handled
-            if( q.first == L"Volume" )
+            if( q.first == "Volume" )
                 continue;
             myPlot[ index++ ].myData.push_back( myQuality.getValue( q.second ));
         }

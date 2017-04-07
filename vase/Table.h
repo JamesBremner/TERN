@@ -62,13 +62,13 @@ private:
     wxPoint myPosition_clicked;
     wxString myReportName;
 
-    std::vector < std::wstring > myFinalReport;
+    std::vector < std::string > myFinalReport;
     Chart * myChart;
 
     void    ReadFinalReport();
     void    FindPlotInReport(
-        std::vector< std::wstring >& vplot,
-        const std::wstring& name );
+        std::vector< std::string >& vplot,
+        const std::string& name );
 };
 
 }

@@ -51,9 +51,13 @@
 		</Unit>
 		<Unit filename="../../src/flower.h" />
 		<Unit filename="../../src/flower_types.h" />
+		<Unit filename="../../src/stats.h" />
+		<Unit filename="../../src/task.cpp" />
+		<Unit filename="../../src/task.h" />
 		<Unit filename="../../tern/cFunnel.h" />
 		<Unit filename="../../tern_in_vase/TernSimEng.cpp" />
 		<Unit filename="../../tern_in_vase/tern.cpp" />
+		<Unit filename="../../tern_in_vase/tern.h" />
 		<Unit filename="../../vase/src/cQuality.cpp" />
 		<Unit filename="../../vase/src/cVase .cpp" />
 		<Unit filename="../../vase/src/flower.cpp" />

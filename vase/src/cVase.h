@@ -49,7 +49,7 @@ public:
 
     cVase();
 
-    bool	Add(  const std::wstring& flower_type_name );
+    bool	Add(  const std::string& flower_type_name );
     bool    Add( int flower_type_index );
     bool	Read( const std::string& filename );
     bool	Write( const std::string& filename );
@@ -78,7 +78,7 @@ public:
     }
 
     void	Delete();
-    void	setName( const wstring& n = L"" );
+    void	setName( const string& n = "" );
     bool	AllNamesUnique();
     void	Connect();
     void    Connect2();
@@ -109,7 +109,7 @@ public:
     void setSimTime( int t )    { mySimTime = t; }
     int getSimTime()            { return mySimTime; }
 
-    cFlower*  find( const std::wstring& name );
+    cFlower*  find( const std::string& name );
 
 private:
     std::vector < cFlower* > myVase;

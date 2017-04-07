@@ -39,87 +39,87 @@ namespace gui
 
 cPump::cPump( )
 {
-    myTypeName = L"Pump";
+    myTypeName = "Pump";
     myType     = cFlowerFactory::Index( myTypeName );
-	myShape = L"circle";
+	myShape = "circle";
 	setName();
 
 }
 cVessel::cVessel()
 {
-	myTypeName = L"Vessel";
+	myTypeName = "Vesse";
 	setName();
-	AddParam( L"Volume", L" (liters) " );
+	AddParam( "Volume", " (liters) " );
 }
 cFunnel::cFunnel()
 {
-	myTypeName = L"Funnel";
+	myTypeName = "Funne";
 	setName();
-	AddParam( L"Capacity", L" (liters) " );
-	AddParam( L"Output", L" rate, volume/time" );
-	AddParam( L"StartVolume", L"Starting Volume");
+	AddParam( "Capacity", " (liters) " );
+	AddParam( "Output", " rate, volume/time" );
+	AddParam( "StartVolume", "Starting Volume");
 
-    std::vector< wstring > vQualityNames;
+    std::vector< string > vQualityNames;
     raven::sim::tern::cQuality::getNames( vQualityNames );
     for ( auto& q : vQualityNames )
     {
         if( q.empty() )
             continue;
-        if( q == L"Volume" )
+        if( q == "Volume" )
             continue;
-        AddParam( q, L"" );
+        AddParam( q, "" );
     }
 
 	myOutputPortCount = 2;
 }
 cSource::cSource()
 {
-    myTypeName = L"Source";
+    myTypeName = "Source";
     setName();
-    AddParam( L"Mean", L"Mean time between arrivals" );
+    AddParam( "Mean", "Mean time between arrivals" );
 
-    std::vector< wstring > vQualityNames;
+    std::vector< string > vQualityNames;
     raven::sim::tern::cQuality::getNames( vQualityNames );
     for ( auto& q : vQualityNames )
     {
         if( ! q.empty() )
-            AddParam( q, L"" );
+            AddParam( q, "" );
     }
 
 }
 cSourceFlow::cSourceFlow()
 {
-    myTypeName = L"SourceFlow";
+    myTypeName = "SourceFlow";
     setName();
 
-    std::vector< wstring > vQualityNames;
+    std::vector< string > vQualityNames;
     raven::sim::tern::cQuality::getNames( vQualityNames );
     for ( auto& q : vQualityNames )
     {
         if( ! q.empty() )
-            AddParam( q, L"" );
+            AddParam( q, "" );
     }
 }
 cSink::cSink()
 {
-    myTypeName = L"Sink";
+    myTypeName = "Sink";
     setName();
 }
 cDelay::cDelay()
 {
-    myTypeName = L"Delay";
+    myTypeName = "Delay";
     setName();
-    AddParam( L"Mean", L"secs");
+    AddParam( "Mean", "secs");
 }
 cBusy::cBusy()
 {
-    myTypeName = L"Busy";
+    myTypeName = "Busy";
     setName();
-    AddParam( L"Mean", L"secs");
+    AddParam( "Mean", "secs");
 }
 cQueue::cQueue()
 {
-    myTypeName = L"Queue";
+    myTypeName = "Queue";
     setName();
 }
 

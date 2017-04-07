@@ -208,7 +208,7 @@ void cTable::MouseMove( wxMouseEvent& event )
         cFlower * flower = myVase.find(  event.GetPosition() );
         if( ! flower )
             return;
-        wstring target = flower->getName();
+        string target = flower->getName();
         for( auto& l : myFinalReport )
         {
             if( l.find( target ) == -1 )
@@ -222,7 +222,7 @@ void cTable::MouseMove( wxMouseEvent& event )
 void cTable::ReadFinalReport()
 {
     myFinalReport.clear();
-    std::wifstream inf;
+    std::ifstream inf;
     inf.open("tern_final_report.txt");
     if( ! inf.is_open() )
     {
@@ -232,7 +232,7 @@ void cTable::ReadFinalReport()
     }
 
     // loop over lines
-    std::wstring line;
+    std::string line;
     while( 1 )
     {
         std::getline( inf, line );
@@ -317,7 +317,7 @@ void cTable::ReportLoad()
 void cTable::OnPlot( wxCommandEvent& event )
 {
     // extract selected flower plots from report
-    std::vector< std::wstring > vPlot;
+    std::vector< std::string > vPlot;
     FindPlotInReport(
         vPlot,
         myVase.getSelected()->getName() );
@@ -342,12 +342,12 @@ void cTable::OnPlot( wxCommandEvent& event )
         std::vector<double> y;
         int index = 0;
         int index_step = myVase.getSimTime() / 20;
-        const wchar_t * ps = splt.data();
-        wchar_t * next = (wchar_t *)ps;
+        const char * ps = splt.data();
+        char * next = (char *)ps;
         while( 1 )
         {
             ps = next;
-            double d = wcstod( ps, &next );
+            double d = strtod( ps, &next );
             if( ps == next )
                 break;
             //dataset->Add( d );
@@ -383,17 +383,17 @@ void cTable::OnPlot( wxCommandEvent& event )
 
 }
 void cTable::FindPlotInReport(
-    std::vector< std::wstring >& vplot,
-    const std::wstring& name )
+    std::vector< std::string >& vplot,
+    const std::string& name )
 {
     vplot.clear();
     raven::sqlite::cDB db;
-    db.Open(L"vase.dat");
-    int rows = db.Query(L"SELECT * FROM plot WHERE flower = '%s';",
+    db.Open("vase.dat");
+    int rows = db.Query("SELECT * FROM plot WHERE flower = '%s';",
                         name.c_str() );
     for( int k = 0; k < rows; k++ )
     {
-        vplot.push_back( db.myResult[ k * 3 + 2] );
+        vplot.push_back( db.myResultA[ k * 3 + 2] );
     }
 }
 //{

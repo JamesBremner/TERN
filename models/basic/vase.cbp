@@ -101,6 +101,7 @@
 		<Unit filename="../../src/flower_types.h" />
 		<Unit filename="../../vase/ProcessSimulationGui.cpp" />
 		<Unit filename="../../vase/Table.cpp" />
+		<Unit filename="../../vase/Table.h" />
 		<Unit filename="../../vase/src/cQuality.cpp" />
 		<Unit filename="../../vase/src/cVase .cpp" />
 		<Unit filename="../../vase/src/flower.cpp" />

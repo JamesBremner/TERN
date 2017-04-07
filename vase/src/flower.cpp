@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <cstdio>
 #include <iostream>
 #include <string>
@@ -40,10 +41,10 @@ const int handlesize = 10;
 
 */
 cFlower::cFlower( )
-    : myName( L"unnamed" )
-    , myTypeName( L"flower" )
+    : myName( "unnamed" )
+    , myTypeName( "flower" )
     , myType( 1 )
-    , myShape( L"box" )
+    , myShape( "box" )
     , myWidth( 50 )
     , myHeight( -1 )
     , IsSelected( false )
@@ -66,7 +67,7 @@ cFlower::cFlower( )
   If n is blank, set to typename_index
 
 */
-void cFlower::setName( const wstring& n )
+void cFlower::setName( const string& n )
 {
     if( n.length() > 0 )
         myName = n;
@@ -126,7 +127,7 @@ void cFlower::setLocationCenter( int x, int y )
 void cFlower::DrawText( wxPaintDC& dc )
 {
     // User does not care about name and type of pipebends
-    if( myType == cFlowerFactory::Index( L"PipeBend") )
+    if( myType == cFlowerFactory::Index( "PipeBend") )
         return;
 
     wxString name = myName;
@@ -467,7 +468,7 @@ void cFlower::AppendProperties( wxPropertyGrid * pg )
 void cFlower::Write( FILE * fp )
 {
     fprintf(fp,
-            "%S [shape=%S,pos=\"%d,%d\"] // [ vase_type='%S' vase_idx=%d ",
+            "%s [shape=%s,pos=\"%d,%d\"] // [ vase_type='%s' vase_idx=%d ",
             myName.c_str(),
             myShape.c_str(),
             myX,myY,
@@ -477,7 +478,7 @@ void cFlower::Write( FILE * fp )
     for( auto& pp : myParam )
     {
         fprintf(fp,
-                "p_%S %f ",
+                "p_%s %f ",
                 pp.second.name.c_str(), pp.second.value );
     }
     fprintf(fp,"]\n");
@@ -514,36 +515,36 @@ void cFlower::WritePipe( FILE * fp )
   Read from line graphviz dot file
 
 */
-void cFlower::Read( const wstring& line )
+void cFlower::Read( const string& line )
 {
     int p;
 #ifdef WXWIDGETS
-    p = line.find(L"pos=")+5;
-    int x = std::wcstol(line.substr(p).c_str(),0,10);
-    p = line.find(L",",p)+1;
-    int y = std::wcstol(line.substr(p).c_str(),0,10);
+    p = line.find("pos=")+5;
+    int x = atoi(line.substr(p).c_str());
+    p = line.find(",",p)+1;
+    int y = atoi(line.substr(p).c_str());
     setLocationTopLeft( x,y );
 
 #endif
-    setName(line.substr(0,line.find(L" ")));
+    setName(line.substr(0,line.find(" ")));
 
-    p = line.find(L"vase_idx=");
+    p = line.find("vase_idx=");
     int idx;
-    idx = std::wcstol(line.substr(p+9).c_str(),0,10);
+    idx = atoi(line.substr(p+9).c_str());
     setIndex( idx );
 
     // loop over parameters
     for( auto& param : myParam )
     {
         // find specified value of parameter in input file
-        wstring target = L"p_" + param.second.name;
+        string target = "p_" + param.second.name;
         p = line.find( target );
         if( p != -1 )
         {
             p += target.length() + 1;
 
-            // set the value of the parameter
-            param.second.value = wcstod( line.substr(p).c_str(),0);
+            // set the value of the paramete
+            param.second.value = atoi( line.substr(p).c_str());
             //std::wcout << myName << " " << param.second.name << " = " << param.second.value << std::endl;
         }
     }
@@ -566,17 +567,17 @@ void cFlower::Read( const wstring& line )
   for the specialized flower type.
 
 */
-void cFlower::AddParam( const wstring& name, const wstring& description, double defaultvalue )
+void cFlower::AddParam( const string& name, const string& description, double defaultvalue )
 {
     sparam param;
     param.name = name;
     param.value = defaultvalue;
     param.description = description;
-    myParam.insert( std::pair<wstring,sparam>(name,param ));
+    myParam.insert( std::pair<string,sparam>(name,param ));
 }
 
 double cFlower::getValue(
-    const wstring& name    ) const
+    const string& name    ) const
 {
 
     auto pit = myParam.find( name );
@@ -618,7 +619,7 @@ void cFlowerFactory::setMenu( int IDM_CreateGeneric )
 }
 
 int cFlowerFactory::Index(
-    const std::wstring& flower_type_name )
+    const std::string& flower_type_name )
 {
     return myFlowerDict->Find( flower_type_name );
 }
@@ -634,7 +635,7 @@ int cFlowerFactory::TypeCount()
   @param[in] flower_type_name the flower type to create
 
 */
-cFlower* cFlowerFactory::Construct( const std::wstring& flower_type_name )
+cFlower* cFlowerFactory::Construct( const std::string& flower_type_name )
 {
     int index = myFlowerDict->Find( flower_type_name );
     if( index < 0 )
@@ -679,7 +680,7 @@ cFlower * cFlowerFactory::Construct(
 }
 cPipeBend::cPipeBend()
 {
-    myTypeName = L"PipeBend";
+    myTypeName = "PipeBend";
     setName();
     //myWidth = 5;
 }
@@ -759,9 +760,9 @@ cFlowerConfigDlg::cFlowerConfigDlg( wxWindow* parent, cFlower* flower )
 #endif
 }
 
-    void cFlowerDict::Insert(  const std::wstring& flower_type_name )
+    void cFlowerDict::Insert(  const std::string& flower_type_name )
     {
-        std::wcout << L"Flower Dictionary Insert " << myDict.size()+1 <<L" "<< flower_type_name << std::endl;
+        std::cout << "Flower Dictionary Insert " << myDict.size()+1 <<" "<< flower_type_name << std::endl;
         myDict.insert(
             cFlowerType(
                 myDict.size()+1,

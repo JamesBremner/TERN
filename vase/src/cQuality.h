@@ -22,10 +22,10 @@ public:
     Every planet has the same set of qualities,
     so this should be called just once at the start of the simulation
     */
-    static void setNames( const std::vector< std::wstring >& names );
+    static void setNames( const std::vector< std::string >& names );
 
     /**  Get names of qualities */
-    static void getNames( std::vector< std::wstring >& names );
+    static void getNames( std::vector< std::string >& names );
 
     /** Number of qualities */
     static int size()
@@ -42,7 +42,7 @@ public:
     It should therefore be called once in the constructor of each flower
     and the indices stored in an attribute
     */
-    static int getIndex( const std::wstring& name );
+    static int getIndex( const std::string& name );
 
     /**  Set value by index */
     void setValue( int index, double value )
@@ -53,13 +53,13 @@ public:
     { if( 0 > index || index >= myValue.size() ) return 0; return myValue[ index ]; }
 
     /** Set value by name ( slow ) */
-    void setValue(  const std::wstring& name, double value )
+    void setValue(  const std::string& name, double value )
     {
         setValue( getIndex( name ), value );
     }
 
     /** Get value by name ( slow ) */
-    double getValue( const std::wstring& name ) const
+    double getValue( const std::string& name ) const
     {
         return getValue( getIndex( name ) );
     }
@@ -69,13 +69,13 @@ public:
  //       if( 0 > index || index >= myValue.size() ) return L""; return myNameMap[index].first;
     }
 
-    typedef std::map< std::wstring, int >::const_iterator const_iter;
+    typedef std::map< std::string, int >::const_iterator const_iter;
     const_iter begin()  { return myNameMap.begin(); }
     const_iter end()    { return myNameMap.end(); }
 
 private:
     /** Every planet has the same set of qualities */
-    static std::map< std::wstring, int > myNameMap;
+    static std::map< std::string, int > myNameMap;
     /** The values of qualities for the planet */
     std::vector< double > myValue;
 };

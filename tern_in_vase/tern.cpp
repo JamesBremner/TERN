@@ -96,7 +96,7 @@ void cTERN::Add(
 
     if( fConsolLog )
     {
-        wcout << "Planet " << planet->myID
+        cout << "Planet " << planet->myID
               << " scheduled for " << e.myHandler->getName()
               << " at " << e.myTime << endl;
     }
@@ -118,7 +118,7 @@ void cTERN::Add(
 
     if( fConsolLog )
     {
-        wcout << "Planet " << planet->myID
+        cout << "Planet " << planet->myID
               << " scheduled for " << e.myHandler->getName()
               << " at " << e.myTime << endl;
     }
@@ -249,7 +249,7 @@ cEventHandler * cTERN::Find( int id )
     return *ph;
 }
 
-cEventHandler * cTERN::Find( const std::wstring& name )
+cEventHandler * cTERN::Find( const std::string& name )
 {
     for( auto& h : myHandlers )
     {
@@ -261,33 +261,33 @@ cEventHandler * cTERN::Find( const std::wstring& name )
     return 0;
 }
 
-void cTERN::Connect( const std::wstring& src,
-                     const std::wstring& dst )
+void cTERN::Connect( const std::string& src,
+                     const std::string& dst )
 {
     cEventHandler* psrc = Find( src );
     if( ! psrc )
     {
-        HandleFatalError( L"ERROR: Cannot find " + src );
+        HandleFatalError( "ERROR: Cannot find " + src );
     }
     cEventHandler* pdst = Find( dst );
     if( ! pdst )
     {
-        HandleFatalError( L"ERROR: Cannot find " + dst );
+        HandleFatalError( "ERROR: Cannot find " + dst );
     }
     psrc->setDestination( pdst );
 }
-void cTERN::Connect2( const std::wstring& src,
-                      const std::wstring& dst )
+void cTERN::Connect2( const std::string& src,
+                      const std::string& dst )
 {
     cEventHandler* psrc = Find( src );
     if( ! psrc )
     {
-        HandleFatalError( L"ERROR: Cannot find " + src );
+        HandleFatalError( "ERROR: Cannot find " + src );
     }
     cEventHandler* pdst = Find( dst );
     if( ! pdst )
     {
-        HandleFatalError( L"ERROR: Cannot find " + dst );
+        HandleFatalError( "ERROR: Cannot find " + dst );
     }
     psrc->setDestination2( pdst );
 }
@@ -374,17 +374,17 @@ void cTERN::Add( cEventHandler& handler )
 
 
 
-cEventHandler::cEventHandler( const std::wstring& name )
+cEventHandler::cEventHandler( const std::string& name )
     : myName( name )
 {
     myID = nextID++;		                // unique ID for this handler
     theSimulationEngine.Add( *this );		// inform simulator this handler exists
-    AddPlot( L"Volume" );
+    AddPlot( "Volume" );
 }
 
 void cEventHandler::Start()
 {
-    wcout << L"empty start called for " << myName << endl;
+    cout << "empty start called for " << myName << endl;
 }
 
 /**  Handle standard events

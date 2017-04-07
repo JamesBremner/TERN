@@ -396,7 +396,7 @@ void cTable::MouseDoubleClick( wxMouseEvent& event )
     {
         wxTextEntryDialog dlg(this,"","Name the flower");
         dlg.ShowModal();
-        myVase.setName(  dlg.GetValue().wc_str() );
+        myVase.setName(  dlg.GetValue().ToStdString() );
         Refresh();
     }
 
@@ -406,7 +406,7 @@ void cTable::OnRename( wxCommandEvent&  )
 {
     wxTextEntryDialog dlg(this,"","Name the flower");
     dlg.ShowModal();
-    myVase.setName( dlg.GetValue().wc_str() );
+    myVase.setName( dlg.GetValue().ToStdString() );
     Refresh();
 
 }
@@ -485,19 +485,19 @@ void cSimOptionDlg::OnOK( wxCommandEvent& event )
 
     // save values to database
     raven::sqlite::cDB db;
-    db.Open(L"vase.dat");
-    db.Query(L"UPDATE params SET type = 1, time = %d;",
+    db.Open("vase.dat");
+    db.Query("UPDATE params SET type = 1, time = %d;",
              time );
 
     wxGetApp().theTable->myVase.setSimTime( time );
     wxGetApp().theTable->myVase.mySimType = ( cVase::e_type ) 1;
 
-    db.Query(L"DELETE FROM quality_names;");
-    std::vector<wstring> vQNames;
+    db.Query("DELETE FROM quality_names;");
+    std::vector<string> vQNames;
     for( int QCount = 1; QCount <= 5; QCount++ )
     {
-        wstring qname( prop_quality[ QCount - 1 ]->GetValueAsString().wc_str() );
-        db.Query(L"INSERT INTO quality_names VALUES ( '%s' );",
+        string qname( prop_quality[ QCount - 1 ]->GetValueAsString().ToStdString() );
+        db.Query("INSERT INTO quality_names VALUES ( '%s' );",
                 qname.c_str());
         vQNames.push_back( qname );
     }

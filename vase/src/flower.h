@@ -24,7 +24,7 @@
 class wxPropertyGrid;
 #endif
 #include <string>
-using std::wstring;
+using std::string;
 #include <map>
 #include <vector>
 #include <set>
@@ -39,10 +39,10 @@ class cFlowerType
 {
 public:
     int myIndex;
-    std::wstring myName;
+    std::string myName;
     cFlowerType(
         int i,
-        const std::wstring& n )
+        const std::string& n )
         : myIndex( i )
         , myName( n )
     {
@@ -75,17 +75,17 @@ public:
     {
         // standard types
 
-        Insert(  L"Base" );
-        Insert(  L"Pump"  );
-        Insert(  L"Vessel"  );
-        Insert(  L"Funnel"  );
-        Insert(  L"Source" );
-        Insert(  L"SourceFlow"  );
-        Insert(  L"Sink" );
-        Insert(  L"Delay"  );
-        Insert(  L"Busy" ) ;
-        Insert(  L"Queue" ) ;
-        Insert(  L"PipeBend" ) ;
+        Insert(  "Base" );
+        Insert(  "Pump"  );
+        Insert(  "Vesse"  );
+        Insert(  "Funne"  );
+        Insert(  "Source" );
+        Insert(  "SourceFlow"  );
+        Insert(  "Sink" );
+        Insert(  "Delay"  );
+        Insert(  "Busy" ) ;
+        Insert(  "Queue" ) ;
+        Insert(  "PipeBend" ) ;
 
         // model types
 
@@ -97,7 +97,7 @@ public:
     @param[in] flower_type_name
     @return index of foubd flower type, or -1 if not found
     */
-    const int Find( const std::wstring& flower_type_name )
+    const int Find( const std::string& flower_type_name )
     {
         for( auto& f : myDict )
         {
@@ -127,7 +127,7 @@ private:
 
     @param[in] flower_type_name
     */
-    void Insert(  const std::wstring& flower_type_name );
+    void Insert(  const std::string& flower_type_name );
 
 
     /** Insert flower types specialized for the model
@@ -163,11 +163,11 @@ public:
     cFlowerFactory();
     void setMenu( int IDM_CreateGeneric );
     static cFlower * Construct(
-        const std::wstring& flower_type_name );
+        const std::string& flower_type_name );
     static cFlower * Construct(
         int flower_type_index );
     static int Index(
-        const std::wstring& flower_type_name );
+        const std::string& flower_type_name );
     static int TypeCount();
 
 
@@ -235,18 +235,18 @@ public:
     ///A paramater
     struct sparam
     {
-        wstring name;          /// used for ID, no spaces no quotes
-        wstring description;   /// advice to user, no quotes
+        string name;          /// used for ID, no spaces no quotes
+        string description;   /// advice to user, no quotes
         double value;           /// value of the parmater
     };
     /// The parameters for this flower
-    std::map< std::wstring, sparam > myParam;
+    std::map< std::string, sparam > myParam;
     void AddParam(
-        const wstring& name,
-        const wstring& description = L"",
+        const string& name,
+        const string& description = "",
         double defaultvalue = 0.0);
     double getValue(
-        const wstring& name    ) const;
+        const string& name    ) const;
 
     cFlower( );
     virtual ~cFlower() {}
@@ -299,12 +299,12 @@ public:
     {
         IsSelected = false;
     }
-    void setName( const wstring& n = L"" );
-    const wstring& getName() const
+    void setName( const string& n = "" );
+    const string& getName() const
     {
         return myName;
     }
-    wstring& getTypeName()
+    string& getTypeName()
     {
         return myTypeName;
     }
@@ -314,7 +314,7 @@ public:
     }
     void Write( FILE * fp );
     void WritePipe( FILE * fp );
-    void Read( const wstring& line );
+    void Read( const string& line );
     void Connect( cFlower * d )
     {
         myDestination = d;    ///< Connect output to a destination flower
@@ -353,10 +353,10 @@ public:
     }
 
 protected:
-    wstring myName;
+    string myName;
     int    myType;
-    wstring myTypeName;
-    wstring myShape;
+    string myTypeName;
+    string myShape;
     int myX;
     int myY;
     int myWidth;

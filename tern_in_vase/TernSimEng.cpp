@@ -15,7 +15,7 @@
 #include "tern.h"
 #include "cVase.h"
 #include "probability.h"
-#include "cFunnel.h"
+//#include "cFunnel.h"
 #include "ModelFlowers.h"
 
 
@@ -42,7 +42,7 @@ public:
     */
     cSource( const raven::sim::gui::cFlower* f )
         : cEventHandler( f->getName() )
-        , myMean( f->getValue( L"Rate" ))
+        , myMean( f->getValue( "Rate" ))
         , myTotal( 0 )
     {
         for ( auto it : myQuality )
@@ -107,7 +107,7 @@ public:
 
     void FinalReport()
     {
-        wcout << "Source " << myName;
+        cout << "Source " << myName;
         cout << " Tasks generated " << myTotal << endl;
     }
 
@@ -133,9 +133,9 @@ public:
     {
         for ( auto it : myQuality )
         {
-            std::wcout <<L"SourceFlow constructor " << it.first
-                <<L" " << it.second
-                <<L" "<< f->getValue( it.first ) << std::endl;
+            std::cout <<"SourceFlow constructor " << it.first
+                <<" " << it.second
+                <<" "<< f->getValue( it.first ) << std::endl;
 
             myQuality.setValue( it.second, f->getValue( it.first ) );
         }
@@ -192,7 +192,7 @@ public:
     }
     void FinalReport()
     {
-        wcout << "SourceFlow " << myName;
+        cout << "SourceFlow " << myName;
         cout << " Total volume " << myTotal << endl;
 
     }
@@ -209,18 +209,18 @@ class cSink
     : public tern::cEventHandler
 {
 public:
-    cSink(  const std::wstring& name )
+    cSink(  const std::string& name )
         : cEventHandler( name )
         , myVolume( 0 )
         , myPlotVolume( 0 )
     {
-        myQualityIndexVolume = cQuality::getIndex( L"Volume");
+        myQualityIndexVolume = cQuality::getIndex( "Volume");
 
                 // loop over defined qualities
         for( auto q : myQuality )
         {
             // skip volume, already handled
-            if( q.first == L"Volume" )
+            if( q.first == "Volume" )
                 continue;
 
             // Initial value of quality
@@ -240,7 +240,7 @@ public:
         // report on planet's history
         long long lifetime = e->myPlanet->getLifetime();
         acc( lifetime );
-        wcout << " Planet " << e->myPlanet->myID << " arrived at sink " << myName
+        cout << " Planet " << e->myPlanet->myID << " arrived at sink " << myName
               << " at " << tern::theSimulationEngine.theTime << " after " << lifetime << endl;
 
         // Add to total volume, just 0 if volume not specified
@@ -265,14 +265,14 @@ public:
         for( auto q : myQuality )
         {
             // skip volume, already handled
-            if( q.first == L"Volume" )
+            if( q.first == "Volume" )
                 continue;
             myPlot[ index++ ].myData.push_back( myQuality.getValue( q.second ));
         }
     }
     void FinalReport()
     {
-        wcout << "Sink " << myName;
+        cout << "Sink " << myName;
 
         //  Output volume plot, if volume quality specified
         if( myQualityIndexVolume >= 0 )
@@ -322,7 +322,7 @@ public:
     @param[in] mean  delay time
 
     */
-    cDelay(  const std::wstring& name, double mean  )
+    cDelay(  const std::string& name, double mean  )
         : cEventHandler( name )
         , myMean( mean )
     {
@@ -365,7 +365,7 @@ public:
 
 
     */
-    cGeneric(  const std::wstring& name  )
+    cGeneric(  const std::string& name  )
         : cEventHandler( name )
 
     {
@@ -404,13 +404,13 @@ public:
     @param[in] capacity
 
     */
-    cVessel(  const std::wstring& name, double capacity  )
+    cVessel(  const std::string& name, double capacity  )
         : cEventHandler( name )
         , myCapacity( capacity )
         , myLevel( 0 )
         , full_time( 0 )
     {
-        myQualityIndexVolume = cQuality::getIndex( L"Volume");
+        myQualityIndexVolume = cQuality::getIndex( "Volume");
         if( myQualityIndexVolume < 0  )
         {
             tern::theSimulationEngine.HandleFatalError(L"ERROR: Vessel cannot find Volume quality");
@@ -449,11 +449,11 @@ public:
     }
     void FinalReport()
     {
-        wcout << "Vessel " << myName;
+        cout << "Vessel " << myName;
         if( full_time == 0 )
-            wcout << " Partially filled at " << myLevel << endl;
+            cout << " Partially filled at " << myLevel << endl;
         else
-            wcout << " Filled up at time " << full_time << endl;
+            cout << " Filled up at time " << full_time << endl;
         PlotOutput();
     }
 private:
@@ -473,7 +473,7 @@ public:
     @param[in] mean  delay time
 
     */
-    cBusy(  const std::wstring& name, double mean  )
+    cBusy(  const std::string& name, double mean  )
         : cEventHandler( name )
         , myMean( mean )
         , myNextFree( 0 )
@@ -492,7 +492,7 @@ public:
             // check if we are busy
             if( tern::theSimulationEngine.theTime < myNextFree )
             {
-                wcout << "Error: Collision at Busy " << myName
+                cout << "Error: Collision at Busy " << myName
                       << " time is " << tern::theSimulationEngine.theTime
                       << " but busy till " << myNextFree << endl;
                 return 0;
@@ -523,7 +523,7 @@ class cQueue
     : public tern::cEventHandler
 {
 public:
-    cQueue(  const std::wstring& name )
+    cQueue(  const std::string& name )
         : cEventHandler( name )
         , myMax( 0 )
     {
@@ -645,7 +645,7 @@ public:
 
     void FinalReport()
     {
-        wcout << "Queue " << myName;
+        cout << "Queue " << myName;
         cout << " Max length " << myMax << endl;
     }
 private:
@@ -656,12 +656,12 @@ private:
 
 void cFunnel::FinalReport()
 {
-    wcout << "Funnel " << myName;
+    cout << "Funnel " << myName;
     cout << " Total Volume handled " << myTotalInput << " ";
     if( full_time == 0 )
-        wcout << " Partially filled at " << myLevel << endl;
+        cout << " Partially filled at " << myLevel << endl;
     else
-        wcout << " Filled up at time " << full_time << endl;
+        cout << " Filled up at time " << full_time << endl;
 
     PlotOutput();
 
@@ -685,36 +685,36 @@ void Load( cTERN& theSimulationEngine,
     // construct the event handlers for each flower in the vase
     for( const auto f : theVase )
     {
-        wcout << f->getName() << endl;
+        cout << f->getName() << endl;
 
-        if( f->getType() == cFlowerFactory::Index(L"Source") )
+        if( f->getType() == cFlowerFactory::Index("Source") )
             new tern::cSource( f );
 
-        else if( f->getType() == cFlowerFactory::Index(L"SourceFlow") )
+        else if( f->getType() == cFlowerFactory::Index("SourceFlow") )
             new tern::cSourceFlow( f );
 
-        else if( f->getType() == cFlowerFactory::Index(L"Sink") )
+        else if( f->getType() == cFlowerFactory::Index("Sink") )
             new tern::cSink( f->getName() );
 
-        else if( f->getType() == cFlowerFactory::Index(L"Base") )
+        else if( f->getType() == cFlowerFactory::Index("Base") )
             new tern::cGeneric( f->getName() );
 
-        else if( f->getType() == cFlowerFactory::Index(L"Delay") )
-            new tern::cDelay( f->getName(),  f->getValue(L"Mean") );
+        else if( f->getType() == cFlowerFactory::Index("Delay") )
+            new tern::cDelay( f->getName(),  f->getValue("Mean") );
 
-        else if( f->getType() == cFlowerFactory::Index(L"Busy") )
-            new tern::cBusy( f->getName(),  f->getValue(L"Mean") );
+        else if( f->getType() == cFlowerFactory::Index("Busy") )
+            new tern::cBusy( f->getName(),  f->getValue("Mean") );
 
-        else if( f->getType() == cFlowerFactory::Index(L"Queue") )
+        else if( f->getType() == cFlowerFactory::Index("Queue") )
             new tern::cQueue( f->getName() );
 
-        else if( f->getType() == cFlowerFactory::Index(L"Vessel") )
-            new tern::cVessel( f->getName(), f->getValue(L"Volume") );
+        else if( f->getType() == cFlowerFactory::Index("Vesse") )
+            new tern::cVessel( f->getName(), f->getValue("Volume") );
 
-        else if( f->getType() == cFlowerFactory::Index(L"Funnel") )
+        else if( f->getType() == cFlowerFactory::Index("Funnel") )
             new tern::cFunnel( f );
 
-        else if( f->getType() == cFlowerFactory::Index(L"PipeBend") )
+        else if( f->getType() == cFlowerFactory::Index("PipeBend") )
             // pipebends are ignored
             ;
 
@@ -727,14 +727,14 @@ void Load( cTERN& theSimulationEngine,
             int dbg2 = 0;
 
             tern::theSimulationEngine.HandleFatalError(
-                L"Loading tern, Unrecognized type for flower named " + f->getName() );
+                "Loading tern, Unrecognized type for flower named " + f->getName() );
         }
     }
 
     // connect the event handlers as specified by the vase
     for( auto sf : theVase )
     {
-        if( sf->getType() == cFlowerFactory::Index(L"PipeBend") )
+        if( sf->getType() == cFlowerFactory::Index("PipeBend") )
             continue;
 
         cFlower* df = sf->getDestination();
@@ -759,20 +759,20 @@ void ReadDB()
     cout << "tern::ReadDB()" << endl;
 
     raven::sqlite::cDB db;
-    db.Open(L"vase.dat");
-    db.Query(L"SELECT type, time FROM params;");
+    db.Open("vase.dat");
+    db.Query("SELECT type, time FROM params;");
     if( db.myError )
     {
         cout << "ERROR reading parameter database: %s " << db.myError << endl;
         exit(1);
     }
     tern::theSimulationEngine.myType =
-        ( tern::cTERN::etype ) ( wcstol( db.myResult[0].c_str(),NULL,10) );
+        ( tern::cTERN::etype ) ( strtol( db.myResultA[0].c_str(),NULL,10) );
     tern::theSimulationEngine.myStopTime =
-        ( wcstol( db.myResult[1].c_str(),NULL,10) );
+        ( strtol( db.myResultA[1].c_str(),NULL,10) );
 
-    db.Query(L"SELECT * FROM quality_names;");
-    cQuality::setNames( db.myResult );
+    db.Query("SELECT * FROM quality_names;");
+    cQuality::setNames( db.myResultA );
 
 }
 
