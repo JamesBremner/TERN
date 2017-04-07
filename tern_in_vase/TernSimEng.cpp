@@ -15,7 +15,7 @@
 #include "tern.h"
 #include "cVase.h"
 #include "probability.h"
-//#include "cFunnel.h"
+#include "cFunnel.h"
 #include "ModelFlowers.h"
 
 

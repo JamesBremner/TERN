@@ -22,7 +22,6 @@ void cQuality::setNames( const std::vector< std::string >& names )
     {
         if( ! n.length() )
             continue;
-        std::cout << "insert |" << n << "|\n";
         auto ret = myNameMap.insert( std::pair<std::string,int>( n, index ));
         if( ! ret.second ) {
             std::cout << "not inserted! \n";
@@ -30,11 +29,6 @@ void cQuality::setNames( const std::vector< std::string >& names )
         index++;
     }
 
-    std::cout << "cQuality::setNames " << names.size() <<" "<< myNameMap.size() << "\n";
-    for( auto it : myNameMap )
-    {
-         std::cout << it.first << " " << it.second << "\n";
-    }
 }
 void cQuality::getNames( std::vector< std::string >& names )
 {
@@ -46,11 +40,6 @@ void cQuality::getNames( std::vector< std::string >& names )
 }
 int cQuality::getIndex( const std::string& name )
 {
-     std::cout << "cQuality::getIndex " << name << "\n";
-    for( auto it : myNameMap )
-    {
-         std::cout << it.first << " " << it.second << "\n";
-    }
     auto it = myNameMap.find( name );
     if( it == myNameMap.end() )
     {

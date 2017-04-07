@@ -418,23 +418,23 @@ void cEventHandler::PlotOutput()
 //        return;
 
     raven::sqlite::cDB db;
-    db.Open(L"vase.dat");
-    db.Query(L"DELETE FROM plot WHERE flower = '%s';",
+    db.Open("vase.dat");
+    db.Query("DELETE FROM plot WHERE flower = '%s';",
             myName.c_str() );
 
     // loop over plots
     for( auto& vplot : myPlot )
     {
         // loop over data points
-        wstringstream ss;
+        stringstream ss;
         for ( auto p : vplot.myData )
         {
             // space separated values
-            ss << p << L" ";
+            ss << p << " ";
         }
 
         // write to database
-        db.Query(L"INSERT INTO plot VALUES ( '%s', '%s', '%s' );",
+        db.Query("INSERT INTO plot VALUES ( '%s', '%s', '%s' );",
                  myName.c_str(),
                  vplot.myName.c_str(),
                  ss.str().c_str() );
