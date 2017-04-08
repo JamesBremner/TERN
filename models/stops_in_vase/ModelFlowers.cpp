@@ -16,7 +16,7 @@ void cFlowerDict::InsertModelTypes()
      Insert( L"name_of_second_model_flower" );
     */
 
-    Insert( L"StoppingMachine");
+    Insert( "StoppingMachine");
 
 }
 namespace gui
@@ -37,7 +37,7 @@ cFlower * cFlowerFactory::ConstructModelFlower( int flower_type_index )
 
     */
 
-    if( flower_type_index == myFlowerDict->Find( L"StoppingMachine" ))
+    if( flower_type_index == myFlowerDict->Find( "StoppingMachine" ))
         return new cStoppingMachine();
     else
 
@@ -46,11 +46,11 @@ cFlower * cFlowerFactory::ConstructModelFlower( int flower_type_index )
 
 cStoppingMachine::cStoppingMachine()
 {
-    myTypeName = L"StoppingMachine";
+    myTypeName = "StoppingMachine";
     setName();
-    AddParam(L"TimeBetweenStops", L" secs ", 10 );
-    AddParam(L"DurationStops", L" secs ", 3 );
-    AddParam(L"StdDevStops", L" secs ", 1 );
+    AddParam("TimeBetweenStops", " secs ", 10 );
+    AddParam("DurationStops", " secs ", 3 );
+    AddParam("StdDevStops", " secs ", 1 );
 }
 
 }
@@ -60,7 +60,7 @@ namespace tern
 {
 bool ConstructModelFlowers( raven::sim::gui::cFlower * f )
 {
-    if( f->getType() == raven::sim::gui::cFlowerFactory::Index(L"StoppingMachine") )
+    if( f->getType() == raven::sim::gui::cFlowerFactory::Index("StoppingMachine") )
     {
         new tern::cStoppingMachine( f );
         return true;
@@ -72,10 +72,15 @@ bool ConstructModelFlowers( raven::sim::gui::cFlower * f )
 
 }
 cStoppingMachine::cStoppingMachine( raven::sim::gui::cFlower * f )
-    : cDelay(L"")
+    : cDelay( f->getName() )
 {
 
 }
+
+//     int Delay()
+//    {
+//        return 1;
+//    }
 
 }
 #endif

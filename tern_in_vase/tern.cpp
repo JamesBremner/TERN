@@ -232,6 +232,14 @@ void cTERN::handle_next_event()
         return;
 
     default:
+
+//        if ( e->myType = 998 )
+//        {
+//        cout << "handle_next_event "
+//            << e->myType << " "
+//            << e->myHandler->getName() << "\n";
+//        }
+
         e->myHandler->Handle( e );
         break;
 
@@ -401,6 +409,7 @@ int cEventHandler::Handle( cEvent* e )
     switch( e->myType )
     {
     case event_type_plot_point:
+        cout << "handle plot event for " << myName << endl;
         HandlePlotPointEvent();
         return 1;
     case event_type_final_report:

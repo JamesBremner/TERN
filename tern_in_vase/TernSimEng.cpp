@@ -312,7 +312,7 @@ This is like a conveyor belt, many planets can be delayed in sequence
 
 */
 
-class cDelay
+class cDelay_Flow
     : public tern::cEventHandler
 {
 public:
@@ -322,7 +322,7 @@ public:
     @param[in] mean  delay time
 
     */
-    cDelay(  const std::string& name, double mean  )
+    cDelay_Flow(  const std::string& name, double mean  )
         : cEventHandler( name )
         , myMean( mean )
     {
@@ -700,7 +700,7 @@ void Load( cTERN& theSimulationEngine,
             new tern::cGeneric( f->getName() );
 
         else if( f->getType() == cFlowerFactory::Index("Delay") )
-            new tern::cDelay( f->getName(),  f->getValue("Mean") );
+            new tern::cDelay_Flow( f->getName(),  f->getValue("Mean") );
 
         else if( f->getType() == cFlowerFactory::Index("Busy") )
             new tern::cBusy( f->getName(),  f->getValue("Mean") );

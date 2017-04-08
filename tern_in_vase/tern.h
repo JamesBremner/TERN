@@ -173,7 +173,7 @@ public:
 	*/
 	virtual int Handle( cEvent* e );
 
-	virtual void HandlePlotPointEvent() { }
+	virtual void HandlePlotPointEvent() { /*std::cout << "Empty HandlePlotPointEvent for " << myName << "\n"; */ }
 	virtual void FinalReport() {}
 	void PlotOutput();
 
@@ -217,6 +217,11 @@ public:
     {
         myDstID2 = d->getID();
     }
+
+    virtual void Clear() {}
+        virtual void SaveRunStatsToReplicationStats()  {}
+
+    virtual void ReplicationReport() {}
 };
 
 /**

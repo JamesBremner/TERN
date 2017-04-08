@@ -76,6 +76,7 @@ public:
         }
     }
 };
+
 /** Simulate a delay, storing planets in a queue until the delay is over */
 
 class cDelay : public tern::cEventHandler
@@ -89,7 +90,7 @@ public:
         : cEventHandler( name )
         , myQMax( 0 )
     {
-
+        AddPlot( "MaxQ");
     }
     /** Calculate delay for a planet at the head of the queue
 
@@ -122,6 +123,10 @@ public:
     /** Handle event */
     int Handle( tern::cEvent* e )
     {
+        // base class handles some standard events
+        if( cEventHandler::Handle( e ))
+            return 1;
+
         // switch on event
         switch( e->myType )
         {
@@ -162,14 +167,22 @@ public:
 
             return 1;
 
-        case tern::event_type_final_report:
-            std::cout << myName << " report: max Queue size " << myQMax << "\n";
-            return 1;
-
         default:
             return 0;
         }
 
+    }
+
+    virtual void HandlePlotPointEvent()
+    {
+        //std::cout << "cDelay::HandlePlotPointEvent "  << myQMax << "\n";
+        myPlot[1].myData.push_back( myQMax );
+    }
+
+    virtual void FinalReport()
+    {
+        std::cout << myName << " report: max Queue size " << myQMax << "\n";
+        PlotOutput();
     }
 
     virtual void Clear()

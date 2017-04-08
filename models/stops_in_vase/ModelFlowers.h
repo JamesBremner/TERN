@@ -1,6 +1,5 @@
 #pragma once
 #include "flower_types.h"
-#include "task.h"
 
 namespace raven
 {
@@ -25,6 +24,7 @@ public:
 #ifdef tern_build
 
 #include "tern.h"
+#include "task.h"
 
 namespace raven
 {
@@ -40,10 +40,11 @@ class cStoppingMachine : public task::cDelay
 public:
     cStoppingMachine( raven::sim::gui::cFlower * f );
 
-
+  //  virtual int Delay();
 };
 
 }
+
+}
+}
 #endif // tern_build
-}
-}
