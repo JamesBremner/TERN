@@ -1,0 +1,10 @@
+Final Report:
+Source src2 Tasks generated 500
+Source src1 Tasks generated 500
+Sink sink Total volume 0
+MAC02C report: max Queue size 1
+MAC02B report: max Queue size 75
+MAC02A report: max Queue size 394
+MAC01C report: max Queue size 46
+MAC01B report: max Queue size 1
+MAC01A report: max Queue size 447

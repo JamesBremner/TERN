@@ -67,7 +67,7 @@ public:
         if( myMean > 0 )
             next_time += (__int64)raven::sim::poisson_distribution( myMean );  // random time from now with specified mean
         else
-            next_time += 1;                             // next clock tick
+            next_time += 2;                             // next clock tick
         planet = new tern::cPlanet( tern::theSimulationEngine );
         planet->setQuality( myQuality );
         myTotal++;

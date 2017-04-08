@@ -332,9 +332,11 @@ void cTable::OnPlot( wxCommandEvent& event )
 
     for( auto& splt : vPlot )
     {
-
-        if( splt.empty() )
-            return;
+        // check there is something in this plot
+        if( splt.empty() ) {
+            // plot is empty, maybe something in other plots
+            continue;
+        }
 
         // Extract dataset
 

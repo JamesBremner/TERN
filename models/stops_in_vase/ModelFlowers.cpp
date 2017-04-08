@@ -54,10 +54,20 @@ cStoppingMachine::cStoppingMachine()
 }
 
 }
+}
+}
 
 #ifdef tern_build
+
+#include "tern.h"
+
+namespace raven
+{
+namespace sim
+{
 namespace tern
 {
+
 bool ConstructModelFlowers( raven::sim::gui::cFlower * f )
 {
     if( f->getType() == raven::sim::gui::cFlowerFactory::Index("StoppingMachine") )
@@ -73,16 +83,90 @@ bool ConstructModelFlowers( raven::sim::gui::cFlower * f )
 }
 cStoppingMachine::cStoppingMachine( raven::sim::gui::cFlower * f )
     : cDelay( f->getName() )
+    , myDurationStops( f->getValue( "DurationStops"))
+    , myTimeBetweenStops( f->getValue( "TimeBetweenStops" ))
 {
 
 }
 
-//     int Delay()
-//    {
-//        return 1;
-//    }
+void cStoppingMachine::Start()
+{
+    myfRunning = true;
+    myNextStop = poisson_distribution( myTimeBetweenStops );
+}
+
+int cStoppingMachine::Handle( tern::cEvent* e )
+{
+    int dbg = e->myType;
+    std::cout << "cStoppingMachine::Handle " << e->myType << "\n";
+
+    if( cDelay::Handle( e ))
+        return 1;
+
+    switch( e->myType )
+    {
+    case 3:
+        // restart
+        myfRunning = true;
+
+        // next stop
+        myNextStop = tern::theSimulationEngine.theTime + poisson_distribution( myTimeBetweenStops );
+
+        // process anything on queue
+        ScheduleCompletion();
+
+        return 1;
+
+    default:
+        return 0;
+    }
 
 }
+
+int cStoppingMachine::Delay( tern::cPlanet * planet )
+{
+    const int delay_when_running = 1;
+
+    long long T = tern::theSimulationEngine.theTime;
+
+    if( ! myfRunning )
+    {
+        return -1;
+    }
+
+    if( T < myNextStop )
+    {
+        // normal operation
+        return delay_when_running;
+    }
+    else
+    {
+        // stop;
+        myfRunning = false;
+
+        // schedule restart
+        int NextStart = T + poisson_distribution( myDurationStops );
+        if( NextStart == T )
+            NextStart += 1;
+
+        std::cout << getName() << " stopped until " << NextStart << "\n";
+
+        tern::theSimulationEngine.Add(
+            new tern::cPlanet( tern::theSimulationEngine ),
+            3,
+            this,
+            NextStart
+        );
+
+        return -1;
+    }
+}
+
+
+}
+
+}
+
+}
+
 #endif
-}
-}

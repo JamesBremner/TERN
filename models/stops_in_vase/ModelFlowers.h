@@ -14,6 +14,9 @@ class cStoppingMachine : public cFlower
 {
 public:
     cStoppingMachine();
+    void Start();
+
+
 };
 
 
@@ -40,7 +43,17 @@ class cStoppingMachine : public task::cDelay
 public:
     cStoppingMachine( raven::sim::gui::cFlower * f );
 
-  //  virtual int Delay();
+    virtual void Start();
+
+    virtual int Delay( tern::cPlanet * planet );
+
+    virtual int Handle( tern::cEvent* e );
+
+private:
+    bool myfRunning;
+    int myNextStop;
+    int myTimeBetweenStops;
+    int myDurationStops;
 };
 
 }

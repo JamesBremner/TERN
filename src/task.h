@@ -81,20 +81,30 @@ public:
 
 class cDelay : public tern::cEventHandler
 {
+    protected:
     std::queue < tern::cPlanet * > myQ;
     int myQMax;
+    int myTotal;
+    int myTotalLastPlot;
     stats::stats_t myRep;
 
 public:
     cDelay(  const std::string& name )
         : cEventHandler( name )
         , myQMax( 0 )
+        , myTotal( 0 )
+        , myTotalLastPlot( 0 )
     {
         AddPlot( "MaxQ");
+        AddPlot( "Total" );
     }
+
     /** Calculate delay for a planet at the head of the queue
 
+    @return delay in clock ticks, -1 for infinite
+
     This defaults to 1 clock tick.  Override to specialize
+
     */
     virtual int Delay( tern::cPlanet * planet )
     {
@@ -111,6 +121,10 @@ public:
         // calculate delay
         int delay = Delay( myQ.front() );
 
+        // a negative delay causes the planet to be left on the queue
+        if( delay < 0 )
+            return;
+
         // schedule completion
         tern::theSimulationEngine.Add(
             new tern::cPlanet( tern::theSimulationEngine ),
@@ -121,7 +135,7 @@ public:
 
     }
     /** Handle event */
-    int Handle( tern::cEvent* e )
+    virtual int Handle( tern::cEvent* e )
     {
         // base class handles some standard events
         if( cEventHandler::Handle( e ))
@@ -137,6 +151,7 @@ public:
             // add to queue
             myQ.push( e->myPlanet );
 
+            // update queue length high water mark
             if( (int)myQ.size() > myQMax )
                 myQMax = myQ.size();
 
@@ -162,6 +177,9 @@ public:
             // remove from queue
             myQ.pop();
 
+            // increment total throughput
+            myTotal++;
+
             // schedule completion of next planet on queue
             ScheduleCompletion();
 
@@ -176,7 +194,9 @@ public:
     virtual void HandlePlotPointEvent()
     {
         //std::cout << "cDelay::HandlePlotPointEvent "  << myQMax << "\n";
-        myPlot[1].myData.push_back( myQMax );
+        myPlot[1].myData.push_back( myQ.size() );
+        myPlot[2].myData.push_back( myTotal - myTotalLastPlot );
+        myTotalLastPlot = myTotal;
     }
 
     virtual void FinalReport()
