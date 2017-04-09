@@ -36,15 +36,15 @@ class cSource
 public:
     /** Construct
 
-    @param[in] name
-    @param[in] mean  time between events
-
     */
     cSource( const raven::sim::gui::cFlower* f )
         : cEventHandler( f->getName() )
-        , myMean( f->getValue( "Rate" ))
+        , myMean( f->getValue( "Mean" ))
         , myTotal( 0 )
     {
+        myfSteady = false;
+        if( f->getValue( "Steady" ) > 0.5 )
+            myfSteady = true;
         for ( auto it : myQuality )
         {
             myQuality.setValue( it.second, f->getValue( it.first ) );
@@ -62,13 +62,31 @@ public:
     ///  Schedule next arrival
     void ScheduleArrival()
     {
+        // when is the next arrival
+
         long long next_time = tern::theSimulationEngine.theTime;
-        tern::cPlanet * planet;
-        if( myMean > 0 )
-            next_time += (__int64)raven::sim::poisson_distribution( myMean );  // random time from now with specified mean
+        if( myMean < 0.9 )
+        {
+            // source is disabled
+            return;
+        }
         else
-            next_time += 2;                             // next clock tick
-        planet = new tern::cPlanet( tern::theSimulationEngine );
+        {
+
+            if( myfSteady )
+            {
+                // constant rate
+                next_time += myMean;
+            }
+            else
+            {
+                // random time from now with specified mean
+                next_time += (__int64)raven::sim::poisson_distribution( myMean );
+            }
+        }
+
+
+        tern::cPlanet * planet = new tern::cPlanet( tern::theSimulationEngine );
         planet->setQuality( myQuality );
         myTotal++;
 
@@ -112,6 +130,7 @@ public:
     }
 
 private:
+    bool myfSteady;     /// true if steady generation, false if exponential
     double myMean;
     double myTotal;
     cQuality myQuality;
@@ -134,8 +153,8 @@ public:
         for ( auto it : myQuality )
         {
             std::cout <<"SourceFlow constructor " << it.first
-                <<" " << it.second
-                <<" "<< f->getValue( it.first ) << std::endl;
+                      <<" " << it.second
+                      <<" "<< f->getValue( it.first ) << std::endl;
 
             myQuality.setValue( it.second, f->getValue( it.first ) );
         }
@@ -200,7 +219,7 @@ public:
 private:
     double myTotal;
     int myQualityIndexVolume;
-     cQuality myQuality;
+    cQuality myQuality;
 };
 
 ///  Ultimate destination for planets
@@ -216,7 +235,7 @@ public:
     {
         myQualityIndexVolume = cQuality::getIndex( "Volume");
 
-                // loop over defined qualities
+        // loop over defined qualities
         for( auto q : myQuality )
         {
             // skip volume, already handled
@@ -241,7 +260,7 @@ public:
         long long lifetime = e->myPlanet->getLifetime();
         acc( lifetime );
         cout << " Planet " << e->myPlanet->myID << " arrived at sink " << myName
-              << " at " << tern::theSimulationEngine.theTime << " after " << lifetime << endl;
+             << " at " << tern::theSimulationEngine.theTime << " after " << lifetime << endl;
 
         // Add to total volume, just 0 if volume not specified
         myVolume += e->myPlanet->getQuality(myQualityIndexVolume);
@@ -298,9 +317,9 @@ public:
     }
 private:
     boost::accumulators::accumulator_set<long long,
-          boost::accumulators::stats<boost::accumulators::tag::mean,
-          boost::accumulators::tag::max, boost::accumulators::tag::min,
-          boost::accumulators::tag::count > > acc;
+    boost::accumulators::stats<boost::accumulators::tag::mean,
+    boost::accumulators::tag::max, boost::accumulators::tag::min,
+    boost::accumulators::tag::count > > acc;
     double myVolume;
     double myPlotVolume;
     int myQualityIndexVolume;
@@ -493,8 +512,8 @@ public:
             if( tern::theSimulationEngine.theTime < myNextFree )
             {
                 cout << "Error: Collision at Busy " << myName
-                      << " time is " << tern::theSimulationEngine.theTime
-                      << " but busy till " << myNextFree << endl;
+                     << " time is " << tern::theSimulationEngine.theTime
+                     << " but busy till " << myNextFree << endl;
                 return 0;
             }
             // schedule arrival at next event handler after specified mean delay
@@ -803,10 +822,11 @@ int main()
     // Load simulation with process model in vase
     raven::sim::tern::Load( raven::sim::tern::theSimulationEngine, theVase );
 
-    try {
+    try
+    {
 
-    // Start simulation run
-    raven::sim::tern::theSimulationEngine.Run();
+        // Start simulation run
+        raven::sim::tern::theSimulationEngine.Run();
 
     }
 

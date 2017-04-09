@@ -77,8 +77,8 @@ public:
 
         Insert(  "Base" );
         Insert(  "Pump"  );
-        Insert(  "Vesse"  );
-        Insert(  "Funne"  );
+        Insert(  "Vessel"  );
+        Insert(  "Funnel"  );
         Insert(  "Source" );
         Insert(  "SourceFlow"  );
         Insert(  "Sink" );

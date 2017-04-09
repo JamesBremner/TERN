@@ -47,13 +47,13 @@ cPump::cPump( )
 }
 cVessel::cVessel()
 {
-	myTypeName = "Vesse";
+	myTypeName = "Vessel";
 	setName();
 	AddParam( "Volume", " (liters) " );
 }
 cFunnel::cFunnel()
 {
-	myTypeName = "Funne";
+	myTypeName = "Funnel";
 	setName();
 	AddParam( "Capacity", " (liters) " );
 	AddParam( "Output", " rate, volume/time" );
@@ -76,7 +76,9 @@ cSource::cSource()
 {
     myTypeName = "Source";
     setName();
-    AddParam( "Mean", "Mean time between arrivals" );
+    AddParam("Steady","1 for constant rate, 0 for exponential");
+    AddParam( "Mean", "Mean time between arrivals", 1 );
+    AddParam( "Volume", "Volume of each arrival", 1);
 
     std::vector< string > vQualityNames;
     raven::sim::tern::cQuality::getNames( vQualityNames );

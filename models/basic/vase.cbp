@@ -60,11 +60,6 @@
 			<Add directory="$(#wxwidgets.lib)" />
 		</Linker>
 		<Unit filename="../../../raven-set/raven_sqlite.cpp" />
-		<Unit filename="../../../ravenset/raven_sqlite.h" />
-		<Unit filename="../../gui/ProcessFlowSimGUI.h" />
-		<Unit filename="../../gui/Table.h" />
-		<Unit filename="../../src/cQuality.h" />
-		<Unit filename="../../src/cVase.h" />
 		<Unit filename="../../src/ext/freechart/src/areadraw.cpp" />
 		<Unit filename="../../src/ext/freechart/src/art.cpp" />
 		<Unit filename="../../src/ext/freechart/src/axis/axis.cpp" />
@@ -97,15 +92,17 @@
 		<Unit filename="../../src/ext/sqlite3.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../../src/flower.h" />
-		<Unit filename="../../src/flower_types.h" />
 		<Unit filename="../../vase/ProcessSimulationGui.cpp" />
 		<Unit filename="../../vase/Table.cpp" />
 		<Unit filename="../../vase/Table.h" />
 		<Unit filename="../../vase/src/cQuality.cpp" />
+		<Unit filename="../../vase/src/cQuality.h" />
 		<Unit filename="../../vase/src/cVase .cpp" />
+		<Unit filename="../../vase/src/cVase.h" />
 		<Unit filename="../../vase/src/flower.cpp" />
+		<Unit filename="../../vase/src/flower.h" />
 		<Unit filename="../../vase/src/flower_types.cpp" />
+		<Unit filename="../../vase/src/flower_types.h" />
 		<Unit filename="ModelFlowers.cpp" />
 		<Unit filename="ModelFlowers.h" />
 		<Extensions>
