@@ -62,7 +62,7 @@ public:
     ///  Schedule next arrival
     void ScheduleArrival()
     {
-        // when is the next arrival
+        // Calculate time of next arrival
 
         long long next_time = tern::theSimulationEngine.theTime;
         if( myMean < 0.9 )
@@ -85,13 +85,14 @@ public:
             }
         }
 
-
+        // construct the arriving panel
         tern::cPlanet * planet = new tern::cPlanet( tern::theSimulationEngine );
         planet->setQuality( myQuality );
         myTotal++;
 
-        cout << "cSource::ScheduleArrival " << myMean <<" " << next_time << endl;
+        //cout << "cSource::ScheduleArrival " << myMean <<" " << next_time << endl;
 
+        // schedule
         tern::theSimulationEngine.Add(
             planet,       // create a planet, which will wander through simulation recording progress
             1,            // event type
@@ -779,7 +780,7 @@ void ReadDB()
 
     raven::sqlite::cDB db;
     db.Open("vase.dat");
-    db.Query("SELECT type, time FROM params;");
+    db.Query("SELECT type, time, plot_points FROM params;");
     if( db.myError )
     {
         cout << "ERROR reading parameter database: %s " << db.myError << endl;
@@ -789,6 +790,8 @@ void ReadDB()
         ( tern::cTERN::etype ) ( strtol( db.myResultA[0].c_str(),NULL,10) );
     tern::theSimulationEngine.myStopTime =
         ( strtol( db.myResultA[1].c_str(),NULL,10) );
+     tern::theSimulationEngine.myPlotPoints =
+        ( strtol( db.myResultA[2].c_str(),NULL,10) );
 
     db.Query("SELECT * FROM quality_names;");
     cQuality::setNames( db.myResultA );

@@ -97,8 +97,8 @@ void cStoppingMachine::Start()
 
 int cStoppingMachine::Handle( tern::cEvent* e )
 {
-    int dbg = e->myType;
-    std::cout << "cStoppingMachine::Handle " << e->myType << "\n";
+//    int dbg = e->myType;
+//    std::cout << "cStoppingMachine::Handle " << e->myType << "\n";
 
     if( cDelay::Handle( e ))
         return 1;
@@ -114,6 +114,8 @@ int cStoppingMachine::Handle( tern::cEvent* e )
 
         // process anything on queue
         ScheduleCompletion();
+
+        std::cout << getName() << " restarted at " << tern::theSimulationEngine.theTime << "\n";
 
         return 1;
 

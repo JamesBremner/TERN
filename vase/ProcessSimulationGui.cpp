@@ -432,16 +432,18 @@ cSimOptionDlg::cSimOptionDlg( wxWindow* parent )
     // read values from database
     int time = 100;
     int type = 1;
+    int plot_points = 50;
     raven::sqlite::cDB db;
-    db.Open(L"vase.dat");
-    db.Query(L"SELECT type, time FROM params;");
+    db.Open("vase.dat");
+    db.Query("SELECT type, time, plot_points FROM params;");
     if( db.myError )
     {
     }
     else
     {
-        type = wcstol(db.myResult[0].c_str(),NULL,10);
-        time = wcstol( db.myResult[1].c_str(),NULL,10);
+        type = strtol(db.myResultA[0].c_str(),NULL,10);
+        time = strtol( db.myResultA[1].c_str(),NULL,10);
+        plot_points = strtol( db.myResultA[2].c_str(),NULL,10);
     }
 
 
@@ -451,8 +453,8 @@ cSimOptionDlg::cSimOptionDlg( wxWindow* parent )
     szr->Add( CreateSeparatedButtonSizer( wxOK | wxCANCEL ) );
     SetSizer( szr );
 
-    prop_time = new wxIntProperty("Time", wxPG_LABEL, time );
-    pg->Append( prop_time );
+    pg->Append( prop_time = new wxIntProperty("Time", wxPG_LABEL, time ) );
+    pg->Append( prop_plot_points = new wxIntProperty("Plot Points", wxPG_LABEL, plot_points ) );
 
     pg->Append( new wxPropertyCategory("Task/Flow Qualities") );
     db.Query(L"SELECT * FROM quality_names;" );
@@ -481,16 +483,18 @@ void cSimOptionDlg::OnOK( wxCommandEvent& event )
     // extract values from property grid
     wxAny value = prop_time->GetValue();
     int time = value.As<int>();
-
+    value = prop_plot_points->GetValue();
+    int plot_points = value.As<int>();
 
     // save values to database
     raven::sqlite::cDB db;
     db.Open("vase.dat");
-    db.Query("UPDATE params SET type = 1, time = %d;",
-             time );
+    db.Query("UPDATE params SET type = 1, time = %d, plot_points = %d;",
+             time, plot_points );
 
     wxGetApp().theTable->myVase.setSimTime( time );
     wxGetApp().theTable->myVase.mySimType = ( cVase::e_type ) 1;
+    wxGetApp().theTable->myVase.setPlotPoints(  plot_points );
 
     db.Query("DELETE FROM quality_names;");
     std::vector<string> vQNames;

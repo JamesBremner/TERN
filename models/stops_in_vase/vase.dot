@@ -1,19 +1,7 @@
 digraph V {
- ->  // start_idx=4 end_idx=17
- ->  // start_idx=0 end_idx=14
- ->  // start_idx=19 end_idx=8
- ->  // start_idx=18 end_idx=19
- ->  // start_idx=17 end_idx=18
- ->  // start_idx=16 end_idx=8
- ->  // start_idx=15 end_idx=16
- ->  // start_idx=14 end_idx=15
-src2 [shape=box,pos="92,261"] // [ vase_type='Source' vase_idx=4 p_Mean 0.000000 p_Volume 0.000000 ]
-src1 [shape=box,pos="94,104"] // [ vase_type='Source' vase_idx=0 p_Mean 0.000000 p_Volume 0.000000 ]
-sink [shape=box,pos="618,168"] // [ vase_type='Sink' vase_idx=8 ]
-MAC02C [shape=box,pos="400,262"] // [ vase_type='StoppingMachine' vase_idx=19 p_DurationStops 3.000000 p_StdDevStops 1.000000 p_TimeBetweenStops 10.000000 ]
-MAC02B [shape=box,pos="286,263"] // [ vase_type='StoppingMachine' vase_idx=18 p_DurationStops 3.000000 p_StdDevStops 1.000000 p_TimeBetweenStops 10.000000 ]
-MAC02A [shape=box,pos="187,262"] // [ vase_type='StoppingMachine' vase_idx=17 p_DurationStops 3.000000 p_StdDevStops 1.000000 p_TimeBetweenStops 10.000000 ]
-MAC01C [shape=box,pos="419,105"] // [ vase_type='StoppingMachine' vase_idx=16 p_DurationStops 3.000000 p_StdDevStops 1.000000 p_TimeBetweenStops 10.000000 ]
-MAC01B [shape=box,pos="296,104"] // [ vase_type='StoppingMachine' vase_idx=15 p_DurationStops 3.000000 p_StdDevStops 1.000000 p_TimeBetweenStops 10.000000 ]
-MAC01A [shape=box,pos="190,105"] // [ vase_type='StoppingMachine' vase_idx=14 p_DurationStops 30.000000 p_StdDevStops 1.000000 p_TimeBetweenStops 10.000000 ]
+ ->  // start_idx=2 end_idx=3
+ ->  // start_idx=0 end_idx=2
+StoppingMachine_2 [shape=box,pos="189,87"] // [ vase_type='StoppingMachine' vase_idx=2 p_DurationStops 3.000000 p_StdDevStops 1.000000 p_TimeBetweenStops 10.000000 ]
+Source_0 [shape=box,pos="38,58"] // [ vase_type='Source' vase_idx=0 p_Mean 1.000000 p_Steady 1.000000 p_Volume 1.000000 ]
+Sink_3 [shape=box,pos="363,117"] // [ vase_type='Sink' vase_idx=3 ]
 }

@@ -239,6 +239,9 @@ public:
 	/// maximum duration of simulation
 	long long myStopTime;
 
+	/// number of plot points
+	int myPlotPoints;
+
 	enum etype {
         none,
         task,

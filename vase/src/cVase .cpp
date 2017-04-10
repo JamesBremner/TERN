@@ -41,12 +41,12 @@ void cVase::ReadDB()
 {
     raven::sqlite::cDB db;
     db.Open("vase.dat");
-    db.Query("SELECT type, time FROM params;");
+    db.Query("SELECT type, time, plot_points FROM params;");
     if( db.myError )
     {
         db.Query("DROP TABLE IF EXISTS params;");
-        db.Query("CREATE TABLE params ( type, time );");
-        db.Query("INSERT INTO params VALUES ( 1, 100 );" );
+        db.Query("CREATE TABLE params ( type, time, plot_points );");
+        db.Query("INSERT INTO params VALUES ( 1, 100, 50 );" );
         db.Query("CREATE TABLE quality_names ( name );");
         db.Query("CREATE TABLE plot ( flower, plot, data );");
     }

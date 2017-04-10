@@ -108,6 +108,8 @@ public:
 
     void setSimTime( int t )    { mySimTime = t; }
     int getSimTime()            { return mySimTime; }
+    void setPlotPoints( int n ) { myPlotPoints = n; }
+    int getPlotPoints()         { return myPlotPoints; }
 
     cFlower*  find( const std::string& name );
 
@@ -117,6 +119,8 @@ private:
     cFlower * my2Selected;
     int myHandleSelected;
     int mySimTime;
+    int myPlotPoints;
+
 
 
     iterator  find( int idx );

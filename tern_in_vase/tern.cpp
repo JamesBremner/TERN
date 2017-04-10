@@ -127,7 +127,7 @@ void cTERN::Add(
 
 void cTERN::AddPlotPoints()
 {
-    int plot_inc = myStopTime / 50;
+    int plot_inc = myStopTime / myPlotPoints;
     for( int k = 0; k <= myStopTime; k += plot_inc )
     {
         for( auto& h : myHandlers )

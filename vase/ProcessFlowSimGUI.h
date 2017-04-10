@@ -69,6 +69,7 @@ class cSimOptionDlg : public wxDialog
 
     wxPropertyGrid* pg;
     wxIntProperty*  prop_time;
+    wxIntProperty*  prop_plot_points;
     wxEnumProperty* prop_type;
     wxStringProperty * prop_quality[5];
 

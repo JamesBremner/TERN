@@ -343,7 +343,7 @@ void cTable::OnPlot( wxCommandEvent& event )
         std::vector<double> x;
         std::vector<double> y;
         int index = 0;
-        int index_step = myVase.getSimTime() / 20;
+        int index_step = myVase.getSimTime() / myVase.getPlotPoints();
         const char * ps = splt.data();
         char * next = (char *)ps;
         while( 1 )
