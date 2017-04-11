@@ -1,5 +1,6 @@
 #include <iostream>
 #include "flower.h"
+#include "probability.h"
 #include "ModelFlowers.h"
 
 namespace raven
@@ -92,7 +93,7 @@ cStoppingMachine::cStoppingMachine( raven::sim::gui::cFlower * f )
 void cStoppingMachine::Start()
 {
     myfRunning = true;
-    myNextStop = poisson_distribution( myTimeBetweenStops );
+    myNextStop = raven::sim::prob::cPoisson::ran( myTimeBetweenStops );
 }
 
 int cStoppingMachine::Handle( tern::cEvent* e )
@@ -110,7 +111,7 @@ int cStoppingMachine::Handle( tern::cEvent* e )
         myfRunning = true;
 
         // next stop
-        myNextStop = tern::theSimulationEngine.theTime + poisson_distribution( myTimeBetweenStops );
+        myNextStop = tern::theSimulationEngine.theTime + raven::sim::prob::cPoisson::ran( myTimeBetweenStops );
 
         // process anything on queue
         ScheduleCompletion();
@@ -147,7 +148,7 @@ int cStoppingMachine::Delay( tern::cPlanet * planet )
         myfRunning = false;
 
         // schedule restart
-        int NextStart = T + poisson_distribution( myDurationStops );
+        int NextStart = T + raven::sim::prob::cPoisson::ran( myDurationStops );
         if( NextStart == T )
             NextStart += 1;
 

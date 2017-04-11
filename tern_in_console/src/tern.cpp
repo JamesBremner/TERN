@@ -4,8 +4,9 @@
 #include <sstream>
 #include <functional>
 #include <algorithm>
+#include "probability.h"
 using namespace std;
-//#include "raven_sqlite.h"
+
 #include "tern.h"
 
 
@@ -179,7 +180,7 @@ Occurring after a Poisson delay after the previous event
 */
 long long cTERN::NextPoisson( cEvent& e, int mean )
 {
-    e.myTime += (long long)raven::sim::stats::poisson( (double) mean );
+    e.myTime += (long long)raven::sim::prob::cPoisson::ran( (double) mean );
     myEventQueue.insert( e );
     return e.myTime;
 }
@@ -489,56 +490,7 @@ cPlanet::cPlanet( cTERN& sim )
 
 
 };
-
-
-#include <random>
-
-namespace stats {
-
-
-
-/**
-
-return sample from Poisson distribution.
-
-@param[in] mean  expected mean of samples
-
-@return  sample
-
- The output is clipped to the range 0 to 1e6 * mean
-
-*/
-double poisson( double mean )		///< return sample from possion distribution with specified mean.
-{
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-
-    double p = - 1.0 * mean * log ( ( float ) gen() / (float) gen.max() );
-    if( p < 0 )
-        p = 0;
-    if( p > 1e6 * mean )
-        p = 1e6 * mean;
-    return p;
-
-}
-double normal( double mean, double dev )		///< return sample from normal distribution.
-{
-	double  r = 0;
-	for( int k = 0; k< 12; k++ ) {
-		r += rand();
-	}
-	// [ 0, 12 * RAND_MAX ]
-	r -= 6 * RAND_MAX;
-	// [ - 6 * RAND_MAX, 6 * RAND_MAX ]
-	r *= dev  /  RAND_MAX ;
-	// [ - 3 * dev, 3 * dev ]
-	r += mean;
-	// [ mean - 2 * dev, mean + 2 * dev ];
-	return r;
-}
-}
-}
-}
+}}
 
 
 /**************************************************************************

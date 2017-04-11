@@ -3,6 +3,7 @@
 #include "nlohmann_json.hpp"
 #include "tern.h"
 #include "task.h"
+#include "probability.h"
 
 
 using namespace std;
@@ -95,7 +96,7 @@ void cStoppingMachine::Start()
     }
     else
     {
-        myNextStop = stats::poisson( myMeanSecsBetweenStops );
+        myNextStop = raven::sim::prob::cPoisson::ran( myMeanSecsBetweenStops );
     }
 
 }
@@ -126,10 +127,11 @@ int cStoppingMachine::Delay( tern::cPlanet * planet )
         if( tern::theSimulationEngine.theTime >= myNextStop )
         {
             // normally distributed stop duration
-            int delay = stats::normal( myMeanSecsStopDuration, myDevSecsStopDuration );
+            int delay = raven::sim::prob::cNormal::ran( myMeanSecsStopDuration, myDevSecsStopDuration );
 
             // exponentially distributed run time to next stop
-            myNextStop = tern::theSimulationEngine.theTime + delay + stats::poisson( myMeanSecsBetweenStops );
+            myNextStop = tern::theSimulationEngine.theTime + delay
+                    + raven::sim::prob::cPoisson::ran( myMeanSecsBetweenStops );
 
             //cout << getName() << " delay at " << tern::theSimulationEngine.theTime << " for " <<delay << "\n";
 

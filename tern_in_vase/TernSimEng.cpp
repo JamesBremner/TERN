@@ -81,7 +81,7 @@ public:
             else
             {
                 // random time from now with specified mean
-                next_time += (__int64)raven::sim::poisson_distribution( myMean );
+                next_time += (__int64)raven::sim::prob::cPoisson::ran( myMean );
             }
         }
 
@@ -361,7 +361,7 @@ public:
                 e->myPlanet,
                 1,
                 myDstID,                                                               // next event handler
-                tern::theSimulationEngine.theTime + (__int64)raven::sim::poisson_distribution( myMean )  // random time from now with specified mean
+                tern::theSimulationEngine.theTime + (__int64)raven::sim::prob::cPoisson::ran( myMean )  // random time from now with specified mean
             );
         }
         return 1;
@@ -518,7 +518,7 @@ public:
                 return 0;
             }
             // schedule arrival at next event handler after specified mean delay
-            myNextFree = tern::theSimulationEngine.theTime + (__int64)raven::sim::poisson_distribution( myMean );  // random time from now with specified mean
+            myNextFree = tern::theSimulationEngine.theTime + (__int64)raven::sim::prob::cPoisson::ran( myMean );  // random time from now with specified mean
             //wcout << "Busy " << myName << " busy from " << tern::theSimulationEngine.theTime << " until " << myNextFree << endl;
             tern::theSimulationEngine.Add(
                 e->myPlanet,

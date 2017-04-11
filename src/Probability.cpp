@@ -1,6 +1,12 @@
-#include "stdafx.h"
+#include <cstdlib>
+#include <cmath>
 #include "Probability.h"
 
+using namespace std;
+
+namespace raven {
+    namespace sim {
+        namespace prob {
 
 /**
 
@@ -94,16 +100,7 @@ int cNormal::test()
 
 	return 1;
 }
-/**************************************************************************
-//   Designed and coded by James Bremner, Raven's Point Consulting,
-//   james@ravenspoint.com
 
-This file is under cvs version control
-
-If it has been released, the release name will be here: $Name:  $
-
-Below is more detailed information describing the precise version
-
-$Header: c:\ravenrepos/road/src/Probability.cpp,v 1.2 2007/08/15 21:42:13 james Exp $
-
-*************************************************************************/
+        }
+    }
+}

@@ -335,6 +335,6 @@ private:
 extern cTERN theSimulationEngine;
 
 }
-double poisson_distribution( double mean );		///< return sample from possion distribution with specified mean.
+
 }
 }

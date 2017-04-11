@@ -151,7 +151,7 @@ Occurring after a Poisson delay after the previous event
 */
 long long cTERN::NextPoisson( cEvent& e, int mean )
 {
-    e.myTime += (long long)raven::sim::poisson_distribution( (double) mean );
+    e.myTime += (long long)raven::sim::prob::cPoisson::ran( (double) mean );
     myEventQueue.insert( e );
     return e.myTime;
 }
@@ -465,32 +465,6 @@ cPlanet::cPlanet( cTERN& sim )
 };
 
 
-#include <random>
-
-/**
-
-return sample from Poisson distribution.
-
-@param[in] mean  expected mean of samples
-
-@return  sample
-
- The output is clipped to the range 0 to 1e6 * mean
-
-*/
-double poisson_distribution( double mean )		///< return sample from possion distribution with specified mean.
-{
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-
-    double p = - 1.0 * mean * log ( ( float ) gen() / (float) gen.max() );
-    if( p < 0 )
-        p = 0;
-    if( p > 1e6 * mean )
-        p = 1e6 * mean;
-    return p;
-
-}
 }
 }
 

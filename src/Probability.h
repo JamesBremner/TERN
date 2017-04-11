@@ -1,11 +1,14 @@
 #pragma once
+namespace raven {
+    namespace sim {
+        namespace prob {
 /**
   The Poisson distribution
   */
 class cPoisson
 {
 public:
-	static inline double 
+	static double
 		ran( double mean );		///< return sample from  distribution.
 	static int test();
 };
@@ -15,7 +18,10 @@ public:
 class cNormal
 {
 public:
-	static inline double 
+	static double
 		ran( double mean, double dev );		///< return sample from  distribution.
 	static int test();
 };
+        }
+    }
+}
