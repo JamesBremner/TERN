@@ -417,8 +417,7 @@ namespace stats {
     boost::accumulators::tag::variance,
     boost::accumulators::tag::count> > stats_t;
 
-double poisson( double mean );		            ///< return sample from possion distribution with specified mean.
-double normal( double mean, double dev );		///< return sample from normal distribution.
+
 }
 }
 }
