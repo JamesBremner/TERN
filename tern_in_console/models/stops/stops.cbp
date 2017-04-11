@@ -41,12 +41,14 @@
 			<Add directory="../../../../nlohmann-json-parser-for-mingw" />
 			<Add directory="../../../src" />
 		</Compiler>
+		<Unit filename="../../../src/Probability.cpp" />
+		<Unit filename="../../../src/Probability.h" />
 		<Unit filename="../../../src/terntime.cpp" />
 		<Unit filename="../../src/task.cpp" />
+		<Unit filename="../../src/task.h" />
 		<Unit filename="../../src/tern.cpp" />
+		<Unit filename="../../src/tern.h" />
 		<Unit filename="../../src/terntime.h" />
-		<Unit filename="../../task.h" />
-		<Unit filename="../../tern.h" />
 		<Unit filename="cStoppingMachine.cpp" />
 		<Unit filename="cStoppingMachine.h" />
 		<Unit filename="main.cpp" />

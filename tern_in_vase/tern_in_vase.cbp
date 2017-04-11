@@ -48,6 +48,8 @@
 		<Unit filename="../../raven-set/raven_sqlite.cpp" />
 		<Unit filename="../models/model.cpp" />
 		<Unit filename="../models/model.h" />
+		<Unit filename="../src/Probability.cpp" />
+		<Unit filename="../src/Probability.h" />
 		<Unit filename="../src/ext/sqlite3.c">
 			<Option compilerVar="CC" />
 		</Unit>
