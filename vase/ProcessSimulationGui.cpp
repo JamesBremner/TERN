@@ -171,7 +171,7 @@ cVaseMainFrame::cVaseMainFrame(const wxString& title)
     : wxFrame(NULL, wxID_ANY, title)
 {
     // set the frame icon
-    SetIcon(wxICON(sample));
+    SetIcon(wxICON(MY_ICON));
 
     // create a menu bar
     wxMenu *fileMenu = new wxMenu;
