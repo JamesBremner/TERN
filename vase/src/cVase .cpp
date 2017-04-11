@@ -51,6 +51,7 @@ void cVase::ReadDB()
     {
         mySimType = ( e_type ) strtol(db.myResultA[0].c_str(),NULL,10 );
         mySimTime = strtol( db.myResultA[1].c_str(),NULL,10 );
+        myPlotPoints =  strtol( db.myResultA[2].c_str(),NULL,10 );
 
         db.Query("SELECT * FROM quality_names;");
         raven::sim::tern::cQuality::setNames(  db.myResultA );

@@ -316,20 +316,27 @@ void cTable::ReportLoad()
 }
 void cTable::OnPlot( wxCommandEvent& event )
 {
+
+    //  create plot
+    XYPlot *plot = new XYPlot();
+    XYSimpleDataset * dataset = new XYSimpleDataset();
+
+    try {
+
     // extract selected flower plots from report
     std::vector< std::string > vPlot;
     FindPlotInReport(
         vPlot,
         myVase.getSelected()->getName() );
     if( ! vPlot.size() )
-        return;
+        throw std::runtime_error{"not in db"};
 
-    //  create plot
-    XYPlot *plot = new XYPlot();
 
-    XYSimpleDataset * dataset = new XYSimpleDataset();
+
+
     dataset->SetRenderer(new XYLineStepRenderer());
 
+    bool fAllEmpty = true;
     for( auto& splt : vPlot )
     {
         // check there is something in this plot
@@ -337,6 +344,7 @@ void cTable::OnPlot( wxCommandEvent& event )
             // plot is empty, maybe something in other plots
             continue;
         }
+        fAllEmpty = false;
 
         // Extract dataset
 
@@ -352,7 +360,6 @@ void cTable::OnPlot( wxCommandEvent& event )
             double d = strtod( ps, &next );
             if( ps == next )
                 break;
-            //dataset->Add( d );
             y.push_back( d );
             x.push_back( (double) index * index_step );
             index++;
@@ -360,6 +367,17 @@ void cTable::OnPlot( wxCommandEvent& event )
 
         dataset->AddSerie( new XYSerie( x, y ));
 
+    }
+    if( fAllEmpty )
+        throw std::runtime_error{"all empty"};
+    }
+    catch( std::runtime_error &e )
+    {
+        wxMessageBox(wxString::Format("No plots for %s",
+                                     myVase.getSelected()->getName()),
+                     "VASE plot error");
+        delete myChart;
+        return;
     }
 
     plot->AddDataset(dataset);
