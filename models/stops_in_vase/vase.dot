@@ -1,7 +1,0 @@
-digraph V {
- ->  // start_idx=2 end_idx=3
- ->  // start_idx=0 end_idx=2
-StoppingMachine_2 [shape=box,pos="189,87"] // [ vase_type='StoppingMachine' vase_idx=2 p_DurationStops 3.000000 p_StdDevStops 1.000000 p_TimeBetweenStops 10.000000 ]
-Source_0 [shape=box,pos="38,58"] // [ vase_type='Source' vase_idx=0 p_Mean 1.000000 p_Steady 1.000000 p_Volume 1.000000 ]
-Sink_3 [shape=box,pos="363,117"] // [ vase_type='Sink' vase_idx=3 ]
-}

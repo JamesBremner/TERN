@@ -457,7 +457,10 @@ cPlanet::cPlanet( cTERN& sim )
     sim.Add( *this );		// inform simulator this planet exists
 }
 
-
+	void cPlanet::setQuality( int i, double v ) { myQuality.setValue( i, v ); }
+	void cPlanet::setQuality( const cQuality& q) { myQuality = q; }
+	double cPlanet::getQuality( int i ) const { return myQuality.getValue( i ); }
+	cQuality& cPlanet::Quality() { return myQuality; }
 
 };
 

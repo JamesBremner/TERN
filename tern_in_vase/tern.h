@@ -81,10 +81,10 @@ public:
 		return myRecord.back().myTime - myRecord.front().myTime;
 	}
 
-	void setQuality( int i, double v ) { myQuality.setValue( i, v ); }
-	void setQuality( const cQuality& q) { myQuality = q; }
-	double getQuality( int i ) const { return myQuality.getValue( i ); }
-	cQuality& Quality() { return myQuality; }
+	void setQuality( int i, double v );
+	void setQuality( const cQuality& q);
+	double getQuality( int i ) const;
+	cQuality& Quality();
 
 private:
 	static int nextID;				///< ID of next planet created

@@ -21,8 +21,7 @@
 
 #include "flower.h"
 #include "flower_types.h"
-#include "ModelFlowers.h"
-#include "cQuality.h"
+
 
 #ifdef WXWIDGETS
 #include <wx/propgrid/propgrid.h>

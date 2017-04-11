@@ -3,9 +3,11 @@
 #include <map>
 #include <vector>
 
-#include "cQuality.h"
+
 #ifdef tern_build
 #include "tern.h"
+#else
+#include "cQuality.h"
 #endif // tern_build
 
 namespace raven {
