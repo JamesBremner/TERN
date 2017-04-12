@@ -50,13 +50,14 @@
 		<Unit filename="../models/model.h" />
 		<Unit filename="../src/Probability.cpp" />
 		<Unit filename="../src/Probability.h" />
+		<Unit filename="../src/cQuality.cpp" />
+		<Unit filename="../src/cSource..cpp" />
+		<Unit filename="../src/cSource.h" />
 		<Unit filename="../src/ext/sqlite3.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../src/task.cpp" />
 		<Unit filename="../src/task.h" />
-		<Unit filename="../vase/src/cQuality.cpp" />
-		<Unit filename="../vase/src/cQuality.h" />
 		<Unit filename="../vase/src/cVase .cpp" />
 		<Unit filename="../vase/src/cVase.h" />
 		<Unit filename="../vase/src/flower.cpp" />

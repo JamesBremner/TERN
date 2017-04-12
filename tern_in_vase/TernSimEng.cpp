@@ -16,6 +16,7 @@
 #include "cVase.h"
 #include "probability.h"
 #include "cFunnel.h"
+#include "cSource.h"
 #include "model.h"
 
 
@@ -29,113 +30,6 @@ namespace sim
 namespace tern
 {
 
-/// An event source
-class cSource
-    : public tern::cEventHandler
-{
-public:
-    /** Construct
-
-    */
-    cSource( const raven::sim::gui::cFlower* f )
-        : cEventHandler( f->getName() )
-        , myMean( f->getValue( "Mean" ))
-        , myTotal( 0 )
-    {
-        myfSteady = false;
-        if( f->getValue( "Steady" ) > 0.5 )
-            myfSteady = true;
-        for ( auto it : myQuality )
-        {
-            myQuality.setValue( it.second, f->getValue( it.first ) );
-        }
-    }
-
-
-
-    /// initialize simulation, automaticalled called by simulator
-    void Start()
-    {
-        ScheduleArrival();
-    }
-
-    ///  Schedule next arrival
-    void ScheduleArrival()
-    {
-        // Calculate time of next arrival
-
-        long long next_time = tern::theSimulationEngine.theTime;
-        if( myMean < 0.9 )
-        {
-            // source is disabled
-            return;
-        }
-        else
-        {
-
-            if( myfSteady )
-            {
-                // constant rate
-                next_time += myMean;
-            }
-            else
-            {
-                // random time from now with specified mean
-                next_time += (__int64)raven::sim::prob::cPoisson::ran( myMean );
-            }
-        }
-
-        // construct the arriving panel
-        tern::cPlanet * planet = new tern::cPlanet( tern::theSimulationEngine );
-        planet->setQuality( myQuality );
-        myTotal++;
-
-        //cout << "cSource::ScheduleArrival " << myMean <<" " << next_time << endl;
-
-        // schedule
-        tern::theSimulationEngine.Add(
-            planet,       // create a planet, which will wander through simulation recording progress
-            1,            // event type
-            this,         // handle the event here
-            next_time
-        );
-    }
-
-    /// Handle an arrival, auto called by simulation
-    int Handle( tern::cEvent* e )
-    {
-        if( cEventHandler::Handle( e ))
-            return 1;
-
-        switch( e->myType )
-        {
-
-        default:
-            // Schedule the next arrival
-            ScheduleArrival();
-
-            // Send this arrival to the destination immediatly
-            tern::theSimulationEngine.Add(
-                e->myPlanet,
-                1,
-                myDstID,
-                tern::theSimulationEngine.theTime );
-        }
-        return 1;
-    }
-
-    void FinalReport()
-    {
-        cout << "Source " << myName;
-        cout << " Tasks generated " << myTotal << endl;
-    }
-
-private:
-    bool myfSteady;     /// true if steady generation, false if exponential
-    double myMean;
-    double myTotal;
-    cQuality myQuality;
-};
 
 class cSourceFlow
     : public tern::cEventHandler

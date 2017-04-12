@@ -34,6 +34,7 @@
 			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add option="-Dtern_console" />
 			<Add directory="../.." />
 			<Add directory="../../src/ext" />
 			<Add directory="../../src" />
@@ -43,6 +44,10 @@
 		</Compiler>
 		<Unit filename="../../../src/Probability.cpp" />
 		<Unit filename="../../../src/Probability.h" />
+		<Unit filename="../../../src/cQuality.cpp" />
+		<Unit filename="../../../src/cQuality.h" />
+		<Unit filename="../../../src/cSource..cpp" />
+		<Unit filename="../../../src/cSource.h" />
 		<Unit filename="../../../src/terntime.cpp" />
 		<Unit filename="../../src/task.cpp" />
 		<Unit filename="../../src/task.h" />

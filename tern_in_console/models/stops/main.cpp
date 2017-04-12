@@ -4,6 +4,7 @@
 #include "tern.h"
 #include "task.h"
 #include "terntime.h"
+#include "cSource.h"
 #include "cStoppingMachine.h"
 
 using namespace std;
@@ -45,7 +46,7 @@ int RunHistorical()
     // construct the machines
     // using the json formatted stopping schedule
 
-    task::cSource S("src");
+    tern::cSource S("src", 1, true );
     cStoppingMachine  MAC01A( "MAC01A", stopschedule );
     cStoppingMachine  MAC01B( "MAC01B", stopschedule );
     cStoppingMachine  MAC01C( "MAC01C", stopschedule );
@@ -83,7 +84,7 @@ int RunRandom()
     int MeanSecsStopDuration = 4;
     int DevSecsStopDuration = 1;
 
-    cStoppingMachineSource S( "src", 1 );
+    tern::cSource S( "src", 1, 0 );
     cStoppingMachine  MAC01A( "MAC01A", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
     cStoppingMachine  MAC01B( "MAC01B", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
     cStoppingMachine  MAC01C( "MAC01C", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
@@ -122,11 +123,11 @@ int RunRandom2()
     int MeanSecsStopDuration = 4;
     int DevSecsStopDuration = 1;
 
-    cStoppingMachineSource S1( "src1", 2 );
+    tern::cSource S1( "src1", 2, true );
     cStoppingMachine  MAC01A( "MAC01A", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
     cStoppingMachine  MAC01B( "MAC01B", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
     cStoppingMachine  MAC01C( "MAC01C", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
-    cStoppingMachineSource S2( "src2", 2 );
+    tern::cSource S2( "src2", 2, true );
     cStoppingMachine  MAC02A( "MAC02A", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
     cStoppingMachine  MAC02B( "MAC02B", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
     cStoppingMachine  MAC02C( "MAC02C", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
@@ -150,7 +151,7 @@ int RunRandom2()
     //tern::theSimulationEngine.setConsoleLog();
 
     // run simulation many times
-    tern::theSimulationEngine.ReplicateRun( 100 );
+    tern::theSimulationEngine.ReplicateRun( 10 );
 
     return 0;
 }

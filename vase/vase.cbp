@@ -65,6 +65,7 @@
 		<Unit filename="../../raven-set/raven_sqlite.h" />
 		<Unit filename="../models/model.cpp" />
 		<Unit filename="../models/model.h" />
+		<Unit filename="../src/cQuality.cpp" />
 		<Unit filename="../src/ext/freechart/src/areadraw.cpp" />
 		<Unit filename="../src/ext/freechart/src/art.cpp" />
 		<Unit filename="../src/ext/freechart/src/axis/axis.cpp" />
@@ -101,7 +102,6 @@
 		<Unit filename="ProcessSimulationGui.cpp" />
 		<Unit filename="Table.cpp" />
 		<Unit filename="Table.h" />
-		<Unit filename="src/cQuality.cpp" />
 		<Unit filename="src/cQuality.h" />
 		<Unit filename="src/cVase .cpp" />
 		<Unit filename="src/cVase.h" />

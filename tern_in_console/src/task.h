@@ -15,67 +15,67 @@ namespace sim
 {
 namespace task
 {
-
-class cSource :  public tern::cEventHandler
-{
-public:
-    cSource( const std::string& name )
-        : cEventHandler( name )
-    {
-
-    }
-
-    /** Calculate delay before next arrival
-
-    Defaults to 1 clock tick.  Override in real model
-
-    */
-    virtual int Delay()
-    {
-        return 1;
-    }
-
-    /** Construct next planet to arrive
-
-    Overrride in real model
-
-    */
-    virtual tern::cPlanet * Construct()
-    {
-        return new tern::cPlanet( tern::theSimulationEngine );
-    }
-    void Start()
-    {
-        ScheduleNextArrival();
-    }
-    void ScheduleNextArrival()
-    {
-        tern::theSimulationEngine.Add(
-            Construct(),
-            1,                              // event type
-            this,                           // handle the event here
-            tern::theSimulationEngine.theTime + Delay() );
-    }
-    int Handle( tern::cEvent* e )
-    {
-        switch( e->myType )
-        {
-
-        case 1:
-            tern::theSimulationEngine.Add(
-                e->myPlanet,
-                1,
-                myDstID,
-                tern::theSimulationEngine.theTime );
-            ScheduleNextArrival();
-            return 1;
-
-        default:
-            return 0;
-        }
-    }
-};
-/** Simulate a delay, storing planets in a queue until the delay is over */
+//
+//class cSource :  public tern::cEventHandler
+//{
+//public:
+//    cSource( const std::string& name )
+//        : cEventHandler( name )
+//    {
+//
+//    }
+//
+//    /** Calculate delay before next arrival
+//
+//    Defaults to 1 clock tick.  Override in real model
+//
+//    */
+//    virtual int Delay()
+//    {
+//        return 1;
+//    }
+//
+//    /** Construct next planet to arrive
+//
+//    Overrride in real model
+//
+//    */
+//    virtual tern::cPlanet * Construct()
+//    {
+//        return new tern::cPlanet( tern::theSimulationEngine );
+//    }
+//    void Start()
+//    {
+//        ScheduleNextArrival();
+//    }
+//    void ScheduleNextArrival()
+//    {
+//        tern::theSimulationEngine.Add(
+//            Construct(),
+//            1,                              // event type
+//            this,                           // handle the event here
+//            tern::theSimulationEngine.theTime + Delay() );
+//    }
+//    int Handle( tern::cEvent* e )
+//    {
+//        switch( e->myType )
+//        {
+//
+//        case 1:
+//            tern::theSimulationEngine.Add(
+//                e->myPlanet,
+//                1,
+//                myDstID,
+//                tern::theSimulationEngine.theTime );
+//            ScheduleNextArrival();
+//            return 1;
+//
+//        default:
+//            return 0;
+//        }
+//    }
+//};
+///** Simulate a delay, storing planets in a queue until the delay is over */
 
 class cDelay : public tern::cEventHandler
 {

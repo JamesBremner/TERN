@@ -13,7 +13,7 @@
 #include <boost/accumulators/statistics/variance.hpp>
 
 #include "terntime.h"
-//#include "cQuality.h"
+#include "cQuality.h"
 
 namespace raven {
 namespace sim {
@@ -90,13 +90,13 @@ public:
 	}
 
 //	void setQuality( int i, double v ) { myQuality.setValue( i, v ); }
-//	void setQuality( const cQuality& q) { myQuality = q; }
+	void setQuality( const cQuality& q) { myQuality = q; }
 //	double getQuality( int i ) const { return myQuality.getValue( i ); }
 //	cQuality& Quality() { return myQuality; }
 
 private:
 	static int nextID;				///< ID of next planet created
-//	cQuality myQuality;
+	cQuality myQuality;
 
 };
 

@@ -58,21 +58,21 @@ private:
 
 };
 
-class cStoppingMachineSource : public raven::sim::task::cSource
-{
-    public:
-    cStoppingMachineSource( const string& name, int TimeBetweenInputs )
-    : raven::sim::task::cSource( name )
-    , myTimeBetweenInputs( TimeBetweenInputs )
-    {
-
-    }
-
-    int Delay()
-    {
-       return myTimeBetweenInputs;
-    }
-
-    private:
-        int myTimeBetweenInputs;
-};
+//class cStoppingMachineSource : public raven::sim::task::cSource
+//{
+//    public:
+//    cStoppingMachineSource( const string& name, int TimeBetweenInputs )
+//    : raven::sim::task::cSource( name )
+//    , myTimeBetweenInputs( TimeBetweenInputs )
+//    {
+//
+//    }
+//
+//    int Delay()
+//    {
+//       return myTimeBetweenInputs;
+//    }
+//
+//    private:
+//        int myTimeBetweenInputs;
+//};
