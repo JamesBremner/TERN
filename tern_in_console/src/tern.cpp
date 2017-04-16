@@ -123,9 +123,9 @@ void cTERN::Add(
 
     if( fConsolLog )
     {
-        cout << "Planet " << planet->myID
-              << " scheduled for " << e.myHandler->getName()
-              << " at " << e.myTime << endl;
+//        cout << "Planet " << planet->myID
+//              << " scheduled for " << e.myHandler->getName()
+//              << " at " << e.myTime << endl;
     }
     // DumpQueue();
 }
@@ -145,9 +145,9 @@ void cTERN::Add(
 
     if( fConsolLog )
     {
-        cout << "Planet " << planet->myID
-              << " scheduled for " << e.myHandler->getName()
-              << " at " << e.myTime << endl;
+//        cout << "Planet " << planet->myID
+//              << " scheduled for " << e.myHandler->getName()
+//              << " at " << e.myTime << endl;
     }
     //DumpQueue();
 }

@@ -19,6 +19,8 @@ cStoppingMachine::cStoppingMachine(
     : raven::sim::task::cDelay( name )
     , myfHistorical( true )
 {
+    myTypeName = "StoppingMachine";
+
     nlohmann::json J = nlohmann::json::parse( stopschedule );
     // cout << J.dump(2) << "\n====\n";
 
@@ -54,14 +56,18 @@ cStoppingMachine::cStoppingMachine(
     const string& name,
     int MeanSecsBetweenStops,
     int MeanSecsStopDuration,
-    int DevSecsStopDuration )
+    int DevSecsStopDuration,
+    int Threshold )
     : raven::sim::task::cDelay( name )
     , myfHistorical( false )
     , myMeanSecsBetweenStops( MeanSecsBetweenStops )
     , myMeanSecsStopDuration( MeanSecsStopDuration )
     , myDevSecsStopDuration( DevSecsStopDuration )
+    , myThreshold( Threshold )
+    , myTotalStoppedTime( 0 )
+    , myTotalBlockedTime( 0 )
 {
-
+    myTypeName = "StoppingMachine";
 }
 
 void cStoppingMachine::Start()
@@ -103,6 +109,26 @@ void cStoppingMachine::Start()
 
 int cStoppingMachine::Delay( tern::cPlanet * planet )
 {
+    if ( ! IsOutputClear() )
+    {
+        // output blocked
+
+        cout << getName() << " output blocked at " << tern::theSimulationEngine.theTime << "\n";
+
+        myTimeStartBlocked = tern::theSimulationEngine.theTime;
+
+        // schedule next check for output cleared
+        tern::theSimulationEngine.Add(
+            new tern::cPlanet( tern::theSimulationEngine ),
+            3,
+            this,
+            tern::theSimulationEngine.theTime + 1
+        );
+
+        // no delay can be determined at this point
+        return -1;
+    }
+
     if( myfHistorical )
     {
         // using an historical stopping schedule
@@ -126,20 +152,81 @@ int cStoppingMachine::Delay( tern::cPlanet * planet )
         // using a randomly generated schedule
         if( tern::theSimulationEngine.theTime >= myNextStop )
         {
+            cout << getName() << " stopped \n";
+
             // normally distributed stop duration
             int delay = raven::sim::prob::cNormal::ran( myMeanSecsStopDuration, myDevSecsStopDuration );
 
+            myTotalStoppedTime += delay;
+
             // exponentially distributed run time to next stop
             myNextStop = tern::theSimulationEngine.theTime + delay
-                    + raven::sim::prob::cPoisson::ran( myMeanSecsBetweenStops );
+                         + raven::sim::prob::cPoisson::ran( myMeanSecsBetweenStops );
 
             //cout << getName() << " delay at " << tern::theSimulationEngine.theTime << " for " <<delay << "\n";
 
             return delay;
 
         }
+
         return 1;
 
     }
 }
 
+int cStoppingMachine::Handle( tern::cEvent* e )
+{
+    if( e->myType == 3 )
+    {
+        // output was blocked, check for clearance
+        if( ! IsOutputClear() )
+        {
+            //still blocked, schedule another check
+            tern::theSimulationEngine.Add(
+                new tern::cPlanet( tern::theSimulationEngine ),
+                3,
+                this,
+                tern::theSimulationEngine.theTime + 1
+            );
+            return 1;
+        }
+
+        // the output has cleared
+        cout << getName() << " output cleared at " << tern::theSimulationEngine.theTime << "\n";
+        myTotalBlockedTime += tern::theSimulationEngine.theTime - myTimeStartBlocked;
+        // schedule completion of next planet on queue
+        ScheduleCompletion();
+
+
+    }
+
+    // handle other events with cDelay handler
+    return cDelay::Handle( e );
+
+
+}
+
+bool cStoppingMachine::IsOutputClear()
+{
+    // check size of buffer in output machine
+    cStoppingMachine * dst = (  cStoppingMachine * ) tern::theSimulationEngine.Find( myDstID );
+    if( dst == NULL )
+        return true;
+    if( dst->TypeName() != "StoppingMachine" )
+        return true;
+
+    if ( dst->CurrentQLength() < myThreshold )
+        cout << getName() << " output clear at " << tern::theSimulationEngine.theTime << "\n";
+    else
+        cout << getName() << " output blocked at " << tern::theSimulationEngine.theTime << "\n";
+
+    return ( dst->CurrentQLength() < myThreshold );
+}
+
+void cStoppingMachine::FinalReport()
+{
+    std::cout << myName << " report: max Queue size " << myQMax
+        << " Stopped Time " << myTotalStoppedTime
+        << " Blocked Time " << myTotalBlockedTime
+        << "\n";
+}

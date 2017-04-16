@@ -98,11 +98,9 @@
 		<Unit filename="../src/ext/sqlite3.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ModelFlowers.h" />
 		<Unit filename="ProcessSimulationGui.cpp" />
 		<Unit filename="Table.cpp" />
 		<Unit filename="Table.h" />
-		<Unit filename="src/cQuality.h" />
 		<Unit filename="src/cVase .cpp" />
 		<Unit filename="src/cVase.h" />
 		<Unit filename="src/flower.cpp" />

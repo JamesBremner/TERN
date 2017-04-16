@@ -1,6 +1,9 @@
 #include <iostream>
+
+#ifndef tern_console
 #include "cQuality.h"
 #include "flower.h"
+#endif // tern_console
 
 using namespace std;
 

@@ -119,7 +119,8 @@ class cEventHandler {
 
 protected:
 	int                 myID;		///< event handler ID, used to identify events for this handler
-	std::string        myName;     ///< name of handler
+	std::string         myName;     ///< name of handler
+	std::string         myTypeName; ///< type name
 	int                 myDstID;    ///< where planets go next from port 1
 	int                 myDstID2;   ///< where planets go next from port 2
     std::vector <sPlot> myPlot;     ///< simulation results plot values
@@ -195,6 +196,7 @@ public:
 
 	int getID() const { return myID; }
 	std::string getName() const { return myName; }
+	std::string TypeName() const { return myTypeName; }
 
 	bool operator<(const cEventHandler other) const { return myID < other.myID; }
 	bool operator==(const cEventHandler other) const { return myID == other.myID; }
@@ -348,7 +350,10 @@ Any other type is passed on for use by the event handlers
 	void Add( cPlanet& planet ) { myPlanets.push_back( &planet ); }
 	void Delete( cPlanet* planet );
 
-	/// Find event handler
+	/*** Find event handler from id
+        @param[in] id of event handler sought
+        @return pointer to handler found, otherwise NULL
+    */
 	cEventHandler * Find( int id );
 
 	int getHandlerCount()           { return (int) myHandlers.size(); }

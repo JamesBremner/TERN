@@ -79,6 +79,8 @@ namespace task
 
 class cDelay : public tern::cEventHandler
 {
+protected:
+
     std::queue < tern::cPlanet * > myQ;
     int myQMax;
     stats::stats_t myRep;
@@ -108,6 +110,8 @@ public:
 
         // calculate delay
         int delay = Delay( myQ.front() );
+        if( delay == -1 )
+            return;
 
         // schedule completion
         tern::theSimulationEngine.Add(
@@ -121,6 +125,8 @@ public:
     /** Handle event */
     int Handle( tern::cEvent* e )
     {
+        cEventHandler::Handle( e );
+
         // switch on event
         switch( e->myType )
         {
@@ -161,9 +167,6 @@ public:
 
             return 1;
 
-        case tern::event_type_final_report:
-            std::cout << myName << " report: max Queue size " << myQMax << "\n";
-            return 1;
 
         default:
             return 0;
@@ -171,11 +174,22 @@ public:
 
     }
 
+    virtual void FinalReport()
+    {
+        std::cout << myName << " report: max Queue size " << myQMax << "\n";
+    }
+
     virtual void Clear()
     {
         cEventHandler::Clear();
         myQ = std::queue < tern::cPlanet * >();
         myQMax = 0;
+    }
+
+    /** Current queue length */
+    int CurrentQLength()
+    {
+        return (int) myQ.size();
     }
 
     virtual void SaveRunStatsToReplicationStats();

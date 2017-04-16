@@ -18,12 +18,14 @@ public:
         @param[in] MeanSecsBetweenStops Mean time between a restart and the next stop
         @param[in] MeanSecsStopDuration
         @param[in] DevSecsStopDuration  Standard deviation of stop duration
+        @param[in] Threshold of output buffer that stops machine
      */
      cStoppingMachine(
         const string& name,
         int MeanSecsBetweenStops,
         int MeanSecsStopDuration,
-        int DevSecsStopDuration );
+        int DevSecsStopDuration,
+        int myThreshold );
 
     /** Initialize
 
@@ -39,10 +41,16 @@ public:
     Return 1 second delay if machine is running
     Return delay until machine restarts if in stop period
     according to schedule
+    Return -1 if external stop
 
     */
 
     virtual int Delay( raven::sim::tern::cPlanet * planet );
+
+    virtual int Handle( raven::sim::tern::cEvent* e );
+
+    virtual void FinalReport();
+
 
 private:
     vector< raven::sim::tern::date_t > myStop;                    // stop times ( calendar )
@@ -54,7 +62,13 @@ private:
     int myMeanSecsBetweenStops;
     int myMeanSecsStopDuration;
     int myDevSecsStopDuration;
-    int myNextStop;
+    int myThreshold;                                            // level of output buffer which stops machine
+    int myNextStop;                                             // time when next stip will occur
+    int myTotalStoppedTime;
+    int myTotalBlockedTime;
+    int myTimeStartBlocked;
+
+    bool IsOutputClear();                                       // true if output buffer threshold does not exceeed threshold
 
 };
 

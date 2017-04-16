@@ -85,9 +85,9 @@ int RunRandom()
     int DevSecsStopDuration = 1;
 
     tern::cSource S( "src", 1, 0 );
-    cStoppingMachine  MAC01A( "MAC01A", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
-    cStoppingMachine  MAC01B( "MAC01B", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
-    cStoppingMachine  MAC01C( "MAC01C", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
+    cStoppingMachine  MAC01A( "MAC01A", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, 10 );
+    cStoppingMachine  MAC01B( "MAC01B", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, 10 );
+    cStoppingMachine  MAC01C( "MAC01C", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, 10 );
     task::cSink   K{"sink"};
 
     // connect the machines in series
@@ -122,15 +122,16 @@ int RunRandom2()
     int MeanSecsBetweenStops = 10;
     int MeanSecsStopDuration = 4;
     int DevSecsStopDuration = 1;
+    int OutputBufferThreshold = 10;
 
     tern::cSource S1( "src1", 2, true );
-    cStoppingMachine  MAC01A( "MAC01A", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
-    cStoppingMachine  MAC01B( "MAC01B", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
-    cStoppingMachine  MAC01C( "MAC01C", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
+    cStoppingMachine  MAC01A( "MAC01A", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, OutputBufferThreshold );
+    cStoppingMachine  MAC01B( "MAC01B", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, OutputBufferThreshold  );
+    cStoppingMachine  MAC01C( "MAC01C", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, OutputBufferThreshold  );
     tern::cSource S2( "src2", 2, true );
-    cStoppingMachine  MAC02A( "MAC02A", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
-    cStoppingMachine  MAC02B( "MAC02B", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
-    cStoppingMachine  MAC02C( "MAC02C", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration );
+    cStoppingMachine  MAC02A( "MAC02A", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, OutputBufferThreshold  );
+    cStoppingMachine  MAC02B( "MAC02B", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, OutputBufferThreshold  );
+    cStoppingMachine  MAC02C( "MAC02C", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, OutputBufferThreshold  );
     task::cSink   K{"sink"};
 
     // connect the machines in two parrallel series
@@ -156,12 +157,42 @@ int RunRandom2()
     return 0;
 }
 
+int RunThresholdTest()
+{
 
+    tern::cSource S1( "src", 1, true );
+
+    // construct a machine that never stops while output below threshold
+    cStoppingMachine  M1( "machine1",
+                          1000,     // do not stop for 1000 secs
+                          0,        // don't stop for any length
+                          1,
+                          10        // output buffer threshold
+                        );
+
+    // construct a machine that stops quickly and stays stopped
+    cStoppingMachine  M2( "machine2",
+                          0,            // stop soon after starts
+                          20,         // stay stopped for a long tim
+                          1,
+                          10
+                        );
+
+    task::cSink   K{"sink"};
+    tern::theSimulationEngine.Connect( "src", "machine1" );
+    tern::theSimulationEngine.Connect( "machine1", "machine2" );
+    tern::theSimulationEngine.Connect( "machine2", "sink" );
+    tern::theSimulationEngine.myStopTime = 50;
+    tern::theSimulationEngine.setConsoleLog();
+    tern::theSimulationEngine.Run();
+}
 int main()
 {
     //return RunHistorical();
 
     //return RunRandom();
 
-    return RunRandom2();
+    //return RunRandom2();
+
+    return RunThresholdTest();
 }

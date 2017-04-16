@@ -53,7 +53,6 @@
 		<Unit filename="../../src/task.h" />
 		<Unit filename="../../src/tern.cpp" />
 		<Unit filename="../../src/tern.h" />
-		<Unit filename="../../src/terntime.h" />
 		<Unit filename="cStoppingMachine.cpp" />
 		<Unit filename="cStoppingMachine.h" />
 		<Unit filename="main.cpp" />
