@@ -57,8 +57,9 @@ public:
     /** Construct from parameters */
     cSource( const string& name, double mean, bool steady )
         : cEventHandler( name )
-        , myMean( mean )
         , myfSteady( steady )
+        , myMean( mean )
+        , myTotal( 0 )
         {
 
         }
@@ -98,16 +99,31 @@ public:
     }
 
     void FinalReport()
-    {
-        cout << "Source " << myName;
-        cout << " Tasks generated " << myTotal << endl;
+        {
+        std::cout << FinalReportText();
     }
+    virtual std::string FinalReportText();
+
+    virtual void SaveRunStatsToReplicationStats();
+
+    virtual void ReplicationReport()
+    {
+        std::cout << ReplicationReportText();
+    }
+    virtual std::string ReplicationReportText();
 
 private:
     bool myfSteady;     /// true if steady generation, false if exponential
     double myMean;
     double myTotal;
     cQuality myQuality;
+
+        // replication stats
+    stats::stats_t myRepCount;
+    stats::stats_t myRepMin;
+    stats::stats_t myRepAver;
+    stats::stats_t myRepMax;
+    stats::stats_t myRepDev;
 };
 }
 }

@@ -184,6 +184,7 @@ public:
 
 	virtual void HandlePlotPointEvent() { }
 	virtual void FinalReport() {}
+	virtual std::string FinalReportText() { return "";}
 
 	/** Over-ride to save runs stats to rep stats and then clear them */
     virtual void SaveRunStatsToReplicationStats() {}

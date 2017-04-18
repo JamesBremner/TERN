@@ -1,9 +1,7 @@
+#include <iostream>
 #include <sstream>
-#include <vector>
-#include <map>
 #include "tern.h"
-#include "cSource.h"
-#include "probability.h"
+#include "cSink.h"
 
 namespace raven
 {
@@ -11,61 +9,31 @@ namespace sim
 {
 namespace tern
 {
-void cSource::ScheduleArrival()
-{
-    // Calculate time of next arrival
 
-    long long next_time = tern::theSimulationEngine.theTime;
-    if( myMean < 0.9 )
-    {
-        // source is disabled
-        return;
-    }
-    else
-    {
-
-        if( myfSteady )
-        {
-            // constant rate
-            next_time += myMean;
-        }
-        else
-        {
-            // random time from now with specified mean
-            next_time += (__int64)raven::sim::prob::cPoisson::ran( myMean );
-        }
-    }
-
-    // construct the arriving planet
-    tern::cPlanet * planet = new tern::cPlanet( tern::theSimulationEngine );
-    planet->setQuality( myQuality );
-    myTotal++;
-
-    //cout << "cSource::ScheduleArrival " << myMean <<" " << next_time << endl;
-
-    // schedule
-    tern::theSimulationEngine.Add(
-        planet,       // create a planet, which will wander through simulation recording progress
-        1,            // event type
-        this,         // handle the event here
-        next_time
-    );
-}
-std::string cSource::FinalReportText()
+std::string cSink::FinalReportText()
 {
     std::stringstream ss;
-    ss << "Source " << myName;
-    ss << " Tasks generated " << myTotal << endl;
+    ss << "Sink " << myName << " report: "
+       << "count:" << boost::accumulators::count(myAccumulator)
+       << " min:" << boost::accumulators::min(myAccumulator)
+       << " aver:" << (int)boost::accumulators::mean(myAccumulator)
+       << " max:" << boost::accumulators::max(myAccumulator)
+       << " std dev:" << (int)sqrt(boost::accumulators::variance(myAccumulator))
+       << "\n";
     return ss.str();
 }
-
-void cSource::SaveRunStatsToReplicationStats()
+void cSink::SaveRunStatsToReplicationStats()
 {
-    myRepCount( myTotal );
-    myTotal = 0;
-}
+    myRepCount((int)boost::accumulators::count(myAccumulator));
+    myRepMin((int)boost::accumulators::min(myAccumulator));
+    myRepAver((int)boost::accumulators::mean(myAccumulator));
+    myRepMax((int)boost::accumulators::max(myAccumulator));
+    myRepDev((int)(int)sqrt(boost::accumulators::variance(myAccumulator)));
 
-std::string cSource::ReplicationReportText()
+    // clear run stats
+    myAccumulator = stats::stats_t();
+}
+std::string cSink::ReplicationReportText()
 {
     std::stringstream ss;
     ss << getName() << " replication report\n";
@@ -100,8 +68,6 @@ std::string cSource::ReplicationReportText()
 
     return ss.str();
 }
-
 }
 }
 }
-
