@@ -303,8 +303,16 @@ public:
     */
 	void ReplicateRun( int count );
 
-	/// clear all run statistics and queues
-	void Clear();
+	/** clear all run statistics and queues
+        Used to prepare for a replication run using the same model
+    */
+	void ClearReplication();
+
+	/** clear everything
+        Used to prepare for a different model,
+        say between unit tests
+    */
+    void ClearAll();
 
 /** Schedule an event.
 

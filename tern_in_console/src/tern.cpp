@@ -77,7 +77,7 @@ void cTERN::ReplicateRun( int count )
     {
         Run();
         SaveRunStatsToReplicationStats();
-        Clear();
+        ClearReplication();
     }
     cout << "\n";
     ReplicationReport();
@@ -98,13 +98,20 @@ void cTERN::ReplicationReport()
          h->ReplicationReport();
      }
 }
-void cTERN::Clear()
+void cTERN::ClearReplication()
 {
     for( auto h : myHandlers )
     {
         h->Clear();
     }
+     myEventQueue.clear();
 
+}
+
+void cTERN::ClearAll()
+{
+    myHandlers.clear();
+    myEventQueue.clear();
 }
 
 void cTERN::Add(
