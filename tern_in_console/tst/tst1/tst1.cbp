@@ -44,6 +44,8 @@
 		</Compiler>
 		<Unit filename="../../../src/Probability.cpp" />
 		<Unit filename="../../../src/Probability.h" />
+		<Unit filename="../../../src/cDelay.cpp" />
+		<Unit filename="../../../src/cDelay.h" />
 		<Unit filename="../../../src/cSink.cpp" />
 		<Unit filename="../../../src/cSink.h" />
 		<Unit filename="../../../src/cSource..cpp" />

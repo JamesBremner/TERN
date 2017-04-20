@@ -408,7 +408,11 @@ void cTERN::Add( cEventHandler& handler )
     simulation code.
     */
 
-    myHandlers.insert( &handler );
+    auto ret = myHandlers.insert( &handler );
+    if( ! ret.second )
+    {
+        HandleFatalError( "ERROR: Duplicate ID assigned to " + handler.getName() );
+    }
 }
 
 
@@ -419,6 +423,7 @@ cEventHandler::cEventHandler( const std::string& name )
     myID = nextID++;		                // unique ID for this handler
     theSimulationEngine.Add( *this );		// inform simulator this handler exists
     AddPlot( "Volume" );
+
 }
 
 void cEventHandler::Start()
