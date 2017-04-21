@@ -9,5 +9,5 @@ Objects wander between event handlers, triggering events as they arrive and depa
 
 `tern_in_vase` runs simulation models specified by `vase'
 
-'vase` is a graphical user interface.  Model layout is specified by pointing and clicking.  Results are displayed in graphs.  Runs are stored in and can be recovered from a database.
+`vase` is a graphical user interface.  Model layout is specified by pointing and clicking.  Results are displayed in graphs.  Runs are stored in and can be recovered from a database.
 
