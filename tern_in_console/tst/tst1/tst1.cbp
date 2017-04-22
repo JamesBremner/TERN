@@ -31,16 +31,15 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-std=c++11" />
 			<Add option="-Wall" />
+			<Add option="-std=c++11" />
 			<Add option="-fexceptions" />
 			<Add option="-Dtern_console" />
 			<Add directory="../.." />
 			<Add directory="../../src/ext" />
 			<Add directory="../../src" />
-			<Add directory="$(#boost)" />
-			<Add directory="../../../../nlohmann-json-parser-for-mingw" />
 			<Add directory="../../../src" />
+			<Add directory="$(#boost)" />
 		</Compiler>
 		<Unit filename="../../../src/Probability.cpp" />
 		<Unit filename="../../../src/Probability.h" />

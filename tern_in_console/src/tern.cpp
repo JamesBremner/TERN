@@ -161,6 +161,7 @@ void cTERN::Add(
 
 void cTERN::AddPlotPoints()
 {
+    #ifndef tern_console
     int plot_inc = myStopTime / 50;
     if( plot_inc < 1 )
         return;
@@ -168,9 +169,10 @@ void cTERN::AddPlotPoints()
     {
         for( auto& h : myHandlers )
         {
-           // Add( new cPlanet( *this ), event_type_plot_point, h, k);
+            Add( new cPlanet( *this ), event_type_plot_point, h, k);
         }
     }
+    #endif
 }
 
 /**
@@ -379,7 +381,7 @@ void cTERN::DumpQueue()
     {
         printf("%d %d %d ( %x %x )\n",
                event->myPlanet->myID, event->myType, event->myHandler->getID(),
-               &(*event), event->myPlanet);
+               (unsigned int)&(*event), (unsigned int)event->myPlanet);
     }
 }
 /**

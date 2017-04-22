@@ -47,11 +47,11 @@ public:
 
     /**  Set value by index */
     void setValue( int index, double value )
-    { if( 0 > index || index >= myValue.size() ) return; myValue[ index ] = value; }
+    { if( 0 > index || index >= (int)myValue.size() ) return; myValue[ index ] = value; }
 
     /** Get value by index */
     double getValue( int index ) const
-    { if( 0 > index || index >= myValue.size() ) return 0; return myValue[ index ]; }
+    { if( 0 > index || index >= (int)myValue.size() ) return 0; return myValue[ index ]; }
 
     /** Set value by name ( slow ) */
     void setValue(  const std::string& name, double value )
@@ -65,10 +65,10 @@ public:
         return getValue( getIndex( name ) );
     }
 
-    std::wstring getName( int index ) const
-    {
- //       if( 0 > index || index >= myValue.size() ) return L""; return myNameMap[index].first;
-    }
+//    std::string getName( int index ) const
+//    {
+//        if( 0 > index || index >= myValue.size() ) return ""; return myNameMap[index].first;
+//    }
 
     typedef std::map< std::string, int >::const_iterator const_iter;
     const_iter begin()  { return myNameMap.begin(); }
