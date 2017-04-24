@@ -2,7 +2,7 @@
 #include "terntime.h"
 #include "nlohmann_json.hpp"
 #include "tern.h"
-#include "task.h"
+#include "cDelay.h"
 #include "probability.h"
 
 
@@ -16,7 +16,7 @@ tern::date_t cStoppingMachine::theEarliestStop;
 cStoppingMachine::cStoppingMachine(
     const string& name,
     const string& stopschedule )
-    : raven::sim::task::cDelay( name )
+    : raven::sim::tern::cDelay( name )
     , myfHistorical( true )
 {
     myTypeName = "StoppingMachine";
@@ -58,7 +58,7 @@ cStoppingMachine::cStoppingMachine(
     int MeanSecsStopDuration,
     int DevSecsStopDuration,
     int Threshold )
-    : raven::sim::task::cDelay( name )
+    : raven::sim::tern::cDelay( name )
     , myfHistorical( false )
     , myMeanSecsBetweenStops( MeanSecsBetweenStops )
     , myMeanSecsStopDuration( MeanSecsStopDuration )
@@ -152,7 +152,8 @@ int cStoppingMachine::Delay( tern::cPlanet * planet )
         // using a randomly generated schedule
         if( tern::theSimulationEngine.theTime >= myNextStop )
         {
-            cout << getName() << " stopped \n";
+            if( tern::theSimulationEngine.ConsoleLog() )
+                cout << myNextStop <<" " << getName() << " stopped \n";
 
             // normally distributed stop duration
             int delay = raven::sim::prob::cNormal::ran( myMeanSecsStopDuration, myDevSecsStopDuration );
@@ -223,10 +224,12 @@ bool cStoppingMachine::IsOutputClear()
     return ( dst->CurrentQLength() < myThreshold );
 }
 
-void cStoppingMachine::FinalReport()
+std::string cStoppingMachine::FinalReportText()
 {
-    std::cout << myName << " report: max Queue size " << myQMax
+    std::stringstream ss;
+    ss << myName << " report: max Queue size " << myQMax
         << " Stopped Time " << myTotalStoppedTime
         << " Blocked Time " << myTotalBlockedTime
         << "\n";
+    return ss.str();
 }

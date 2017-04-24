@@ -2,7 +2,8 @@
 
 #include "nlohmann_json.hpp"
 #include "tern.h"
-#include "task.h"
+#include "cSink.h"
+#include "cDelay.h"
 #include "terntime.h"
 #include "cSource.h"
 #include "cStoppingMachine.h"
@@ -50,7 +51,7 @@ int RunHistorical()
     cStoppingMachine  MAC01A( "MAC01A", stopschedule );
     cStoppingMachine  MAC01B( "MAC01B", stopschedule );
     cStoppingMachine  MAC01C( "MAC01C", stopschedule );
-    task::cSink   K{"sink"};
+    tern::cSink   K{"sink"};
 
     // connect the machines in series
 
@@ -88,7 +89,7 @@ int RunRandom()
     cStoppingMachine  MAC01A( "MAC01A", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, 10 );
     cStoppingMachine  MAC01B( "MAC01B", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, 10 );
     cStoppingMachine  MAC01C( "MAC01C", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, 10 );
-    task::cSink   K{"sink"};
+    tern::cSink   K{"sink"};
 
     // connect the machines in series
 
@@ -132,7 +133,7 @@ int RunRandom2()
     cStoppingMachine  MAC02A( "MAC02A", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, OutputBufferThreshold  );
     cStoppingMachine  MAC02B( "MAC02B", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, OutputBufferThreshold  );
     cStoppingMachine  MAC02C( "MAC02C", MeanSecsBetweenStops, MeanSecsStopDuration, DevSecsStopDuration, OutputBufferThreshold  );
-    task::cSink   K{"sink"};
+    tern::cSink   K{"sink"};
 
     // connect the machines in two parrallel series
 
@@ -178,7 +179,7 @@ int RunThresholdTest()
                           10
                         );
 
-    task::cSink   K{"sink"};
+    tern::cSink   K{"sink"};
     tern::theSimulationEngine.Connect( "src", "machine1" );
     tern::theSimulationEngine.Connect( "machine1", "machine2" );
     tern::theSimulationEngine.Connect( "machine2", "sink" );

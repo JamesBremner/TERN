@@ -349,6 +349,7 @@ Any other type is passed on for use by the event handlers
 		long long time );
 
     void setConsoleLog( bool flag  = true )     { fConsolLog = flag; }
+    bool ConsoleLog() { return fConsolLog; }
 
 	/// Schedule next Poisson event
 	long long NextPoisson( cEvent& e, int mean );

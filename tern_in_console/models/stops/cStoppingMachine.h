@@ -1,6 +1,6 @@
 /** Simulate a machine that stops from time to time */
 
-class cStoppingMachine : public raven::sim::task::cDelay
+class cStoppingMachine : public raven::sim::tern::cDelay
 {
 public:
 
@@ -49,7 +49,8 @@ public:
 
     virtual int Handle( raven::sim::tern::cEvent* e );
 
-    virtual void FinalReport();
+    virtual std::string FinalReportText();
+    virtual void FinalReport() { std::cout << FinalReportText(); }
 
 
 private:
