@@ -335,13 +335,12 @@ void cTable::OnPlot( wxCommandEvent& event )
         throw std::runtime_error{"not in db"};
 
 
-
-
     dataset->SetRenderer(new XYLineStepRenderer());
 
     bool fAllEmpty = true;
     for( auto& splt : vPlot )
     {
+
         // check there is something in this plot
         if( splt.empty() ) {
             // plot is empty, maybe something in other plots
@@ -354,7 +353,9 @@ void cTable::OnPlot( wxCommandEvent& event )
         std::vector<double> x;
         std::vector<double> y;
         int index = 0;
-        int index_step = myVase.getSimTime() / myVase.getPlotPoints();
+        int index_step = 1;
+        if( myVase.getPlotPoints() )
+            index_step = myVase.getSimTime() / myVase.getPlotPoints();
         const char * ps = splt.data();
         char * next = (char *)ps;
         while( 1 )

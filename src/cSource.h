@@ -37,21 +37,11 @@ public:
 
     */
 #ifdef tern_vase
-    cSource( const raven::sim::gui::cFlower* f )
-        : cEventHandler( f->getName() )
-        , myMean( f->getValue( "Mean" ))
-        , myTotal( 0 )
-    {
-        myfSteady = false;
-        if( f->getValue( "Steady" ) > 0.5 )
-            myfSteady = true;
-        for ( auto it : myQuality )
-        {
-            myQuality.setValue( it.second, f->getValue( it.first ) );
-        }
-    }
+
+    cSource( const raven::sim::gui::cFlower* f );
 
 #endif // tern_vase
+
 #ifdef tern_console
 
     /** Construct from parameters */
@@ -66,7 +56,7 @@ public:
 
 #endif
 
-    /// initialize simulation, automaticalled called by simulator
+    /// initialize simulation, automatically called by simulator
     void Start()
     {
         ScheduleArrival();
@@ -98,6 +88,8 @@ public:
         return 1;
     }
 
+    virtual void HandlePlotPointEvent();
+
     void FinalReport()
         {
         std::cout << FinalReportText();
@@ -116,6 +108,7 @@ private:
     bool myfSteady;     /// true if steady generation, false if exponential
     double myMean;
     double myTotal;
+    int myPlotTotal;
     cQuality myQuality;
 
 #ifdef tern_console

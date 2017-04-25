@@ -11,6 +11,26 @@ namespace sim
 {
 namespace tern
 {
+
+    #ifdef tern_vase
+    cSource::cSource( const raven::sim::gui::cFlower* f )
+        : cEventHandler( f->getName() )
+        , myMean( f->getValue( "Mean" ))
+        , myTotal( 0 )
+        , myPlotTotal( 0 )
+    {
+        myfSteady = false;
+        if( f->getValue( "Steady" ) > 0.5 )
+            myfSteady = true;
+        for ( auto it : myQuality )
+        {
+            myQuality.setValue( it.second, f->getValue( it.first ) );
+        }
+        AddPlot( "Total" );
+    }
+
+#endif // tern_vase
+
 void cSource::ScheduleArrival()
 {
     // Calculate time of next arrival
@@ -51,8 +71,17 @@ void cSource::ScheduleArrival()
         next_time
     );
 }
+
+void cSource::HandlePlotPointEvent()
+{
+    myPlot[0].myData.push_back( ( myTotal - myPlotTotal ) / 2 );
+    myPlotTotal = myTotal;
+}
+
 std::string cSource::FinalReportText()
 {
+    PlotOutput();
+
     std::stringstream ss;
     ss << "Source " << myName;
     ss << " Tasks generated " << myTotal << endl;
