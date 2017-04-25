@@ -489,8 +489,13 @@ void cSimOptionDlg::OnOK( wxCommandEvent& event )
     // save values to database
     raven::sqlite::cDB db;
     db.Open("vase.dat");
-    db.Query("UPDATE params SET type = 1, time = %d, plot_points = %d;",
+    int ret = db.Query("UPDATE params SET type = 1, time = %d, plot_points = %d;",
              time, plot_points );
+    if( ret == -1 )
+    {
+        wxMessageBox("Error writing params to db","VASE");
+        return;
+    }
 
     wxGetApp().theTable->myVase.setSimTime( time );
     wxGetApp().theTable->myVase.mySimType = ( cVase::e_type ) 1;

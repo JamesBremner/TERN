@@ -677,14 +677,14 @@ void ReadDB()
     db.Query("SELECT type, time, plot_points FROM params;");
     if( db.myError )
     {
-        cout << "ERROR reading parameter database: %s " << db.myError << endl;
-        exit(1);
+        tern::theSimulationEngine.HandleFatalError(
+            std::string("ERROR reading parameter database: ") + db.myError);
     }
     tern::theSimulationEngine.myType =
         ( tern::cTERN::etype ) ( strtol( db.myResultA[0].c_str(),NULL,10) );
     tern::theSimulationEngine.myStopTime =
         ( strtol( db.myResultA[1].c_str(),NULL,10) );
-     tern::theSimulationEngine.myPlotPoints =
+    tern::theSimulationEngine.myPlotPoints =
         ( strtol( db.myResultA[2].c_str(),NULL,10) );
 
     db.Query("SELECT * FROM quality_names;");

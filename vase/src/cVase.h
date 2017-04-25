@@ -53,7 +53,16 @@ public:
     bool    Add( int flower_type_index );
     bool	Read( const std::string& filename );
     bool	Write( const std::string& filename );
-    void    ReadDB();
+
+    void    DBClear();
+    void    DBRead();
+
+    /** Ensure sane DB exists
+
+    If there is no DB, or it has some terrible error,
+    create a new empty database
+    */
+    void    DBEnsureSanity();
 
 
     bool	IsSelected()

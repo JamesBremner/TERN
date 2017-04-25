@@ -33,19 +33,25 @@ cVase::cVase()
 #endif
 }
 
+void cVase::DBClear()
+{
+    raven::sqlite::cDB db;
+    db.Open("vase.dat");
+    db.Query("DROP TABLE IF EXISTS params;");
+    db.Query("CREATE TABLE params ( type, time, plot_points );");
+    db.Query("INSERT INTO params VALUES ( 1, 100, 50 );" );
+    db.Query("CREATE TABLE quality_names ( name );");
+    db.Query("CREATE TABLE plot ( flower, plot, data );");
+}
 
-void cVase::ReadDB()
+void cVase::DBRead()
 {
     raven::sqlite::cDB db;
     db.Open("vase.dat");
     db.Query("SELECT type, time, plot_points FROM params;");
     if( db.myError )
     {
-        db.Query("DROP TABLE IF EXISTS params;");
-        db.Query("CREATE TABLE params ( type, time, plot_points );");
-        db.Query("INSERT INTO params VALUES ( 1, 100, 50 );" );
-        db.Query("CREATE TABLE quality_names ( name );");
-        db.Query("CREATE TABLE plot ( flower, plot, data );");
+        DBClear();
     }
     else
     {
@@ -55,6 +61,18 @@ void cVase::ReadDB()
 
         db.Query("SELECT * FROM quality_names;");
         raven::sim::tern::cQuality::setNames(  db.myResultA );
+    }
+
+}
+
+void cVase::DBEnsureSanity()
+{
+    raven::sqlite::cDB db;
+    db.Open("vase.dat");
+    db.Query("SELECT type, time, plot_points FROM params;");
+    if( db.myError )
+    {
+        DBClear();
     }
 
 }

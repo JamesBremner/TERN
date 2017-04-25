@@ -52,6 +52,7 @@ cTable::cTable( wxWindow * parent )
 void cTable::Clear()
 {
     myVase.Clear();
+    myVase.DBClear();
     delete myChart;
     myChart = 0;
     Refresh();
@@ -68,6 +69,8 @@ bool cTable::Read( const std::string& filename )
 void cTable::SimRun()
 {
     Write( "vase.dot");
+
+    myVase.DBEnsureSanity();
 
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
@@ -306,7 +309,7 @@ void cTable::ReportLoad()
 
     // read report into vase
     myVase.Clear();
-    myVase.ReadDB();
+    myVase.DBRead();
     myVase.Read( "vase.dot" );
 
 
