@@ -17,6 +17,7 @@
 #include "probability.h"
 #include "cFunnel.h"
 #include "cSource.h"
+#include "cSink.h"
 #include "model.h"
 
 
@@ -116,110 +117,111 @@ private:
     int myQualityIndexVolume;
     cQuality myQuality;
 };
+//
+/////  Ultimate destination for planets
+//
+//class cSink
+//    : public tern::cEventHandler
+//{
+//public:
+//    cSink(  const std::string& name )
+//        : cEventHandler( name )
+//        , myVolume( 0 )
+//        , myPlotVolume( 0 )
+//    {
+//        myQualityIndexVolume = cQuality::getIndex( "Volume");
+//
+//        // loop over defined qualities
+//        for( auto q : myQuality )
+//        {
+//            // skip volume, already handled
+//            if( q.first == "Volume" )
+//                continue;
+//
+//            // Initial value of quality
+//            myQuality.setValue( q.second, 0 );
+//
+//            // Add plot for quality
+//            AddPlot( q.first );
+//        }
+//    }
+//    /// Planet has arrived at sink
+//    int Handle( tern::cEvent* e )
+//    {
+//        // base class handles some standard events
+//        if( cEventHandler::Handle( e ))
+//            return 1;
+//
+//        // report on planet's history
+//        long long lifetime = e->myPlanet->getLifetime();
+//        acc( lifetime );
+//        cout << " Planet " << e->myPlanet->myID << " arrived at sink " << myName
+//             << " at " << tern::theSimulationEngine.theTime << " after " << lifetime << endl;
+//
+//        // Add to total volume, just 0 if volume not specified
+//        myVolume += e->myPlanet->getQuality(myQualityIndexVolume);
+//
+//        myQuality = e->myPlanet->Quality();
+//
+//        // delete the planet
+//        tern::theSimulationEngine.Delete( e->myPlanet );
+//
+//        // all done
+//        return 1;
+//    }
+//    void HandlePlotPointEvent()
+//    {
+//        // Plot the rate
+//        myPlot[0].myData.push_back( ( myVolume - myPlotVolume ) / 2 );
+//        myPlotVolume = myVolume;
+//
+//        // loop over  defined qualities
+//        int index = 1;
+//        for( auto q : myQuality )
+//        {
+//            // skip volume, already handled
+//            if( q.first == "Volume" )
+//                continue;
+//            myPlot[ index++ ].myData.push_back( myQuality.getValue( q.second ));
+//        }
+//    }
+//    void FinalReport()
+//    {
+//        cout << "Sink " << myName;
+//
+//        //  Output volume plot, if volume quality specified
+//        if( myQualityIndexVolume >= 0 )
+//        {
+//            cout << " Total volume " << myVolume << endl;
+//            PlotOutput();
+//        }
+//        else
+//        {
+//            if(  boost::accumulators::count( acc ) == 0 )
+//            {
+//                wcout << " No arrivals" << endl;
+//            }
+//            else
+//            {
+//                wcout << " arrivals: " << boost::accumulators::count( acc )
+//                      << " min lifetime " << boost::accumulators::min( acc )
+//                      << " mean lifetime " << boost::accumulators::mean( acc )
+//                      << " max lifetime " << boost::accumulators::max( acc ) << endl;
+//            }
+//        }
+//
+//    }
+//private:
+//    boost::accumulators::accumulator_set<long long,
+//    boost::accumulators::stats<boost::accumulators::tag::mean,
+//    boost::accumulators::tag::max, boost::accumulators::tag::min,
+//    boost::accumulators::tag::count > > acc;
+//    double myVolume;
+//    double myPlotVolume;
+//    int myQualityIndexVolume;
+//    cQuality myQuality;
+//};
 
-///  Ultimate destination for planets
-
-class cSink
-    : public tern::cEventHandler
-{
-public:
-    cSink(  const std::string& name )
-        : cEventHandler( name )
-        , myVolume( 0 )
-        , myPlotVolume( 0 )
-    {
-        myQualityIndexVolume = cQuality::getIndex( "Volume");
-
-        // loop over defined qualities
-        for( auto q : myQuality )
-        {
-            // skip volume, already handled
-            if( q.first == "Volume" )
-                continue;
-
-            // Initial value of quality
-            myQuality.setValue( q.second, 0 );
-
-            // Add plot for quality
-            AddPlot( q.first );
-        }
-    }
-    /// Planet has arrived at sink
-    int Handle( tern::cEvent* e )
-    {
-        // base class handles some standard events
-        if( cEventHandler::Handle( e ))
-            return 1;
-
-        // report on planet's history
-        long long lifetime = e->myPlanet->getLifetime();
-        acc( lifetime );
-        cout << " Planet " << e->myPlanet->myID << " arrived at sink " << myName
-             << " at " << tern::theSimulationEngine.theTime << " after " << lifetime << endl;
-
-        // Add to total volume, just 0 if volume not specified
-        myVolume += e->myPlanet->getQuality(myQualityIndexVolume);
-
-        myQuality = e->myPlanet->Quality();
-
-        // delete the planet
-        tern::theSimulationEngine.Delete( e->myPlanet );
-
-        // all done
-        return 1;
-    }
-    void HandlePlotPointEvent()
-    {
-        // Plot the rate
-        myPlot[0].myData.push_back( ( myVolume - myPlotVolume ) / 2 );
-        myPlotVolume = myVolume;
-
-        // loop over  defined qualities
-        int index = 1;
-        for( auto q : myQuality )
-        {
-            // skip volume, already handled
-            if( q.first == "Volume" )
-                continue;
-            myPlot[ index++ ].myData.push_back( myQuality.getValue( q.second ));
-        }
-    }
-    void FinalReport()
-    {
-        cout << "Sink " << myName;
-
-        //  Output volume plot, if volume quality specified
-        if( myQualityIndexVolume >= 0 )
-        {
-            cout << " Total volume " << myVolume << endl;
-            PlotOutput();
-        }
-        else
-        {
-            if(  boost::accumulators::count( acc ) == 0 )
-            {
-                wcout << " No arrivals" << endl;
-            }
-            else
-            {
-                wcout << " arrivals: " << boost::accumulators::count( acc )
-                      << " min lifetime " << boost::accumulators::min( acc )
-                      << " mean lifetime " << boost::accumulators::mean( acc )
-                      << " max lifetime " << boost::accumulators::max( acc ) << endl;
-            }
-        }
-
-    }
-private:
-    boost::accumulators::accumulator_set<long long,
-    boost::accumulators::stats<boost::accumulators::tag::mean,
-    boost::accumulators::tag::max, boost::accumulators::tag::min,
-    boost::accumulators::tag::count > > acc;
-    double myVolume;
-    double myPlotVolume;
-    int myQualityIndexVolume;
-    cQuality myQuality;
-};
 /**  Delay planets in their progress for some time
 
 This is like a conveyor belt, many planets can be delayed in sequence

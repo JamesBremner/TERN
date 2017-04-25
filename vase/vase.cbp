@@ -98,6 +98,7 @@
 		<Unit filename="../src/ext/sqlite3.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="ProcessFlowSimGUI.h" />
 		<Unit filename="ProcessSimulationGui.cpp" />
 		<Unit filename="Table.cpp" />
 		<Unit filename="Table.h" />

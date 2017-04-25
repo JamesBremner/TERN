@@ -1,2 +1,0 @@
-FATAL ERROR:
-ERROR: Cannot find sink

@@ -34,8 +34,8 @@
 			<Add option="-std=c++11" />
 			<Add option="-fexceptions" />
 			<Add option="-D_mingw_" />
-			<Add option="-Dtern_build" />
-			<Add option="-Dstops_in_vase" />
+			<Add option="-Dtern_vase" />
+			<Add option="-Dbasic_in_vase" />
 			<Add directory="$(#boost)" />
 			<Add directory="." />
 			<Add directory="../../raven-set" />
@@ -51,6 +51,8 @@
 		<Unit filename="../src/Probability.cpp" />
 		<Unit filename="../src/Probability.h" />
 		<Unit filename="../src/cQuality.cpp" />
+		<Unit filename="../src/cSink.cpp" />
+		<Unit filename="../src/cSink.h" />
 		<Unit filename="../src/cSource..cpp" />
 		<Unit filename="../src/cSource.h" />
 		<Unit filename="../src/ext/sqlite3.c">

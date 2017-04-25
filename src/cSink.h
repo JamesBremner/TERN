@@ -14,42 +14,23 @@ class cSink
 public:
     cSink(  const std::string& name )
         : cEventHandler( name )
+        , myTotal( 0 )
+        , myPlotTotal( 0 )
     {
-
+        AddPlot( "Total" );
     }
 
     virtual void Clear()
     {
         cEventHandler::Clear();
+#ifdef tern_console
         myAccumulator = stats::stats_t();
+#endif // tern_console
     }
 
-    int Handle( tern::cEvent* e )
-    {
-        if( cEventHandler::Handle( e ))
-            return 1;
+    int Handle( tern::cEvent* e );
 
-        // switch on event type
-        switch ( e->myType )
-        {
-        case 1:
-
-            // planet has arrived at sink
-
-            // add to accumulated statistics
-            myAccumulator( e->myPlanet->getLifetime() );
-
-            // delete the planet
-            tern::theSimulationEngine.Delete( e->myPlanet );
-
-            // all done
-            return 1;
-
-
-        default:
-            return 0;
-        }
-    }
+    virtual void HandlePlotPointEvent();
 
     virtual void FinalReport()
     {
@@ -69,6 +50,11 @@ public:
 
 private:
 
+    int myTotal;
+    int myPlotTotal;
+
+#ifdef tern_console
+
     // run stats
     stats::stats_t myAccumulator;
 
@@ -78,6 +64,8 @@ private:
     stats::stats_t myRepAver;
     stats::stats_t myRepMax;
     stats::stats_t myRepDev;
+#endif // tern_console
+
 };
 
 }

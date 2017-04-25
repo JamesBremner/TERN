@@ -10,9 +10,50 @@ namespace sim
 namespace tern
 {
 
+int cSink::Handle( tern::cEvent* e )
+{
+    if( cEventHandler::Handle( e ))
+        return 1;
+
+    // switch on event type
+    switch ( e->myType )
+    {
+    case 1:
+
+        // planet has arrived at sink
+
+        // add to accumulated statistics
+#ifdef tern_console
+        myAccumulator( e->myPlanet->getLifetime() );
+#endif // tern_console
+#ifdef tern_vase
+        myTotal++;
+#endif // tern_vase
+
+        // delete the planet
+        tern::theSimulationEngine.Delete( e->myPlanet );
+
+        // all done
+        return 1;
+
+
+    default:
+        return 0;
+    }
+}
+
+void cSink::HandlePlotPointEvent()
+{
+    myPlot[0].myData.push_back( ( myTotal - myPlotTotal ) / 2 );
+    myPlotTotal = myTotal;
+}
+
 std::string cSink::FinalReportText()
 {
+    PlotOutput();
+
     std::stringstream ss;
+#ifdef tern_console
     ss << "Sink " << myName << " report: "
        << "count:" << boost::accumulators::count(myAccumulator)
        << " min:" << boost::accumulators::min(myAccumulator)
@@ -20,10 +61,16 @@ std::string cSink::FinalReportText()
        << " max:" << boost::accumulators::max(myAccumulator)
        << " std dev:" << (int)sqrt(boost::accumulators::variance(myAccumulator))
        << "\n";
+#endif // tern_console
+#ifdef tern_vase
+    ss << "Source " << myName;
+    ss << " Total Arrivals " << myTotal << "\n";
+#endif // tern_vase
     return ss.str();
 }
 void cSink::SaveRunStatsToReplicationStats()
 {
+#ifdef tern_console
     myRepCount((int)boost::accumulators::count(myAccumulator));
     myRepMin((int)boost::accumulators::min(myAccumulator));
     myRepAver((int)boost::accumulators::mean(myAccumulator));
@@ -32,10 +79,12 @@ void cSink::SaveRunStatsToReplicationStats()
 
     // clear run stats
     myAccumulator = stats::stats_t();
+#endif // tern_console
 }
 std::string cSink::ReplicationReportText()
 {
     std::stringstream ss;
+#ifdef tern_console
     ss << getName() << " replication report\n";
     ss << " count report: "
        << "count:" << boost::accumulators::count(myRepCount)
@@ -65,7 +114,7 @@ std::string cSink::ReplicationReportText()
        << " max:" << boost::accumulators::max(myRepMax)
        << " std dev:" << (int)sqrt(boost::accumulators::variance(myRepMax))
        << "\n";
-
+#endif // tern_console
     return ss.str();
 }
 }

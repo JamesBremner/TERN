@@ -387,7 +387,6 @@ cEventHandler::cEventHandler( const std::string& name )
 {
     myID = nextID++;		                // unique ID for this handler
     theSimulationEngine.Add( *this );		// inform simulator this handler exists
-    AddPlot( "Volume" );
 }
 
 void cEventHandler::Start()

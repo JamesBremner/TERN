@@ -29,7 +29,7 @@ cVase::cVase()
 {
 #ifdef tern_vase
     // read values from database
-    ReadDB();
+    DBRead();
 #endif
 }
 
