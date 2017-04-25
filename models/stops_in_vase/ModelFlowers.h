@@ -1,5 +1,9 @@
 #pragma once
 #include "flower_types.h"
+#ifdef tern_vase
+#include "tern.h"
+#include "cDelay.h"
+#endif
 
 namespace raven
 {
@@ -27,7 +31,6 @@ public:
 #ifdef tern_vase
 
 #include "tern.h"
-#include "task.h"
 
 namespace raven
 {
@@ -38,7 +41,7 @@ namespace tern
 
 bool ConstructModelFlowers( raven::sim::gui::cFlower * f );
 
-class cStoppingMachine : public task::cDelay
+class cStoppingMachine : public tern::cDelay
 {
 public:
     cStoppingMachine( raven::sim::gui::cFlower * f );

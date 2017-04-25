@@ -86,13 +86,16 @@ void cDelay::ScheduleCompletion()
 }
 void cDelay::SaveRunStatsToReplicationStats()
 {
+#ifdef tern_console
     myRep( myQMax );
     myQMax = 0;
+    #endif
 }
 
 void cDelay::ReplicationReport()
 {
     std::stringstream ss;
+    #ifdef tern_console
     ss << getName() << " replication report\n";
     ss << " Q max report: "
        << "count:" << boost::accumulators::count(myRep)
@@ -101,7 +104,7 @@ void cDelay::ReplicationReport()
        << " max:" << boost::accumulators::max(myRep)
        << " std dev:" << (int)sqrt(boost::accumulators::variance(myRep))
        << "\n";
-
+#endif
     std::cout << ss.str();
 }
 std::string cDelay::FinalReportText()

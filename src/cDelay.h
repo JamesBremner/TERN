@@ -15,7 +15,9 @@ protected:
 
     std::queue < tern::cPlanet * > myQ;
     int myQMax;
+#ifdef tern_console
     stats::stats_t myRep;
+#endif
 
 public:
     cDelay(  const std::string& name )
