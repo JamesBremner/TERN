@@ -27,7 +27,7 @@ cVase::cVase()
     , my2Selected( 0 )
     , myHandleSelected( -1 )
 {
-#ifdef tern_build
+#ifdef tern_vase
     // read values from database
     ReadDB();
 #endif

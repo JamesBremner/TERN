@@ -61,13 +61,17 @@ std::string cSource::FinalReportText()
 
 void cSource::SaveRunStatsToReplicationStats()
 {
+    #ifdef tern_console
     myRepCount( myTotal );
     myTotal = 0;
+    #endif
 }
 
 std::string cSource::ReplicationReportText()
 {
     std::stringstream ss;
+
+#ifdef tern_console
     ss << getName() << " replication report\n";
     ss << " count report: "
        << "count:" << boost::accumulators::count(myRepCount)
@@ -97,7 +101,7 @@ std::string cSource::ReplicationReportText()
        << " max:" << boost::accumulators::max(myRepMax)
        << " std dev:" << (int)sqrt(boost::accumulators::variance(myRepMax))
        << "\n";
-
+#endif // tern_console
     return ss.str();
 }
 

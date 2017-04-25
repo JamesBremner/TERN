@@ -36,7 +36,7 @@ public:
     f->getValue( quality_name ) specify qualitites of the flow generated
 
     */
-#ifdef tern_build
+#ifdef tern_vase
     cSource( const raven::sim::gui::cFlower* f )
         : cEventHandler( f->getName() )
         , myMean( f->getValue( "Mean" ))
@@ -51,7 +51,7 @@ public:
         }
     }
 
-#endif // tern_build
+#endif // tern_vase
 #ifdef tern_console
 
     /** Construct from parameters */
@@ -118,12 +118,15 @@ private:
     double myTotal;
     cQuality myQuality;
 
+#ifdef tern_console
         // replication stats
     stats::stats_t myRepCount;
     stats::stats_t myRepMin;
     stats::stats_t myRepAver;
     stats::stats_t myRepMax;
     stats::stats_t myRepDev;
+#endif // tern_console
+
 };
 }
 }

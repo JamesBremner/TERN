@@ -24,7 +24,7 @@ public:
 }
 }
 
-#ifdef tern_build
+#ifdef tern_vase
 
 #include "tern.h"
 #include "task.h"
