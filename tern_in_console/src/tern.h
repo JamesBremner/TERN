@@ -210,7 +210,7 @@ public:
 
 	*/
 	struct less {
-		bool operator()(const cEventHandler* l, const cEventHandler* r) {
+		bool operator()(const cEventHandler* l, const cEventHandler* r) const {
 			return l->myID < r->myID; }
 	};
 

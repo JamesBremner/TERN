@@ -60,7 +60,7 @@ void cTERN::Run()
         handle_next_event();
 
     // Save final plot points
-    for( auto& h : myHandlers )
+    for( auto h : myHandlers )
     {
         h->HandlePlotPointEvent();
     }
@@ -281,8 +281,9 @@ void cTERN::handle_next_event()
 }
 cEventHandler * cTERN::Find( int id )
 {
-    cEventHandler target( id );
-    handler_iter ph = myHandlers.find( &target );
+    cEventHandler * target = new cEventHandler( id );
+    handler_iter ph = myHandlers.find( target );
+    delete target;
     if( ph == myHandlers.end() )
     {
         throw std::runtime_error("Cannot find event handler");
@@ -379,9 +380,8 @@ void cTERN::DumpQueue()
     for( event_iter event = myEventQueue.begin();
             event != myEventQueue.end(); event++ )
     {
-        printf("%d %d %d ( %x %x )\n",
-               event->myPlanet->myID, event->myType, event->myHandler->getID(),
-               (unsigned int)&(*event), (unsigned int)event->myPlanet);
+        printf("%d %d %d \n",
+               event->myPlanet->myID, event->myType, event->myHandler->getID());
     }
 }
 /**

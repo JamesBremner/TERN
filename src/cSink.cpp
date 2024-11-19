@@ -44,6 +44,8 @@ int cSink::Handle( tern::cEvent* e )
 
 void cSink::HandlePlotPointEvent()
 {
+    if( ! myPlot.size() )
+        return;
     myPlot[0].myData.push_back( ( myTotal - myPlotTotal ) / 2 );
     myPlotTotal = myTotal;
 }

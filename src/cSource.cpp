@@ -74,6 +74,8 @@ void cSource::ScheduleArrival()
 
 void cSource::HandlePlotPointEvent()
 {
+    if( ! myPlot.size() )
+        return;
     myPlot[0].myData.push_back( ( myTotal - myPlotTotal ) / 2 );
     myPlotTotal = myTotal;
 }

@@ -121,6 +121,8 @@ int main()
 
     if( OK )
         cout << "ALL unit tests PASSED\n";
+    else
+        cout << "Unit test2 FAILED\n";
 
     return 0;
 }
