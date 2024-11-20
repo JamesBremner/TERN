@@ -31,6 +31,9 @@ OBJ_tst1 = \
 	$(ODIR)/cSink.o \
 	$(ODIR)/Probability.o \
 
+OBJ_tst2 = \
+	$(ODIR)/tst2.o \
+
 ### COMPILE
 
 $(ODIR)/%.o: %.cpp  
@@ -40,6 +43,10 @@ $(ODIR)/%.o: %.cpp
 unit: $(OBJ_tst1)
 	g++ $(OPT) \
 	-o bin/tst1.exe $^  \
+	$(static_link_flags) $(LIBS)
+tst2: $(OBJ_tst2)
+	g++ $(OPT) \
+	-o bin/tst2.exe $^  \
 	$(static_link_flags) $(LIBS)
 
 .PHONY: clean

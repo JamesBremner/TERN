@@ -73,6 +73,8 @@
         "filesystem": "cpp",
         "functional": "cpp",
         "unordered_map": "cpp",
-        "xhash": "cpp"
+        "xhash": "cpp",
+        "cstdarg": "cpp",
+        "set": "cpp"
     }
 }
