@@ -1,10 +1,14 @@
 #source file search paths
-VPATH = ./src ./tern_in_console/src
+VPATH = ./src \
+	./tern_in_console/src \
+	./tern_in_console/models/stops \
 
 	# compiler include search paths
 INCS = \
 	-I./src \
+	-I./src/ext \
 	-I./tern_in_console/src \
+	-I./tern_in_console/models/stops \
 	-I./vase/src \
 	-I../windex/include \
 	-I../raven-set \
@@ -32,7 +36,17 @@ OBJ_tst1 = \
 	$(ODIR)/Probability.o \
 
 OBJ_tst2 = \
-	$(ODIR)/tst2.o \
+	$(ODIR)/tst2.o 
+
+OBJ_tst3 = \
+	$(ODIR)/tst3.o \
+	$(ODIR)/cStoppingMachine.o \
+	$(ODIR)/tern.o \
+	$(ODIR)/terntime.o \
+	$(ODIR)/cSource.o \
+	$(ODIR)/cDelay.o \
+	$(ODIR)/cSink.o \
+	$(ODIR)/Probability.o \
 
 ### COMPILE
 
@@ -47,6 +61,10 @@ unit: $(OBJ_tst1)
 tst2: $(OBJ_tst2)
 	g++ $(OPT) \
 	-o bin/tst2.exe $^  \
+	$(static_link_flags) $(LIBS)
+tst3: $(OBJ_tst3)
+	g++ $(OPT) \
+	-o bin/tst3.exe $^  \
 	$(static_link_flags) $(LIBS)
 
 .PHONY: clean

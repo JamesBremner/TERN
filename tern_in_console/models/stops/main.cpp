@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "nlohmann_json.hpp"
+#include "json.hpp"
 #include "tern.h"
 #include "cSink.h"
 #include "cDelay.h"

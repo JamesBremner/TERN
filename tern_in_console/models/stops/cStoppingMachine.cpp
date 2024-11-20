@@ -1,6 +1,6 @@
 #include <iostream>
 #include "terntime.h"
-#include "nlohmann_json.hpp"
+#include "json.hpp"
 #include "tern.h"
 #include "cDelay.h"
 #include "probability.h"
