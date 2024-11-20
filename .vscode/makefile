@@ -1,5 +1,5 @@
 #source file search paths
-VPATH = ./src ./tern_in_console/tst/tst1 ./tern_in_console/src
+VPATH = ./src ./tern_in_console/src
 
 	# compiler include search paths
 INCS = \
