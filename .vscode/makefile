@@ -1,14 +1,14 @@
 #source file search paths
 VPATH = ./src \
 	./tern_in_console/src \
-	./tern_in_console/models/stops \
+	./tern_in_console/models \
 
 	# compiler include search paths
 INCS = \
 	-I./src \
 	-I./src/ext \
 	-I./tern_in_console/src \
-	-I./tern_in_console/models/stops \
+	-I./tern_in_console/models \
 	-I./vase/src \
 	-I../windex/include \
 	-I../raven-set \
@@ -48,6 +48,24 @@ OBJ_tst3 = \
 	$(ODIR)/cSink.o \
 	$(ODIR)/Probability.o \
 
+OBJ_stops = \
+	$(ODIR)/stops.o \
+	$(ODIR)/cStoppingMachine.o \
+	$(ODIR)/tern.o \
+	$(ODIR)/terntime.o \
+	$(ODIR)/cSource.o \
+	$(ODIR)/cDelay.o \
+	$(ODIR)/cSink.o \
+	$(ODIR)/Probability.o \
+
+OBJ_queue = \
+	$(ODIR)/queue.o \
+	$(ODIR)/tern.o \
+	$(ODIR)/cSource.o \
+	$(ODIR)/cDelay.o \
+	$(ODIR)/cSink.o \
+	$(ODIR)/Probability.o \
+
 ### COMPILE
 
 $(ODIR)/%.o: %.cpp  
@@ -66,8 +84,18 @@ tst3: $(OBJ_tst3)
 	g++ $(OPT) \
 	-o bin/tst3.exe $^  \
 	$(static_link_flags) $(LIBS)
+stops: $(OBJ_stops)
+	g++ $(OPT) \
+	-o bin/stops.exe $^  \
+	$(static_link_flags) $(LIBS)
+queue: $(OBJ_queue)
+	g++ $(OPT) \
+	-o bin/queue.exe $^  \
+	$(static_link_flags) $(LIBS)
 
 .PHONY: clean
 clean:
 	del /q .vscode\\obj\\*.o
+
+rebuild_all: clean unit tst2 tst3 stops queue
 

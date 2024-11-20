@@ -186,6 +186,8 @@ int RunThresholdTest()
     tern::theSimulationEngine.myStopTime = 50;
     tern::theSimulationEngine.setConsoleLog();
     tern::theSimulationEngine.Run();
+
+    return 0;
 }
 int main()
 {

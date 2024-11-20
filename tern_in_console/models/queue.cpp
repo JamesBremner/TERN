@@ -1,13 +1,15 @@
 #include <iostream>
 #include "tern.h"
-#include "task.h"
+#include "cSource.h"
+#include "cSink.h"
+#include "cDelay.h"
 using namespace std;
 using namespace raven::sim;
 int main()
 {
-    task::cSource S("src");
-    task::cDelay  D("delay");
-    task::cSink   K{"sink"};
+    tern::cSource S("src",1,true);
+    tern::cDelay  D("delay");
+    tern::cSink   K{"sink"};
 
     tern::theSimulationEngine.Connect( "src", "delay" );
     tern::theSimulationEngine.Connect( "delay", "sink" );

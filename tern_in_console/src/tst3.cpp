@@ -7,7 +7,7 @@
 #include "cDelay.h"
 #include "probability.h"
 
-#include "../../models/stops/cStoppingMachine.h"
+#include "cStoppingMachine.h"
 
 
 using namespace std;
