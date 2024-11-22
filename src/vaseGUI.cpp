@@ -56,17 +56,24 @@ void cGUI::registerEventHandlers()
     fm.events().clickRight(
         [&]()
         {
-            ConstructFlower();
+            auto ms = fm.getMouseStatus();
+            auto *flower = myVase.find(ms.x, ms.y);
+            if (flower == nullptr)
+                ConstructFlower();
+            else {
+                myVase.getSelected()->Connect( flower );
+                fm.update();
+            }
         });
 
     fm.events().mouseMove(
         [&](wex::sMouse &m)
         {
-            if( ! m.left)
+            if (!m.left)
                 return;
-            if( ! myVase.IsSelected() )
+            if (!myVase.IsSelected())
                 return;
-            myVase.getSelected()->setLocationCenter(m.x,m.y);
+            myVase.getSelected()->setLocationCenter(m.x, m.y);
             fm.update();
         });
 }
@@ -79,7 +86,18 @@ void cGUI::draw(wex::shapes &S)
             S.color(0x0000FF);
         else
             S.color(0);
-        S.rectangle({flower->getLocationX(), flower->getLocationY(), 30, 30});
+        S.rectangle({flower->getLocationX(), flower->getLocationY(), 50, 50});
+
+        auto* dstFlower = flower->getDestination();
+        if( dstFlower ) {
+            S.color(0xFF0000);
+            POINT exitPort, entryPort;
+            exitPort.x = flower->getLocationX() + 50;
+            exitPort.y = flower->getLocationY() + 25;
+            entryPort.x = dstFlower->getLocationX();
+            entryPort.y = dstFlower->getLocationY() + 25;
+            S.line({ exitPort.x,exitPort.y,entryPort.x,entryPort.y});
+        }
     }
 }
 
