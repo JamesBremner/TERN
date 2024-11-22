@@ -75,6 +75,12 @@
         "unordered_map": "cpp",
         "xhash": "cpp",
         "cstdarg": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "any": "cpp",
+        "array": "cpp",
+        "numeric": "cpp",
+        "ranges": "cpp",
+        "span": "cpp",
+        "valarray": "cpp"
     }
 }

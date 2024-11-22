@@ -66,6 +66,13 @@ OBJ_queue = \
 	$(ODIR)/cSink.o \
 	$(ODIR)/Probability.o \
 
+OBJ_vase = \
+	$(ODIR)/vaseGUI.o \
+	$(ODIR)/cVase.o \
+	$(ODIR)/flower.o \
+	$(ODIR)/flower_types.o \
+	$(ODIR)/cQuality.o \
+
 ### COMPILE
 
 $(ODIR)/%.o: %.cpp  
@@ -92,10 +99,15 @@ queue: $(OBJ_queue)
 	g++ $(OPT) \
 	-o bin/queue.exe $^  \
 	$(static_link_flags) $(LIBS)
+vase: $(OBJ_vase)
+	g++ $(OPT) \
+	-o bin/vase.exe $^  \
+	$(static_link_flags) $(LIBS)
 
 .PHONY: clean
 clean:
 	del /q .vscode\\obj\\*.o
 
-rebuild_all: clean unit tst2 tst3 stops queue
+rebuild_all: clean unit tst2 tst3 stops queue vase
+rebuild_vase: clean vase
 
