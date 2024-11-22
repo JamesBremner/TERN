@@ -30,39 +30,52 @@ private:
 
     raven::sim::gui::cVase myVase;
 
-    void registerEventHandlers()
-    {
-        fm.events().draw(
-            [&](PAINTSTRUCT &ps)
-            {
-                wex::shapes S(ps);
-                draw(S);
-            });
+    void registerEventHandlers();
 
-
-        fm.events().click(
-            [&]()
-            {
-                SelectFlower();
-            });
-
-        fm.events().clickRight(
-            [&]()
-            {
-                ConstructFlower();
-            });
-    }
     void draw(wex::shapes &S);
 
     void ConstructFlower();
     void SelectFlower();
 };
 
+void cGUI::registerEventHandlers()
+{
+    fm.events().draw(
+        [&](PAINTSTRUCT &ps)
+        {
+            wex::shapes S(ps);
+            draw(S);
+        });
+
+    fm.events().click(
+        [&]()
+        {
+            SelectFlower();
+        });
+
+    fm.events().clickRight(
+        [&]()
+        {
+            ConstructFlower();
+        });
+
+    fm.events().mouseMove(
+        [&](wex::sMouse &m)
+        {
+            if( ! m.left)
+                return;
+            if( ! myVase.IsSelected() )
+                return;
+            myVase.getSelected()->setLocationCenter(m.x,m.y);
+            fm.update();
+        });
+}
+
 void cGUI::draw(wex::shapes &S)
 {
     for (raven::sim::gui::cFlower *flower : myVase)
     {
-        if( flower->isSelected() )
+        if (flower->isSelected())
             S.color(0x0000FF);
         else
             S.color(0);
@@ -74,7 +87,7 @@ void cGUI::ConstructFlower()
 {
     static wex::sMouse ms;
     ms = fm.getMouseStatus();
-    //std::cout << "mouse at " << ms.x << " " << ms.y << "\n";
+    // std::cout << "mouse at " << ms.x << " " << ms.y << "\n";
     wex::menu m(fm);
     for (auto flower : myFactory.dictionary())
     {
@@ -83,21 +96,21 @@ void cGUI::ConstructFlower()
                  {
                      if (!myVase.Add(title))
                          return;
-                     //std::cout << "flower at " << ms.x << " " << ms.y << "\n";
+                     // std::cout << "flower at " << ms.x << " " << ms.y << "\n";
                      myVase.getSelected()->setLocationTopLeft(ms.x, ms.y);
                      fm.update();
                  });
     }
 
-    //std::cout << "popup at " << ms.x << " " << ms.y << "\n";
+    // std::cout << "popup at " << ms.x << " " << ms.y << "\n";
     m.popup(ms.x, ms.y);
 }
 
 void cGUI::SelectFlower()
 {
     auto ms = fm.getMouseStatus();
-    auto* flower = myVase.find(ms.x,ms.y);
-    if( flower == nullptr )
+    auto *flower = myVase.find(ms.x, ms.y);
+    if (flower == nullptr)
         return;
     myVase.setSelected(flower);
     fm.update();
