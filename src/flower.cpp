@@ -162,16 +162,7 @@ void cFlower::Configure( wxWindow* parent )
   @return true if x,y is a location somewhere on the flower
 
 */
-bool cFlower::IsUnder( const wxPoint& p )
-{
-    if( myHeight < 0 )
-        return( myX <= p.x && myY <= p.y &&
-                myX+myWidth >= p.x && myY+myWidth >= p.y );
-    else
-        return( myX <= p.x && myY <= p.y &&
-                myX+myWidth >= p.x && myY+myHeight >= p.y );
 
-}
 /**
   Is one of the resize handles under a location
 
@@ -584,6 +575,16 @@ double cFlower::getValue(
         return -1.0;
     }
     return pit->second.value;
+}
+bool cFlower::IsUnder( int x, int y )
+{
+    if( myHeight < 0 )
+        return( myX <= x && myY <=y &&
+                myX+myWidth >= x && myY+myWidth >= y );
+    else
+        return( myX <= x && myY <= y &&
+                myX+myWidth >= x && myY+myHeight >= y );
+
 }
 
 raven::sim::cFlowerDict * cFlowerFactory::myFlowerDict;

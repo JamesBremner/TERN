@@ -253,7 +253,6 @@ public:
     void DrawText( wxPaintDC& dc );
     void PaintResizeHandles( wxPaintDC& dc );
     virtual void Configure( wxWindow* parent );
-    bool IsUnder( const wxPoint& p );
     int  HandleIsUnder( const wxPoint& p );
     void getHandles( std::vector< wxRect >& vhandle );
     void DragHandle( int handle, wxPoint p );
@@ -280,6 +279,7 @@ public:
     }
     virtual void setLocationTopLeft( int x, int y );
     virtual void setLocationCenter( int x, int y );
+    bool IsUnder( int x, int y );
     int getIndex()
     {
         return myIndex;
@@ -292,6 +292,10 @@ public:
     void Deselect()
     {
         IsSelected = false;
+    }
+    bool isSelected()
+    {
+        return IsSelected;
     }
     void setName( const string& n = "" );
     const string& getName() const

@@ -257,7 +257,7 @@ public:
     void DrawText( wxPaintDC& dc );
     void PaintResizeHandles( wxPaintDC& dc );
     virtual void Configure( wxWindow* parent );
-    bool IsUnder( const wxPoint& p );
+    
     int  HandleIsUnder( const wxPoint& p );
     void getHandles( std::vector< wxRect >& vhandle );
     void DragHandle( int handle, wxPoint p );
@@ -349,6 +349,8 @@ public:
     {
         return myHeight;
     }
+
+    bool IsUnder( int x, int y );
 
 protected:
     string myName;

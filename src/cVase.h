@@ -72,10 +72,8 @@ public:
     {
         return mySelected;
     }
-    void setSelected( cFlower* f )
-    {
-        mySelected = f;
-    }
+    void setSelected( cFlower* f );
+
     cFlower * getSelected2()
     {
         return my2Selected;
@@ -108,7 +106,6 @@ public:
 
 #ifdef WXWIDGETS
     void	Select( const wxPoint& p );
-    cFlower* find( const wxPoint& p );
     void	Paint( wxPaintDC& dc );
     void	Configure( wxWindow* parent );
     void	setLocation( const wxPoint& p );
@@ -120,6 +117,7 @@ public:
     int getPlotPoints()         { return myPlotPoints; }
 
     cFlower*  find( const std::string& name );
+    cFlower* find( int x, int y );
 
 private:
     std::vector < cFlower* > myVase;
