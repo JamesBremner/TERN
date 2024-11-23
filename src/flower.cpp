@@ -70,13 +70,7 @@ void cFlower::setName( const string& n )
     if( n.length() > 0 )
         myName = n;
     else
-    {
-#ifdef WXWIDGETS
-        myName = myTypeName + wxString::Format(L"_%d",myIndex);
-#endif
-    }
-
-    myType = cFlowerFactory::Index( myTypeName );
+         myType = cFlowerFactory::Index( myTypeName );
 
 }
 void cFlower::setIndex( int id )

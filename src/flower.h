@@ -313,9 +313,13 @@ public:
     void Write( FILE * fp );
     void WritePipe( FILE * fp );
     void Read( const string& line );
+
+    /// Connect output to a destination flower
     void Connect( cFlower * d )
     {
-        myDestination = d;    ///< Connect output to a destination flower
+        if( d == this )
+            return;
+        myDestination = d;    
     }
     void Connect2( cFlower * d )
     {
