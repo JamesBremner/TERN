@@ -12,7 +12,7 @@ namespace sim
 namespace tern
 {
 
-    #ifdef tern_vase
+    #ifdef vase
     cSource::cSource( const raven::sim::gui::cFlower* f )
         : cEventHandler( f->getName() )
         , myMean( f->getValue( "Mean" ))

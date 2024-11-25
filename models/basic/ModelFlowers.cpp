@@ -51,7 +51,7 @@ cFlower * cFlowerFactory::ConstructModelFlower( int flower_type_index )
 
 }
 
-#ifdef tern_vase
+#ifdef vase
 namespace tern
 {
 bool ConstructModelFlowers( raven::sim::gui::cFlower * f )

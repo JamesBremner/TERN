@@ -36,11 +36,11 @@ public:
     f->getValue( quality_name ) specify qualitites of the flow generated
 
     */
-#ifdef tern_vase
+#ifdef vase
 
     cSource( const raven::sim::gui::cFlower* f );
 
-#endif // tern_vase
+#endif // vase
 
 #ifdef tern_console
 

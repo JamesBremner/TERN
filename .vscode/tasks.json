@@ -105,19 +105,15 @@
         },
         {
             "label": "vase",
-            "options": {
-                "cwd": "${workspaceFolder}"
-               },
+            "options": { "cwd": "${workspaceFolder}"               },
             "command": "mingw32-make.exe",
             "args": [
                 "-f",
-                ".vscode/makefile",
+                ".vscode/makeVase.txt",
                 "vase"
             ],
 
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "problemMatcher": [                "$gcc"            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -125,19 +121,31 @@
         },
         {
             "label": "rebuild_vase",
-            "options": {
-                "cwd": "${workspaceFolder}"
-               },
+            "options": {                "cwd": "${workspaceFolder}"               },
             "command": "mingw32-make.exe",
             "args": [
                 "-f",
-                ".vscode/makefile",
+                ".vscode/makeVase.txt",
                 "rebuild_vase"
             ],
 
-            "problemMatcher": [
-                "$gcc"
+            "problemMatcher": [                "$gcc"            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "vase_sim",
+            "options": {                "cwd": "${workspaceFolder}"               },
+            "command": "mingw32-make.exe",
+            "args": [
+                "-f",
+                ".vscode/makeVase.txt",
+                "vase_sim"
             ],
+
+            "problemMatcher": [                "$gcc"            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -151,7 +159,7 @@
             "command": "mingw32-make.exe",
             "args": [
                 "-f",
-                ".vscode/makefile",
+                ".vscode/makefile.txt",
                 "clean"
             ],
 
@@ -164,25 +172,21 @@
             }
         },
         {
-            "label": "rebuild_all",
-            "options": {
-                "cwd": "${workspaceFolder}"
-               },
+            "label": "rebuild_console",
+            "options": {                "cwd": "${workspaceFolder}"               },
             "command": "mingw32-make.exe",
             "args": [
                 "-f",
                 ".vscode/makefile",
-                "rebuild_all"
+                "rebuild_console"
             ],
 
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "problemMatcher": [                "$gcc"            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
-        },
+        }, 
 
     ]
 }

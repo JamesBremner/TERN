@@ -19,7 +19,7 @@ namespace gui
 }
 }
 
-#ifdef tern_vase
+#ifdef vase
 
 #include "tern.h"
 

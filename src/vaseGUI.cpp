@@ -12,21 +12,11 @@
 class cGUI
 {
 public:
-    cGUI()
-        : fm(wex::maker::make()),
-          myfDragDisable(false)
-    {
-        fm.move({50, 50, 1000, 500});
-        fm.text("Vase");
-
-        registerEventHandlers();
-
-        fm.show();
-        fm.run();
-    }
+    cGUI();
 
 private:
     wex::gui &fm;
+    wex::menu *mySimMenu;
 
     raven::sim::gui::cFlowerFactory myFactory;
 
@@ -34,6 +24,7 @@ private:
 
     bool myfDragDisable;
 
+    void menus();
     void registerEventHandlers();
     void onRightClick();
     void rename();
@@ -43,6 +34,36 @@ private:
     void ConstructFlower();
     void SelectFlower();
 };
+
+cGUI::cGUI()
+    : fm(wex::maker::make()),
+      myfDragDisable(false)
+{
+    fm.move({50, 50, 1000, 500});
+    fm.text("Vase");
+
+    menus();
+    registerEventHandlers();
+
+    fm.show();
+    fm.run();
+}
+
+void cGUI::menus()
+{
+    wex::menubar mb(fm);
+
+    mySimMenu = new wex::menu(fm);
+    mySimMenu->append(
+        "Run",
+        [&](const std::string &title)
+        {
+            std::string errs;
+            wex::free::startProcess(
+                "simEngine.exe", errs);
+        });
+    mb.append("Simulate", *mySimMenu);
+}
 
 void cGUI::registerEventHandlers()
 {

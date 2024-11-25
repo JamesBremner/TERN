@@ -91,7 +91,8 @@ public:
 
 	void setQuality( int i, double v ) { myQuality.setValue( i, v ); }
 	void setQuality( const cQuality& q) { myQuality = q; }
-//	double getQuality( int i ) const { return myQuality.getValue( i ); }
+	double getQuality( int i ) const
+	 { return myQuality.getValue( i ); }
 //	cQuality& Quality() { return myQuality; }
 
 private:

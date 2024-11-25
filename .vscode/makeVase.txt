@@ -1,0 +1,69 @@
+#source file search paths
+VPATH = ./src ./models/basic \
+
+	# compiler include search paths
+INCS = \
+	-I./src \
+	-I./src/ext \
+	-I./models \
+	-I./models/basic \
+	-I../windex/include \
+	-I../raven-set \
+	-I../../code_ext/boost/boost1_78 
+
+LIBS = \
+	-lgdiplus -lgdi32 -lcomdlg32 -lstdc++fs -lComctl32 \
+
+
+static_link_flags = -static-libstdc++ -static-libgcc -static
+
+# folders
+ODIR = ./.vscode/obj
+
+OPT = -g
+CCflags = -std=c++17 $(OPT) -D_mingw_ -Dvase
+
+# sources
+
+OBJ_vase = \
+	$(ODIR)/vaseGUI.o \
+	$(ODIR)/cVase.o \
+	$(ODIR)/flower.o \
+	$(ODIR)/flower_types.o \
+	$(ODIR)/cQuality.o \
+
+OBJ_vase_sim = \
+	$(ODIR)/TernSimEng.o \
+	$(ODIR)/cVase.o \
+	$(ODIR)/tern.o \
+	$(ODIR)/ModelFlowers.o \
+	$(ODIR)/flower.o \
+	$(ODIR)/flower_types.o \
+	$(ODIR)/cQuality.o \
+	$(ODIR)/cSource.o \
+	$(ODIR)/cDelay.o \
+	$(ODIR)/cSink.o \
+	$(ODIR)/Probability.o \
+
+### COMPILE
+
+$(ODIR)/%.o: %.cpp  
+	g++  $(CCflags) \
+	-c -o $@ $< $(INCS) 
+
+
+vase: $(OBJ_vase)
+	g++ $(OPT) \
+	-o bin/vase.exe $^  \
+	$(static_link_flags) $(LIBS)
+vase_sim: $(OBJ_vase_sim)
+	g++ $(OPT) \
+	-o bin/simEngine.exe $^  \
+	$(static_link_flags) $(LIBS)
+
+.PHONY: clean
+clean:
+	del /q .vscode\\obj\\*.o
+
+rebuild_vase: clean vase vase_sim
+
