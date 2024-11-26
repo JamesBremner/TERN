@@ -1,13 +1,12 @@
 #source file search paths
 VPATH = ./src \
-	./tern_in_console/models \
+	./models \
 
 	# compiler include search paths
 INCS = \
 	-I./src \
 	-I./src/ext \
-	-I./tern_in_console/src \
-	-I./tern_in_console/models \
+	-I./models \
 	-I./vase/src \
 	-I../windex/include \
 	-I../raven-set \
