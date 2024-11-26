@@ -61,9 +61,9 @@ void cGUI::menus()
         "Open",
         [&](const std::string &title)
         {
-             wex::filebox fb(fm);
-             auto fn = fb.open();
-             if(fn.empty())
+            wex::filebox fb(fm);
+            auto fn = fb.open();
+            if (fn.empty())
                 return;
             myVase.Read(fn);
             fm.update();
@@ -74,9 +74,9 @@ void cGUI::menus()
         {
             wex::filebox fb(fm);
             auto fn = fb.save();
-            if( fn.empty() )
+            if (fn.empty())
                 return;
-            myVase.Write( fn );
+            myVase.Write(fn);
         });
     mb.append("File", *myFileMenu);
 
@@ -252,9 +252,19 @@ void cGUI::simulate()
 {
     myVase.DBEnsureSanity();
     myVase.Write("vase.dot");
+    fm.text("Simulating...");
+    fm.update();
     std::string errs;
     wex::free::startProcess(
-        "simEngine.exe", errs);
+        "simEngine.exe", errs, true);
+    fm.text("Vase");
+    std::ifstream ifs("tern.log");
+    std::stringstream buffer;
+    buffer << ifs.rdbuf();
+    auto report = buffer.str();
+    wex::msgbox(report.substr(report.find("Final Report")));
+
+    fm.update();
 }
 
 main()

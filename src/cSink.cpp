@@ -64,7 +64,7 @@ std::string cSink::FinalReportText()
        << " std dev:" << (int)sqrt(boost::accumulators::variance(myAccumulator))
        << "\n";
 #endif // tern_console
-#ifdef tern_vase
+#ifdef vase
     ss << "Source " << myName;
     ss << " Total Arrivals " << myTotal << "\n";
 #endif // tern_vase
