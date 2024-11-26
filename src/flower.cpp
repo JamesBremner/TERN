@@ -501,14 +501,14 @@ void cFlower::WritePipe( FILE * fp )
 void cFlower::Read( const string& line )
 {
     int p;
-#ifdef WXWIDGETS
+
     p = line.find("pos=")+5;
     int x = atoi(line.substr(p).c_str());
     p = line.find(",",p)+1;
     int y = atoi(line.substr(p).c_str());
     setLocationTopLeft( x,y );
 
-#endif
+
     setName(line.substr(0,line.find(" ")));
 
     p = line.find("vase_idx=");

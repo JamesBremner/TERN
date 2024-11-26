@@ -16,6 +16,7 @@ public:
 
 private:
     wex::gui &fm;
+    wex::menu *myFileMenu;
     wex::menu *mySimMenu;
 
     raven::sim::gui::cFlowerFactory myFactory;
@@ -54,6 +55,30 @@ cGUI::cGUI()
 void cGUI::menus()
 {
     wex::menubar mb(fm);
+
+    myFileMenu = new wex::menu(fm);
+    myFileMenu->append(
+        "Open",
+        [&](const std::string &title)
+        {
+             wex::filebox fb(fm);
+             auto fn = fb.open();
+             if(fn.empty())
+                return;
+            myVase.Read(fn);
+            fm.update();
+        });
+    myFileMenu->append(
+        "Save",
+        [&](const std::string &title)
+        {
+            wex::filebox fb(fm);
+            auto fn = fb.save();
+            if( fn.empty() )
+                return;
+            myVase.Write( fn );
+        });
+    mb.append("File", *myFileMenu);
 
     mySimMenu = new wex::menu(fm);
     mySimMenu->append(
