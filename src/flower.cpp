@@ -759,7 +759,7 @@ cFlowerConfigDlg::cFlowerConfigDlg( wxWindow* parent, cFlower* flower )
 
     void cFlowerDict::Insert(  const std::string& flower_type_name )
     {
-        std::cout << "Flower Dictionary Insert " << myDict.size()+1 <<" "<< flower_type_name << std::endl;
+        //std::cout << "Flower Dictionary Insert " << myDict.size()+1 <<" "<< flower_type_name << std::endl;
         myDict.insert(
             cFlowerType(
                 myDict.size()+1,

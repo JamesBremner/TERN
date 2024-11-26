@@ -31,6 +31,8 @@ private:
 
     void draw(wex::shapes &S);
 
+    void simulate();
+
     void ConstructFlower();
     void SelectFlower();
 };
@@ -58,9 +60,7 @@ void cGUI::menus()
         "Run",
         [&](const std::string &title)
         {
-            std::string errs;
-            wex::free::startProcess(
-                "simEngine.exe", errs);
+            simulate();
         });
     mb.append("Simulate", *mySimMenu);
 }
@@ -221,6 +221,15 @@ void cGUI::SelectFlower()
         return;
     myVase.setSelected(flower);
     fm.update();
+}
+
+void cGUI::simulate()
+{
+    myVase.DBEnsureSanity();
+    myVase.Write("vase.dot");
+    std::string errs;
+    wex::free::startProcess(
+        "simEngine.exe", errs);
 }
 
 main()

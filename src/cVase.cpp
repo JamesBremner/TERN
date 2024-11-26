@@ -30,13 +30,13 @@ namespace raven
 
             void cVase::DBClear()
             {
-                // raven::sqlite::cDB db;
-                // db.Open("vase.dat");
-                // db.Query("DROP TABLE IF EXISTS params;");
-                // db.Query("CREATE TABLE params ( type, time, plot_points );");
-                // db.Query("INSERT INTO params VALUES ( 1, 100, 50 );" );
-                // db.Query("CREATE TABLE quality_names ( name );");
-                // db.Query("CREATE TABLE plot ( flower, plot, data );");
+                raven::sqlite::cDB db;
+                db.Open("vase.dat");
+                db.Query("DROP TABLE IF EXISTS params;");
+                db.Query("CREATE TABLE params ( type, time, plot_points );");
+                db.Query("INSERT INTO params VALUES ( 1, 100, 50 );" );
+                db.Query("CREATE TABLE quality_names ( name );");
+                db.Query("CREATE TABLE plot ( flower, plot, data );");
             }
 
             void cVase::DBRead()
@@ -61,13 +61,13 @@ namespace raven
 
             void cVase::DBEnsureSanity()
             {
-                // raven::sqlite::cDB db;
-                // db.Open("vase.dat");
-                // db.Query("SELECT type, time, plot_points FROM params;");
-                // if( db.myError )
-                // {
-                //     DBClear();
-                // }
+                raven::sqlite::cDB db;
+                db.Open("vase.dat");
+                db.Query("SELECT type, time, plot_points FROM params;");
+                if( db.myError )
+                {
+                    DBClear();
+                }
             }
 
 /**  Select flower under location

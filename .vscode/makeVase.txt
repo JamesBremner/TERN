@@ -1,7 +1,7 @@
 #source file search paths
-VPATH = ./src ./models/basic \
+VPATH = ./src ./models/basic ../raven-set ../../code_ext/sqlite
 
-	# compiler include search paths
+# compiler include search paths
 INCS = \
 	-I./src \
 	-I./src/ext \
@@ -31,6 +31,8 @@ OBJ_vase = \
 	$(ODIR)/flower.o \
 	$(ODIR)/flower_types.o \
 	$(ODIR)/cQuality.o \
+	$(ODIR)/raven_sqlite.o \
+	$(ODIR)/sqlite3.o \
 
 OBJ_vase_sim = \
 	$(ODIR)/TernSimEng.o \
@@ -44,8 +46,13 @@ OBJ_vase_sim = \
 	$(ODIR)/cDelay.o \
 	$(ODIR)/cSink.o \
 	$(ODIR)/Probability.o \
+	$(ODIR)/raven_sqlite.o \
+	$(ODIR)/sqlite3.o \
 
 ### COMPILE
+
+$(ODIR)/sqlite3.o : 
+	gcc	 -o $@ -c ../../code_ext/sqlite/sqlite3.c
 
 $(ODIR)/%.o: %.cpp  
 	g++  $(CCflags) \

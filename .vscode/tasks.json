@@ -159,7 +159,7 @@
             "command": "mingw32-make.exe",
             "args": [
                 "-f",
-                ".vscode/makefile.txt",
+                ".vscode/makefile",
                 "clean"
             ],
 
