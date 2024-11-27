@@ -23,12 +23,9 @@ int cSink::Handle( tern::cEvent* e )
         // planet has arrived at sink
 
         // add to accumulated statistics
-#ifdef tern_console
+
         myAccumulator( e->myPlanet->getLifetime() );
-#endif // tern_console
-#ifdef tern_vase
         myTotal++;
-#endif // tern_vase
 
         // delete the planet
         tern::theSimulationEngine.Delete( e->myPlanet );
@@ -55,7 +52,7 @@ std::string cSink::FinalReportText()
     PlotOutput();
 
     std::stringstream ss;
-#ifdef tern_console
+
     ss << "Sink " << myName << " report: "
        << "count:" << boost::accumulators::count(myAccumulator)
        << " min:" << boost::accumulators::min(myAccumulator)
@@ -63,7 +60,7 @@ std::string cSink::FinalReportText()
        << " max:" << boost::accumulators::max(myAccumulator)
        << " std dev:" << (int)sqrt(boost::accumulators::variance(myAccumulator))
        << "\n";
-#endif // tern_console
+
 #ifdef vase
     ss << "Source " << myName;
     ss << " Total Arrivals " << myTotal << "\n";

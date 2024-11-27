@@ -23,9 +23,9 @@ public:
     virtual void Clear()
     {
         cEventHandler::Clear();
-#ifdef tern_console
+
         myAccumulator = stats::stats_t();
-#endif // tern_console
+
     }
 
     int Handle( tern::cEvent* e );
@@ -53,8 +53,6 @@ private:
     int myTotal;
     int myPlotTotal;
 
-#ifdef tern_console
-
     // run stats
     stats::stats_t myAccumulator;
 
@@ -64,7 +62,6 @@ private:
     stats::stats_t myRepAver;
     stats::stats_t myRepMax;
     stats::stats_t myRepDev;
-#endif // tern_console
 
 };
 
