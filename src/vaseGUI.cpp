@@ -23,8 +23,6 @@ private:
 
     raven::sim::gui::cVase myVase;
 
-    bool myfDragDisable;
-
     void menus();
     void registerEventHandlers();
     void onRightClick();
@@ -39,8 +37,7 @@ private:
 };
 
 cGUI::cGUI()
-    : fm(wex::maker::make()),
-      myfDragDisable(false)
+    : fm(wex::maker::make())
 {
     fm.move({50, 50, 1000, 500});
     fm.text("Vase");
@@ -115,15 +112,12 @@ void cGUI::registerEventHandlers()
     fm.events().mouseMove(
         [&](wex::sMouse &m)
         {
-            if (!m.left)
+            // if (!m.left)
+            //     return;
+            if( !m.shift)
                 return;
             if (!myVase.IsSelected())
                 return;
-            if (myfDragDisable)
-            {
-                myfDragDisable = false;
-                return;
-            }
             myVase.getSelected()->setLocationCenter(m.x, m.y);
             fm.update();
         });
@@ -178,14 +172,6 @@ void cGUI::rename()
 
     // rename the flower with value entered into inputbox
     selectedflower->setName(ib.value("Name"));
-
-    /*  When the user (left) clicks on the OK button
-    to dismiss the inputbox
-    a mouse move event with left button down
-    is queued up and handled AFTER this routine completes.
-    So, it is necessary to disable the next mouse move event
-    */
-    myfDragDisable = true;
 }
 
 void cGUI::draw(wex::shapes &S)
@@ -234,7 +220,6 @@ void cGUI::ConstructFlower()
                  });
     }
 
-    // std::cout << "popup at " << ms.x << " " << ms.y << "\n";
     m.popup(ms.x, ms.y);
 }
 
