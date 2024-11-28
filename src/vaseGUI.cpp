@@ -23,6 +23,9 @@ private:
 
     raven::sim::gui::cVase myVase;
 
+    std::string mySimReport;
+    std::string myDisplayReport;
+
     void menus();
     void registerEventHandlers();
     void onRightClick();
@@ -100,6 +103,7 @@ void cGUI::registerEventHandlers()
         [&]()
         {
             SelectFlower();
+            fm.update();
         });
 
     fm.events().clickRight(
@@ -114,7 +118,7 @@ void cGUI::registerEventHandlers()
         {
             // if (!m.left)
             //     return;
-            if( !m.shift)
+            if (!m.shift)
                 return;
             if (!myVase.IsSelected())
                 return;
@@ -176,6 +180,12 @@ void cGUI::rename()
 
 void cGUI::draw(wex::shapes &S)
 {
+    if( !myDisplayReport.empty()){
+        S.textHeight(20);
+        S.text(myDisplayReport,
+            {10,10,600,25});
+    }
+
     S.textHeight(12);
     for (raven::sim::gui::cFlower *flower : myVase)
     {
@@ -230,7 +240,16 @@ void cGUI::SelectFlower()
     if (flower == nullptr)
         return;
     myVase.setSelected(flower);
-    fm.update();
+    if (mySimReport.empty())
+    {
+        myDisplayReport.clear();
+        return;
+    }
+    myDisplayReport = mySimReport.substr(mySimReport.find("Final Report"));
+    myDisplayReport =
+        myDisplayReport.substr(
+            myDisplayReport.find(
+                myVase.getSelected()->getName()));
 }
 
 void cGUI::simulate()
@@ -246,8 +265,8 @@ void cGUI::simulate()
     std::ifstream ifs("tern.log");
     std::stringstream buffer;
     buffer << ifs.rdbuf();
-    auto report = buffer.str();
-    wex::msgbox(report.substr(report.find("Final Report")));
+    mySimReport = buffer.str();
+    wex::msgbox(mySimReport.substr(mySimReport.find("Final Report")));
 
     fm.update();
 }
