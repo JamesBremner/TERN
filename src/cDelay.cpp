@@ -20,8 +20,6 @@ int cDelay::Handle( tern::cEvent* e )
     {
 
     case 1:
-        if( cEventHandler::Handle( e ))
-            return 1;
         // planet has arrived
 
         // add to queue

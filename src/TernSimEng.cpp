@@ -18,6 +18,7 @@
 #include "cFunnel.h"
 #include "cSource.h"
 #include "cSink.h"
+#include "cDelay.h"
 // #include "model.h"
 
 #include "raven_sqlite.h"
@@ -215,51 +216,7 @@ namespace raven
             //    cQuality myQuality;
             //};
 
-            /**  Delay planets in their progress for some time
-
-            This is like a conveyor belt, many planets can be delayed in sequence
-
-            */
-
-            class cDelay_Flow
-                : public tern::cEventHandler
-            {
-            public:
-                /** Construct
-
-                @param[in] name
-                @param[in] mean  delay time
-
-                */
-                cDelay_Flow(const std::string &name, double mean)
-                    : cEventHandler(name), myMean(mean)
-                {
-                }
-                /// Planet has arrived at delay
-                int Handle(tern::cEvent *e)
-                {
-                    switch (e->myType)
-                    {
-                    case event_type_final_report:
-                        break;
-                    default:
-
-                        // schedule arrival at next event handler after specified mean delay
-                        tern::theSimulationEngine.Add(
-                            e->myPlanet,
-                            1,
-                            myDstID,                                                                             // next event handler
-                            tern::theSimulationEngine.theTime + (__int64)raven::sim::prob::cPoisson::ran(myMean) // random time from now with specified mean
-                        );
-                    }
-                    return 1;
-                }
-
-            private:
-                double myMean;
-            };
-
-            /**  Passes input onto output
+             /**  Passes input onto output
 
 
             */
@@ -597,7 +554,7 @@ namespace raven
                         new tern::cGeneric(f->getName());
 
                     else if (f->getType() == cFlowerFactory::Index("Delay"))
-                        new tern::cDelay_Flow(f->getName(), f->getValue("Mean"));
+                        new tern::cDelay(f->getName(), f->getValue("Mean"));
 
                     else if (f->getType() == cFlowerFactory::Index("Busy"))
                         new tern::cBusy(f->getName(), f->getValue("Mean"));

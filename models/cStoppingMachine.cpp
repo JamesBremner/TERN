@@ -16,7 +16,7 @@ tern::date_t cStoppingMachine::theEarliestStop;
 cStoppingMachine::cStoppingMachine(
     const string& name,
     const string& stopschedule )
-    : raven::sim::tern::cDelay( name )
+    : raven::sim::tern::cDelay( name, 0 )
     , myfHistorical( true )
 {
     myTypeName = "StoppingMachine";
@@ -58,7 +58,7 @@ cStoppingMachine::cStoppingMachine(
     int MeanSecsStopDuration,
     int DevSecsStopDuration,
     int Threshold )
-    : raven::sim::tern::cDelay( name )
+    : raven::sim::tern::cDelay( name, 0 )
     , myfHistorical( false )
     , myMeanSecsBetweenStops( MeanSecsBetweenStops )
     , myMeanSecsStopDuration( MeanSecsStopDuration )

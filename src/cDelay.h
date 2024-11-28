@@ -15,14 +15,16 @@ protected:
 
     std::queue < tern::cPlanet * > myQ;
     int myQMax;
+    double myMean;
 #ifdef tern_console
     stats::stats_t myRep;
 #endif
 
 public:
-    cDelay(  const std::string& name )
+    cDelay(  const std::string& name, double mean )
         : cEventHandler( name )
         , myQMax( 0 )
+        , myMean( mean )
     {
 
     }

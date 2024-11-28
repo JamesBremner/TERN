@@ -16,7 +16,7 @@ bool Delay()
 
     // src ->delay -> sink
     tern::cSource Source( "src", 2, true );
-    tern::cDelay  Delay("delay");
+    tern::cDelay  Delay("delay",10);
     tern::cSink   Sink{"sink"};
     tern::theSimulationEngine.Connect( "src", "delay" );
     tern::theSimulationEngine.Connect( "delay", "sink" );
