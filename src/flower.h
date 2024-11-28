@@ -197,35 +197,6 @@ class cFlower
 
 public:
 
-//    enum type
-//    {
-//        base,
-//        pump,
-//        vessel,
-//        funnel,
-//        source,
-//        sink,
-//        source_flow,
-//        delay,
-//        busy,
-//        queue,
-//        pipebend,
-//
-//#ifdef _whatif_
-//        stock,
-//        flow,
-//        parameter,
-//        procedure,
-//#endif // _whatif_
-//
-//#ifdef _fermenter_
-//        fermenter,
-//        adsorber,
-//#endif // _fermenter_
-//
-//        last_type_plus_1
-//    };
-
     ///A paramater
     struct sparam
     {

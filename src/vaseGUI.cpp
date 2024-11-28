@@ -37,6 +37,7 @@ private:
 
     void ConstructFlower();
     void SelectFlower();
+    void config();
 };
 
 cGUI::cGUI()
@@ -156,6 +157,12 @@ void cGUI::onRightClick()
                  rename();
                  fm.update();
              });
+    m.append("Configure",
+             [&](const std::string &title)
+             {
+                 config();
+                 fm.update();
+             });
     m.append("Delete",
              [&](const std::string &title)
              {
@@ -180,10 +187,11 @@ void cGUI::rename()
 
 void cGUI::draw(wex::shapes &S)
 {
-    if( !myDisplayReport.empty()){
+    if (!myDisplayReport.empty())
+    {
         S.textHeight(20);
         S.text(myDisplayReport,
-            {10,10,600,25});
+               {10, 10, 600, 25});
     }
 
     S.textHeight(12);
@@ -250,6 +258,28 @@ void cGUI::SelectFlower()
         myDisplayReport.substr(
             myDisplayReport.find(
                 myVase.getSelected()->getName()));
+}
+
+void cGUI::config()
+{
+    wex::inputbox ib(fm);
+    ib.text("Configure " +
+        myVase.getSelected()->getName());
+
+    for (auto &prm : myVase.getSelected()->myParam)
+    {
+        ib.add(
+            prm.second.name,
+            std::to_string(prm.second.value));
+    }
+
+    ib.showModal();
+    
+    for (auto &prm : myVase.getSelected()->myParam)
+    {
+        prm.second.value = atof(
+            ib.value(prm.second.name).c_str());
+    }
 }
 
 void cGUI::simulate()
