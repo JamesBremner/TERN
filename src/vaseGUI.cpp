@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <wex.h>
 #include <inputbox.h>
+#include <plot2d.h>
 #include "flower.h"
 #include "cVase.h"
 
@@ -18,6 +19,8 @@ private:
     wex::gui &fm;
     wex::menu *myFileMenu;
     wex::menu *mySimMenu;
+    wex::plot::plot &myPlot;
+    wex::plot::trace& myPlotTrace;
 
     raven::sim::gui::cFlowerFactory myFactory;
 
@@ -41,10 +44,14 @@ private:
 };
 
 cGUI::cGUI()
-    : fm(wex::maker::make())
+    : fm(wex::maker::make()),
+    myPlot(wex::maker::make<wex::plot::plot>(fm)),
+    myPlotTrace(myPlot.AddStaticTrace())
 {
     fm.move({50, 50, 1000, 500});
     fm.text("Vase");
+    myPlot.move({30, 300, 1200, 600});
+    myPlotTrace.color(0x0000FF);
 
     menus();
     registerEventHandlers();
@@ -169,6 +176,14 @@ void cGUI::onRightClick()
                  myVase.Delete();
                  fm.update();
              });
+    m.append("Plot",
+             [&](const std::string &title)
+             {
+                 myVase.readPlot();
+                 myPlotTrace.set(myVase.getPlot());
+                 fm.update();
+             });
+
     m.popup(ms.x, ms.y);
     return;
 }
@@ -258,13 +273,16 @@ void cGUI::SelectFlower()
         myDisplayReport.substr(
             myDisplayReport.find(
                 myVase.getSelected()->getName()));
+
+    myPlot.text(flower->getName());
+    myPlotTrace.clear();
 }
 
 void cGUI::config()
 {
     wex::inputbox ib(fm);
     ib.text("Configure " +
-        myVase.getSelected()->getName());
+            myVase.getSelected()->getName());
 
     for (auto &prm : myVase.getSelected()->myParam)
     {
@@ -274,7 +292,7 @@ void cGUI::config()
     }
 
     ib.showModal();
-    
+
     for (auto &prm : myVase.getSelected()->myParam)
     {
         prm.second.value = atof(

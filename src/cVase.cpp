@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <cstdio>
 #include <algorithm>
 #include <utility>
@@ -19,6 +20,30 @@ namespace raven
         namespace gui
         {
 
+            std::vector<std::string>
+ParseSpaceDelimited(
+    const std::string &l)
+{
+    std::vector<std::string> token;
+    std::stringstream sst(l);
+    std::string a;
+    while (getline(sst, a, ' '))
+        token.push_back(a);
+
+    // remove empty tokens
+    token.erase(
+        remove_if(
+            token.begin(),
+            token.end(),
+            [](std::string t)
+            {
+                return (t.empty());
+            }),
+        token.end());
+
+    return token;
+}
+
             cVase::cVase()
                 : mySimType(task), mySelected(0), my2Selected(0), myHandleSelected(-1)
             {
@@ -34,7 +59,7 @@ namespace raven
                 db.Open("vase.dat");
                 db.Query("DROP TABLE IF EXISTS params;");
                 db.Query("CREATE TABLE params ( type, time, plot_points );");
-                db.Query("INSERT INTO params VALUES ( 1, 100, 50 );" );
+                db.Query("INSERT INTO params VALUES ( 1, 100, 50 );");
                 db.Query("CREATE TABLE quality_names ( name );");
                 db.Query("CREATE TABLE plot ( flower, plot, data );");
             }
@@ -64,9 +89,24 @@ namespace raven
                 raven::sqlite::cDB db;
                 db.Open("vase.dat");
                 db.Query("SELECT type, time, plot_points FROM params;");
-                if( db.myError )
+                if (db.myError)
                 {
                     DBClear();
+                }
+            }
+
+            void cVase::readPlot()
+            {
+                myPlotData.clear();
+                raven::sqlite::cDB db;
+                db.Open("vase.dat");
+                int rows = db.Query("SELECT data FROM plot WHERE flower = '%s';",
+                                    mySelected->getName().c_str());
+                auto vtokens = ParseSpaceDelimited( db.myResultA[0]);
+                for (auto& t : vtokens)
+                {
+                    myPlotData.push_back(
+                        atof(t.c_str()));
                 }
             }
 
@@ -334,6 +374,7 @@ namespace raven
 
                 return true;
             }
+
             /**
 
               Empty the vase

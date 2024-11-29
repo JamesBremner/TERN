@@ -7,6 +7,7 @@
 #include "probability.h"
 using namespace std;
 
+#include "raven_sqlite.h"
 #include "tern.h"
 
 
@@ -463,36 +464,35 @@ void cEventHandler::Clear()
     myPlot.clear();
 }
 
-//void cEventHandler::PlotOutput()
-//{
-////    if( ! myPlot[0].size())
-////        return;
-//
-//    raven::sqlite::cDB db;
-//    db.Open("vase.dat");
-//    db.Query("DELETE FROM plot WHERE flower = '%s';",
-//            myName.c_str() );
-//
-//    // loop over plots
-//    for( auto& vplot : myPlot )
-//    {
-//        // loop over data points
-//        stringstream ss;
-//        for ( auto p : vplot.myData )
-//        {
-//            // space separated values
-//            ss << p << " ";
-//        }
-//
-//        // write to database
-//        db.Query("INSERT INTO plot VALUES ( '%s', '%s', '%s' );",
-//                 myName.c_str(),
-//                 vplot.myName.c_str(),
-//                 ss.str().c_str() );
-//    }
-//
-//
-//}
+void cEventHandler::PlotOutput()
+{
+//    if( ! myPlot[0].size())
+//        return;
+
+   raven::sqlite::cDB db;
+   db.Open("vase.dat");
+   db.Query("DELETE FROM plot WHERE flower = '%s';",
+           myName.c_str() );
+
+   // loop over plots
+   for( auto& vplot : myPlot )
+   {
+       // loop over data points
+       stringstream ss;
+       for ( auto p : vplot.myData )
+       {
+           // space separated values
+           ss << p << " ";
+       }
+
+       // write to database
+       db.Query("INSERT INTO plot VALUES ( '%s', '%s', '%s' );",
+                myName.c_str(),
+                vplot.myName.c_str(),
+                ss.str().c_str() );
+   }
+
+}
 
 cPlanet::cPlanet( cTERN& sim )
 {

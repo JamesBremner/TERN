@@ -358,22 +358,6 @@ public:
 #endif
 };
 
-
-/**
-
-  Flower configuration dialog
-
-*/
-#ifdef WXWIDGETS
-class cFlowerConfigDlg : public wxDialog
-{
-public:
-    std::vector< wxTextCtrl * > myParamCtl;
-    wxPropertyGrid * pg;
-
-    cFlowerConfigDlg( wxWindow* parent, cFlower* flower );
-};
-#endif
 }
 }
 }

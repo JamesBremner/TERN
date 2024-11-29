@@ -194,7 +194,7 @@ public:
     virtual void ReplicationReport() {}
 
 	virtual void Clear();
-	void PlotOutput() {}
+	void PlotOutput();
 
 	int getID() const { return myID; }
 	std::string getName() const { return myName; }

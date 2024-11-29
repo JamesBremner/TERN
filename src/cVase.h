@@ -64,6 +64,13 @@ public:
     */
     void    DBEnsureSanity();
 
+    /// @brief Read slected flower plot data from database
+    void readPlot();
+    const std::vector<double>& getPlot() const
+    {
+        return myPlotData;
+    }
+
     bool	IsSelected()
     {
         return ( mySelected != NULL );
@@ -126,6 +133,7 @@ private:
     int myHandleSelected;
     int mySimTime;
     int myPlotPoints;
+    std::vector<double> myPlotData;
 
 
 
