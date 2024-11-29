@@ -20,7 +20,7 @@ private:
     wex::menu *myFileMenu;
     wex::menu *mySimMenu;
     wex::plot::plot &myPlot;
-    wex::plot::trace& myPlotTrace;
+    wex::plot::trace &myPlotTrace;
 
     raven::sim::gui::cFlowerFactory myFactory;
 
@@ -45,8 +45,8 @@ private:
 
 cGUI::cGUI()
     : fm(wex::maker::make()),
-    myPlot(wex::maker::make<wex::plot::plot>(fm)),
-    myPlotTrace(myPlot.AddStaticTrace())
+      myPlot(wex::maker::make<wex::plot::plot>(fm)),
+      myPlotTrace(myPlot.AddStaticTrace())
 {
     fm.move({50, 50, 1000, 500});
     fm.text("Vase");
@@ -94,6 +94,16 @@ void cGUI::menus()
         [&](const std::string &title)
         {
             simulate();
+        });
+    mySimMenu->append(
+        "Time",
+        [&](const std::string &title)
+        {
+            wex::inputbox ib(fm);
+            ib.text("Simulation parameters");
+            ib.add("Time", std::to_string(myVase.getSimTime()));
+            ib.showModal();
+            myVase.setSimTime(atoi(ib.value("Time").c_str()));
         });
     mb.append("Simulate", *mySimMenu);
 }
@@ -302,7 +312,7 @@ void cGUI::config()
 
 void cGUI::simulate()
 {
-    myVase.DBEnsureSanity();
+    myVase.DBWrite();
     myVase.Write("vase.dot");
     fm.text("Simulating...");
     fm.update();

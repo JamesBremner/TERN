@@ -5,11 +5,7 @@
 #include <utility>
 #include <cstdarg>
 
-#include "raven_sqlite.h"
-
-#ifndef WXWIDGETS
 #include "tern.h"
-#endif
 #include "cVase.h"
 #include "cQuality.h"
 
@@ -21,31 +17,33 @@ namespace raven
         {
 
             std::vector<std::string>
-ParseSpaceDelimited(
-    const std::string &l)
-{
-    std::vector<std::string> token;
-    std::stringstream sst(l);
-    std::string a;
-    while (getline(sst, a, ' '))
-        token.push_back(a);
-
-    // remove empty tokens
-    token.erase(
-        remove_if(
-            token.begin(),
-            token.end(),
-            [](std::string t)
+            ParseSpaceDelimited(
+                const std::string &l)
             {
-                return (t.empty());
-            }),
-        token.end());
+                std::vector<std::string> token;
+                std::stringstream sst(l);
+                std::string a;
+                while (getline(sst, a, ' '))
+                    token.push_back(a);
 
-    return token;
-}
+                // remove empty tokens
+                token.erase(
+                    remove_if(
+                        token.begin(),
+                        token.end(),
+                        [](std::string t)
+                        {
+                            return (t.empty());
+                        }),
+                    token.end());
+
+                return token;
+            }
 
             cVase::cVase()
-                : mySimType(task), mySelected(0), my2Selected(0), myHandleSelected(-1)
+                : mySimType(task),
+                  mySimTime(100),
+                  mySelected(0), my2Selected(0), myHandleSelected(-1)
             {
 #ifdef tern_vase
                 // read values from database
@@ -84,15 +82,15 @@ ParseSpaceDelimited(
                 // }
             }
 
-            void cVase::DBEnsureSanity()
+            void cVase::DBWrite()
             {
                 raven::sqlite::cDB db;
                 db.Open("vase.dat");
                 db.Query("SELECT type, time, plot_points FROM params;");
                 if (db.myError)
-                {
                     DBClear();
-                }
+                db.Query("UPDATE params SET time = '%d'; ",
+                         mySimTime);
             }
 
             void cVase::readPlot()
@@ -102,8 +100,8 @@ ParseSpaceDelimited(
                 db.Open("vase.dat");
                 int rows = db.Query("SELECT data FROM plot WHERE flower = '%s';",
                                     mySelected->getName().c_str());
-                auto vtokens = ParseSpaceDelimited( db.myResultA[0]);
-                for (auto& t : vtokens)
+                auto vtokens = ParseSpaceDelimited(db.myResultA[0]);
+                for (auto &t : vtokens)
                 {
                     myPlotData.push_back(
                         atof(t.c_str()));

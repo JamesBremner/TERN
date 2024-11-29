@@ -56,13 +56,7 @@ public:
 
     void    DBClear();
     void    DBRead();
-
-    /** Ensure sane DB exists
-
-    If there is no DB, or it has some terrible error,
-    create a new empty database
-    */
-    void    DBEnsureSanity();
+    void    DBWrite();
 
     /// @brief Read slected flower plot data from database
     void readPlot();
