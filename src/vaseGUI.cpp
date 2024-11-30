@@ -329,9 +329,7 @@ void cGUI::simulate()
     buffer << ifs.rdbuf();
     mySimReport = buffer.str();
     int p = mySimReport.find("Final Report");
-    if( p == -1 ) 
-        mySimReport = "missing final report";
-    else
+    if( p != -1 ) 
         mySimReport = mySimReport.substr(p);
     wex::msgbox(mySimReport.c_str());
 

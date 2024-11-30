@@ -238,23 +238,16 @@ void cTERN::FinalReport()
     }
 }
 
-/** Writes message to final report and exits the simulation */
+/** Writes message to tern.log */
 void cTERN::HandleFatalError( const std::string& msg )
 {
-    freopen("tern_final_report.txt","w",stdout);
+    freopen("tern.log","w",stdout);
     cout << "FATAL ERROR:" << endl;
     cout << msg << endl;
     throw std::runtime_error( msg );
 
 }
-//void cTERN::HandleFatalError( const string& msg )
-//{
-//    freopen("tern_final_report.txt","w",stdout);
-//    cout << "FATAL ERROR:" << endl;
-//    cout << msg << endl;
-//    exit(1);
-//
-//}
+
 /**
 Handle next event
 
