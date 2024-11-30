@@ -54,8 +54,6 @@ public:
     bool	Read( const std::string& filename );
     bool	Write( const std::string& filename );
 
-    void    DBClear();
-    void    DBRead();
     void    DBWrite();
 
     /// @brief Read slected flower plot data from database
@@ -79,10 +77,7 @@ public:
     {
         return my2Selected;
     }
-    void SetHandleSelected( int h )
-    {
-        myHandleSelected = h;
-    }
+
 
     void	Delete();
     void	setName( const string& n = "" );
@@ -105,13 +100,6 @@ public:
         return myVase.end();
     }
 
-#ifdef WXWIDGETS
-    void	Select( const wxPoint& p );
-    void	Paint( wxPaintDC& dc );
-    void	Configure( wxWindow* parent );
-    void	setLocation( const wxPoint& p );
-#endif
-
     void setSimTime( int t )    { mySimTime = t; }
     int getSimTime()            { return mySimTime; }
     void setPlotPoints( int n ) { myPlotPoints = n; }
@@ -124,16 +112,12 @@ private:
     std::vector < cFlower* > myVase;
     cFlower * mySelected;
     cFlower * my2Selected;
-    int myHandleSelected;
+
     int mySimTime;
     int myPlotPoints;
     std::vector<double> myPlotData;
 
-
-
     iterator  find( int idx );
-
-
 
 };
 

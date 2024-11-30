@@ -135,14 +135,6 @@ void cPump::Paint( wxPaintDC& dc )
 	int r = myWidth/2;
 	dc.DrawCircle( myX, myY, r );
 }
-/**
-  Draw vessel - a rectangle of height mySize and double the width
-
-*/
-void cVessel::Paint( wxPaintDC& dc )
-{
-	dc.DrawRectangle( myX, myY, 2*myWidth, myWidth );
-}
 
 void cFunnel::Paint( wxPaintDC& dc )
 {

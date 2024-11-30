@@ -20,10 +20,6 @@ class cVessel : public cFlower
 {
 public:
     cVessel();
-#ifdef WXWIDGETS
-    void Paint( wxPaintDC& dc );
-    wxPoint getExitPort();
-#endif
 };
 class cFunnel : public cFlower
 {

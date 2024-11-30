@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <utility>
 #include <cstdarg>
-
+#include "raven_sqlite.h"
 #include "tern.h"
 #include "cVase.h"
 #include "cQuality.h"
@@ -43,43 +43,8 @@ namespace raven
             cVase::cVase()
                 : mySimType(task),
                   mySimTime(100),
-                  mySelected(0), my2Selected(0), myHandleSelected(-1)
+                  mySelected(0), my2Selected(0)
             {
-#ifdef tern_vase
-                // read values from database
-                DBRead();
-#endif
-            }
-
-            void cVase::DBClear()
-            {
-                raven::sqlite::cDB db;
-                db.Open("vase.dat");
-                db.Query("DROP TABLE IF EXISTS params;");
-                db.Query("CREATE TABLE params ( type, time, plot_points );");
-                db.Query("INSERT INTO params VALUES ( 1, 100, 50 );");
-                db.Query("CREATE TABLE quality_names ( name );");
-                db.Query("CREATE TABLE plot ( flower, plot, data );");
-            }
-
-            void cVase::DBRead()
-            {
-                // raven::sqlite::cDB db;
-                // db.Open("vase.dat");
-                // db.Query("SELECT type, time, plot_points FROM params;");
-                // if( db.myError )
-                // {
-                //     DBClear();
-                // }
-                // else
-                // {
-                //     mySimType = ( e_type ) strtol(db.myResultA[0].c_str(),NULL,10 );
-                //     mySimTime = strtol( db.myResultA[1].c_str(),NULL,10 );
-                //     myPlotPoints =  strtol( db.myResultA[2].c_str(),NULL,10 );
-
-                //     db.Query("SELECT * FROM quality_names;");
-                //     raven::sim::tern::cQuality::setNames(  db.myResultA );
-                // }
             }
 
             void cVase::DBWrite()
@@ -88,7 +53,14 @@ namespace raven
                 db.Open("vase.dat");
                 db.Query("SELECT type, time, plot_points FROM params;");
                 if (db.myError)
-                    DBClear();
+                {
+                    db.Query("DROP TABLE IF EXISTS params;");
+                    db.Query("CREATE TABLE params ( type, time, plot_points );");
+                    db.Query("INSERT INTO params VALUES ( 1, 100, 50 );");
+                    db.Query("CREATE TABLE quality_names ( name );");
+                    db.Query("CREATE TABLE plot ( flower, plot, data );");
+                }
+
                 db.Query("UPDATE params SET time = '%d'; ",
                          mySimTime);
             }
@@ -426,7 +398,6 @@ namespace raven
             */
             bool cVase::Add(const std::string &flower_type_name)
             {
-                myHandleSelected = -1;
                 auto f = cFlowerFactory::Construct(flower_type_name);
                 if (f == nullptr)
                     return false;
@@ -440,15 +411,9 @@ namespace raven
 
             bool cVase::Add(int flower_type_index)
             {
-                myHandleSelected = -1;
                 mySelected = cFlowerFactory::Construct(flower_type_index);
                 if (mySelected == nullptr)
-                {
-#ifdef WXWIDGETS
-                    wxMessageBox("Unrecognized flower type index", "cVase::Add ERROR");
-#endif
                     return false;
-                }
                 myVase.push_back(mySelected);
                 return true;
             }
@@ -516,33 +481,6 @@ namespace raven
                     return;
                 my2Selected->Connect2(mySelected);
             }
-/**
-
-  Drag selected flower to new location
-
-  @param[in] p new location delta
-
-*/
-#ifdef WXWIDGETS
-            void cVase::setLocation(const wxPoint &p)
-            {
-                if (!mySelected)
-                    return;
-                if (myHandleSelected == -1)
-                {
-                    // No handle selected, so drag flower to new location
-
-                    mySelected->setLocationTopLeft(
-                        p.x,
-                        p.y);
-                }
-                else
-                {
-                    // user dragging handle, so change size
-                    mySelected->DragHandle(myHandleSelected, p);
-                }
-            }
-#endif
         }
     }
 }
