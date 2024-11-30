@@ -234,12 +234,23 @@ void cGUI::draw(wex::shapes &S)
         if (dstFlower)
         {
             S.color(0xFF0000);
-            POINT exitPort, entryPort;
-            exitPort.x = flower->getLocationX() + 50;
-            exitPort.y = flower->getLocationY() + 25;
+            POINT entryPort;
+            int xep, yep;
+            flower->locationExitPort1( xep, yep);
             entryPort.x = dstFlower->getLocationX();
             entryPort.y = dstFlower->getLocationY() + 25;
-            S.line({exitPort.x, exitPort.y, entryPort.x, entryPort.y});
+            S.line({xep,yep, entryPort.x, entryPort.y});
+        }
+        dstFlower = flower->getDestination2();
+        if (dstFlower)
+        {
+            S.color(0xFF0000);
+            POINT entryPort;
+            int xep, yep;
+            flower->locationExitPort2( xep,yep);
+            entryPort.x = dstFlower->getLocationX();
+            entryPort.y = dstFlower->getLocationY() + 25;
+            S.line({xep,yep, entryPort.x, entryPort.y});
         }
     }
 }
