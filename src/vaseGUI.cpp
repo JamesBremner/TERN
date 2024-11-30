@@ -272,8 +272,13 @@ void cGUI::SelectFlower()
     auto *flower = myVase.find(ms.x, ms.y);
     if (flower == nullptr)
         return;
+
     myVase.setSelected(flower);
-    if (mySimReport.empty())
+
+    myPlot.text(flower->getName());
+    myPlotTrace.clear();
+
+    if (mySimReport.find("Final Report") == -1 )
     {
         myDisplayReport.clear();
         return;
@@ -284,8 +289,7 @@ void cGUI::SelectFlower()
             myDisplayReport.find(
                 myVase.getSelected()->getName()));
 
-    myPlot.text(flower->getName());
-    myPlotTrace.clear();
+
 }
 
 void cGUI::config()
@@ -324,7 +328,12 @@ void cGUI::simulate()
     std::stringstream buffer;
     buffer << ifs.rdbuf();
     mySimReport = buffer.str();
-    wex::msgbox(mySimReport.substr(mySimReport.find("Final Report")));
+    int p = mySimReport.find("Final Report");
+    if( p == -1 ) 
+        mySimReport = "missing final report";
+    else
+        mySimReport = mySimReport.substr(p);
+    wex::msgbox(mySimReport.c_str());
 
     fm.update();
 }
