@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include "cxy.h"
 #include <wex.h>
 #include <inputbox.h>
 #include <plot2d.h>
@@ -35,6 +36,10 @@ private:
     void rename();
 
     void draw(wex::shapes &S);
+    void drawArrow(
+        wex::shapes &S,
+        const cxy &exit,
+        const cxy &entry);
 
     void simulate();
 
@@ -234,25 +239,58 @@ void cGUI::draw(wex::shapes &S)
         if (dstFlower)
         {
             S.color(0xFF0000);
-            POINT entryPort;
+            cxy entryPort;
             int xep, yep;
-            flower->locationExitPort1( xep, yep);
+            flower->locationExitPort1(xep, yep);
             entryPort.x = dstFlower->getLocationX();
             entryPort.y = dstFlower->getLocationY() + 25;
-            S.line({xep,yep, entryPort.x, entryPort.y});
+            drawArrow(S,cxy(xep,yep),entryPort);
         }
         dstFlower = flower->getDestination2();
         if (dstFlower)
         {
             S.color(0xFF0000);
-            POINT entryPort;
+            cxy entryPort;
             int xep, yep;
-            flower->locationExitPort2( xep,yep);
+            flower->locationExitPort2(xep, yep);
             entryPort.x = dstFlower->getLocationX();
             entryPort.y = dstFlower->getLocationY() + 25;
-            S.line({xep,yep, entryPort.x, entryPort.y});
+            drawArrow(S,cxy(xep, yep), entryPort);
         }
     }
+}
+
+void cGUI::drawArrow(
+        wex::shapes &S,
+        const cxy &exit,
+        const cxy &entry)
+{
+    const int nWidth = 10;     // width (in pixels) of the full base of the arrowhead
+
+    cxy arrow[5];
+    cxy vecLine;
+    cxy baseLine;
+
+    // set base and tip
+    arrow[4] = exit;
+    arrow[0] = entry;
+
+    // build line vector in arrow head
+    vecLine = exit.vect(entry);
+    vecLine.zoom( nWidth / sqrt(exit.dist2(entry)));
+
+    // build vector between arrow tips - normal to the line
+    baseLine.x = - vecLine.y;
+    baseLine.y = vecLine.x;
+
+    arrow[1] = arrow[0] - vecLine;
+    arrow[2] = arrow[1] + baseLine;
+    arrow[3] = arrow[1] - baseLine;
+
+    S.line( arrow[4], arrow[0] );
+    S.line( arrow[0], arrow[2] );
+    S.line( arrow[0], arrow[3] );
+
 }
 
 void cGUI::ConstructFlower()
@@ -289,7 +327,7 @@ void cGUI::SelectFlower()
     myPlot.text(flower->getName());
     myPlotTrace.clear();
 
-    if (mySimReport.find("Final Report") == -1 )
+    if (mySimReport.find("Final Report") == -1)
     {
         myDisplayReport.clear();
         return;
@@ -299,8 +337,6 @@ void cGUI::SelectFlower()
         myDisplayReport.substr(
             myDisplayReport.find(
                 myVase.getSelected()->getName()));
-
-
 }
 
 void cGUI::config()
@@ -340,7 +376,7 @@ void cGUI::simulate()
     buffer << ifs.rdbuf();
     mySimReport = buffer.str();
     int p = mySimReport.find("Final Report");
-    if( p != -1 ) 
+    if (p != -1)
         mySimReport = mySimReport.substr(p);
     wex::msgbox(mySimReport.c_str());
 

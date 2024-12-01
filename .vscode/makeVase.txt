@@ -33,6 +33,7 @@ OBJ_vase = \
 	$(ODIR)/cQuality.o \
 	$(ODIR)/raven_sqlite.o \
 	$(ODIR)/sqlite3.o \
+	$(ODIR)/cxy.o \
 
 OBJ_vase_sim = \
 	$(ODIR)/TernSimEng.o \
